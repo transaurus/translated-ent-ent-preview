@@ -1,0 +1,146 @@
+---
+id: globalid-migrate
+title: Migrate Globally Unique ID
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+在内置全局ID功能标志推出前，迁移工具曾提供`WithGlobalUniqueID`选项用于将模式迁移至全局唯一ID。该选项现已废弃，用户应改用全局ID功能标志。现有用户可按以下步骤迁移至全局唯一ID方案。
+
+原方案通过名为`ent_types`的表存储Ent模式与ID范围的映射关系，新方案改用静态配置文件存储映射。要迁移至新版全局ID功能，可使用`entfix`命令将现有`ent_types`表转换至新配置文件。
+
+:::warning[注意]
+请注意，不同部署环境中`ent_types`表可能存在差异（尤其在使用自动迁移而非版本化迁移时）。必须确保所有部署环境的`ent_types`表完全一致，否则无法转换至新版全局ID功能。
+:::
+
+第一步通过以下命令安装`entfix`工具：
+
+```shell
+go install entgo.io/ent/cmd/entfix@latest
+```
+
+随后运行`entfix globalid`命令迁移至全局ID功能。该命令需访问数据库读取`ent_types`表，可连接生产数据库、只读副本，或版本化迁移场景下已应用全部迁移的临时数据库。
+
+```shell
+entfix globalid --dialect mysql --dsn "root:pass@tcp(localhost:3306)/app" --path ./ent
+IMPORTANT INFORMATION
+
+  'entfix globalid' will convert the allocated id ranges for your nodes from the 
+  database stored 'ent_types' table to the new static configuration on the ent 
+  schema itself.
+
+  Please note, that the 'ent_types' table might differ between different environments 
+  where your app is deployed. This is especially true if you are using 
+  auto-migration instead of versioned migrations.
+
+  Please check, that all 'ent_types' tables for all deployments are equal!
+
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+Success! Please run code generation to complete the process.
+```
+
+最后重新执行代码生成，若生成代码中出现包含`const IncrementStarts`的单行文件`internal/globalid.go`即表示迁移成功。最终需移除迁移配置中的`migrate.WithGlobalUniqueID(true)`选项。
+
+# 可选：保留`ent_types`表
+
+如需保留`ent_types`表作为回滚保障（确认无需回滚后再删除），可使用Atlas组合模式：
+
+<Tabs
+defaultValue="schema"
+values={[
+{label: 'schema.my.sql', value: 'schema'},
+{label: 'atlas-hcl', value: 'atlas'},
+]}>
+<TabItem value="schema">
+
+```hcl
+schema "ent" {}
+
+table "ent_types" {
+  schema  = schema.ent
+  collate = "utf8mb4_bin"
+  column "id" {
+    null           = false
+    type           = bigint
+    unsigned       = true
+    auto_increment = true
+  }
+  column "type" {
+    null = false
+    type = varchar(255)
+  }
+  primary_key {
+    columns = [column.id]
+  }
+  index "type" {
+    unique  = true
+    columns = [column.type]
+  }
+}
+```
+
+```hcl
+data "composite_schema" "ent" {
+  schema "ent" {
+    url = "ent://./ent/schema?globalid=static"
+  }
+  # This exists to not delete the ent_types table yet.
+  schema "ent" {
+    url = "file://./schema.my.hcl"
+  }
+}
+
+env {
+  name = atlas.env
+  src = data.composite_schema.ent.url
+  dev = "docker://mysql/8/ent"
+  migration {
+    dir = "file://./ent/migrate/migrations"
+  }
+}
+```
+
+## 全局唯一ID（已废弃的迁移选项）
+
+默认情况下，SQL主键从每张表的1开始递增，这意味着不同类型的实体可能共享相同ID。这与AWS Neptune使用UUID作为节点ID的机制不同。
+
+此机制与[GraphQL](https://graphql.org/learn/schema/#scalar-types)要求对象ID全局唯一的特性存在冲突。
+
+要为项目启用全局唯一ID支持，需向迁移传递`WithGlobalUniqueID`选项。
+
+:::note
+使用MySQL 5.*的版本化迁移用户配置`WithGlobalUniqueID`时，请遵循[相关文档](versioned-migrations.mdx#a-word-on-global-unique-ids)。
+:::
+
+```go
+package main
+
+import (
+	"context"
+	"log"
+	
+	"<project>/ent"
+	"<project>/ent/migrate"
+)
+
+func main() {
+	client, err := ent.Open("mysql", "root:pass@tcp(localhost:3306)/test")
+	if err != nil {
+		log.Fatalf("failed connecting to mysql: %v", err)
+	}
+	defer client.Close()
+	ctx := context.Background()
+	// Run migration.
+	if err := client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)); err != nil {
+		log.Fatalf("failed creating schema resources: %v", err)
+	}
+}
+```
+
+**实现原理**：Ent迁移为每个实体类型（表）分配1<<32的ID范围，并将映射关系存储在`ent_types`表中。例如类型A的ID范围为`[1,4294967296)`，类型B为`[4294967296,8589934592)`，以此类推。
+
+注意：启用此选项后，最大支持表数为**65535**。

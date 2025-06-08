@@ -1,0 +1,242 @@
+{
+  "source_file_path_relative_to_docusaurus_root": "../md/globalid.mdx",
+  "source_file_content_hash": "1af353b3c1deba43c8ce88ea4da8f193d96e664661a596e5ec92b12237000f45",
+  "segments": [
+    {
+      "segment_id": "58cfcc64",
+      "source_content": "---\nid: globalid-migrate\ntitle: Migrate Globally Unique ID\n---",
+      "source_content_hash": "1643aea32d29e5e9d531be8dc9888ea383a644bec1b07dc4fedfcf4c007643ea",
+      "node_type": "yaml",
+      "translatable": false,
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_58cfcc64"
+      }
+    },
+    {
+      "segment_id": "bb42506b",
+      "source_content": "import Tabs from '@theme/Tabs';\nimport TabItem from '@theme/TabItem';",
+      "source_content_hash": "86702643a5c3bdf74257ff6062535897129ed9144c4f5b70edfe338fef3e5c73",
+      "node_type": "paragraph",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "import Tabs from '@theme/Tabs';\nimport TabItem from '@theme/TabItem';"
+      }
+    },
+    {
+      "segment_id": "53eaf0e1",
+      "source_content": "Prior to the baked-in global id feature flag, the migration tool had a `WithGlobalUniqueID` option that allowed users to \nmigrate their schema to use globally unique ids. This option is now deprecated and users should use the global id \nfeature flag instead. Existing users can migrate their schema to use globally unique ids by following the steps below.",
+      "source_content_hash": "e700a5d7be9682f1560939242ef068ae1e4ca799c76457bd0809e260532cac51",
+      "node_type": "paragraph",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "在内置全局ID功能标志推出前，迁移工具曾提供`WithGlobalUniqueID`选项用于将模式迁移至全局唯一ID。该选项现已废弃，用户应改用全局ID功能标志。现有用户可按以下步骤迁移至全局唯一ID方案。"
+      }
+    },
+    {
+      "segment_id": "180bddb1",
+      "source_content": "The previous solution utilized a table called `ent_types` to store mapping information between an Ent schema, and it's\nassociated id range. The new solution uses a static configuration file to store this mapping. In order to migrate to the\nnew globalid feature, one can use the `entfix` command to migrate an existing `ent_types` table to the new configuration \nfile.",
+      "source_content_hash": "51f7ea0d79e0061e60f3a9adf85a617a957445eb09f53773c447d579b2c2b864",
+      "node_type": "paragraph",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "原方案通过名为`ent_types`的表存储Ent模式与ID范围的映射关系，新方案改用静态配置文件存储映射。要迁移至新版全局ID功能，可使用`entfix`命令将现有`ent_types`表转换至新配置文件。"
+      }
+    },
+    {
+      "segment_id": "440191a5",
+      "source_content": ":::warning[Attention]\nPlease note, that the 'ent_types' table might differ between different environments where your app is deployed. This is \nespecially true if you are using auto-migration instead of versioned migrations. Please check, that all 'ent_types' \ntables for all deployments are equal. If they aren't you cannot convert to the new global id feature. \n:::",
+      "source_content_hash": "40f1fa7444070a88c6783d68fbf799ace1e9afeee8d43b309d6efcbbfe6804a7",
+      "node_type": "containerDirective",
+      "translatable": true,
+      "translations": {
+        "zh-CN": ":::warning[注意]\n请注意，不同部署环境中`ent_types`表可能存在差异（尤其在使用自动迁移而非版本化迁移时）。必须确保所有部署环境的`ent_types`表完全一致，否则无法转换至新版全局ID功能。\n:::"
+      }
+    },
+    {
+      "segment_id": "98cfbd53",
+      "source_content": "The first step is to install the `entfix` tool by running the following command:",
+      "source_content_hash": "eef77a9a3e6ba8d03bcecbc3342ec1bb91219054eed9dc5add3897e97f4e47d7",
+      "node_type": "paragraph",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "第一步通过以下命令安装`entfix`工具："
+      }
+    },
+    {
+      "segment_id": "a89b882e",
+      "source_content": "```shell\ngo install entgo.io/ent/cmd/entfix@latest\n```",
+      "source_content_hash": "7f81ee5be1a84324e29714dc4c0be48de6c40658117b6c992d8ac28690547b36",
+      "node_type": "code",
+      "translatable": false,
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_a89b882e"
+      }
+    },
+    {
+      "segment_id": "26524352",
+      "source_content": "Next, you can run the `entfix globalid` command to migrate your schema to use the global id feature. The command \nrequires access to a database to read the `ent_types` table. You can either connect to your deployed database, or \nconnect to a read replica or in case of versioned migrations, to an ephemeral database where you have applied all your \nmigrations.",
+      "source_content_hash": "0a753ddae33e629da0654fc55af72bf89bc2cd173791e7e30690db488afc83d0",
+      "node_type": "paragraph",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "随后运行`entfix globalid`命令迁移至全局ID功能。该命令需访问数据库读取`ent_types`表，可连接生产数据库、只读副本，或版本化迁移场景下已应用全部迁移的临时数据库。"
+      }
+    },
+    {
+      "segment_id": "ef6eebef",
+      "source_content": "```shell\nentfix globalid --dialect mysql --dsn \"root:pass@tcp(localhost:3306)/app\" --path ./ent\nIMPORTANT INFORMATION\n\n  'entfix globalid' will convert the allocated id ranges for your nodes from the \n  database stored 'ent_types' table to the new static configuration on the ent \n  schema itself.\n\n  Please note, that the 'ent_types' table might differ between different environments \n  where your app is deployed. This is especially true if you are using \n  auto-migration instead of versioned migrations.\n\n  Please check, that all 'ent_types' tables for all deployments are equal!\n\n  Only 'yes' will be accepted to approve.\n\n  Enter a value: yes\n\nSuccess! Please run code generation to complete the process.\n```",
+      "source_content_hash": "d910358a42489732c0ca37c22404af49420f684468b0a17796e3ee59749b37db",
+      "node_type": "code",
+      "translatable": false,
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_ef6eebef"
+      }
+    },
+    {
+      "segment_id": "b9aaa519",
+      "source_content": "Finish the migration by running once again the code generation once. You should see a new file `internal/globalid.go` \nin the generated code, containing just one line starting with `const IncrementStarts`, indicating the process finished \nsuccessfully. Last step is to make sure to remove the `migrate.WithGlobalUniqueID(true)` option from your migration \nsetup.",
+      "source_content_hash": "88b66e2b247c9b6263d2e1f50082432a46d2ecd9d3d1b2de989972ac9393d54d",
+      "node_type": "paragraph",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "最后重新执行代码生成，若生成代码中出现包含`const IncrementStarts`的单行文件`internal/globalid.go`即表示迁移成功。最终需移除迁移配置中的`migrate.WithGlobalUniqueID(true)`选项。"
+      }
+    },
+    {
+      "segment_id": "e912d935",
+      "source_content": "# Optional: Keep `ent_types` table",
+      "source_content_hash": "e3902aef229d20df90f125233662c449a9e705679f4889619b15e2f6aa20c75a",
+      "node_type": "heading",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "# 可选：保留`ent_types`表"
+      }
+    },
+    {
+      "segment_id": "8b2a52b1",
+      "source_content": "It might be desired to keep the `ent_types` in the database and not drop it until you are sure you do not need to \nrollback compute. You can do this by using an Atlas composite schema:",
+      "source_content_hash": "715b399762ec43516512bd0d4d2db3f93ec79b49a4fb695b9368190304f1aeb0",
+      "node_type": "paragraph",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "如需保留`ent_types`表作为回滚保障（确认无需回滚后再删除），可使用Atlas组合模式："
+      }
+    },
+    {
+      "segment_id": "531437ca",
+      "source_content": "<Tabs\ndefaultValue=\"schema\"\nvalues={[\n{label: 'schema.my.sql', value: 'schema'},\n{label: 'atlas-hcl', value: 'atlas'},\n]}>\n<TabItem value=\"schema\">",
+      "source_content_hash": "84c161aaf6ec4145fd2ff33627a3a19c9eb357bb8f77b29cb0766bf186d293bc",
+      "node_type": "paragraph",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "<Tabs\ndefaultValue=\"schema\"\nvalues={[\n{label: 'schema.my.sql', value: 'schema'},\n{label: 'atlas-hcl', value: 'atlas'},\n]}>\n<TabItem value=\"schema\">"
+      }
+    },
+    {
+      "segment_id": "af983f82",
+      "source_content": "```hcl\nschema \"ent\" {}\n\ntable \"ent_types\" {\n  schema  = schema.ent\n  collate = \"utf8mb4_bin\"\n  column \"id\" {\n    null           = false\n    type           = bigint\n    unsigned       = true\n    auto_increment = true\n  }\n  column \"type\" {\n    null = false\n    type = varchar(255)\n  }\n  primary_key {\n    columns = [column.id]\n  }\n  index \"type\" {\n    unique  = true\n    columns = [column.type]\n  }\n}\n```",
+      "source_content_hash": "4b39b243555cc4fa02ecdfe179c83954df8fe1152011314e1a545c257cf29e00",
+      "node_type": "code",
+      "translatable": false,
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_af983f82"
+      }
+    },
+    {
+      "segment_id": "cae897fb",
+      "source_content": "```hcl\ndata \"composite_schema\" \"ent\" {\n  schema \"ent\" {\n    url = \"ent://./ent/schema?globalid=static\"\n  }\n  # This exists to not delete the ent_types table yet.\n  schema \"ent\" {\n    url = \"file://./schema.my.hcl\"\n  }\n}\n\nenv {\n  name = atlas.env\n  src = data.composite_schema.ent.url\n  dev = \"docker://mysql/8/ent\"\n  migration {\n    dir = \"file://./ent/migrate/migrations\"\n  }\n}\n```",
+      "source_content_hash": "5ee2885197e10c2e6bfdd29127dba179e818e2ea8e34972b7ce5002c772c6e5b",
+      "node_type": "code",
+      "translatable": false,
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_cae897fb"
+      }
+    },
+    {
+      "segment_id": "23b96cc0",
+      "source_content": "## Universal IDs (deprecated migration option)",
+      "source_content_hash": "fc6c51b9a36c4b738b6568f2b3b0c896d73edf8232804a4262f624849e3ea2cd",
+      "node_type": "heading",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "## 全局唯一ID（已废弃的迁移选项）"
+      }
+    },
+    {
+      "segment_id": "8fcdd6d4",
+      "source_content": "By default, SQL primary-keys start from 1 for each table; which means that multiple entities of different types\ncan share the same ID. Unlike AWS Neptune, where node IDs are UUIDs.",
+      "source_content_hash": "a141d27983289172fb8e94ed3ffba3df05297dde75e16112df77543388fa379d",
+      "node_type": "paragraph",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "默认情况下，SQL主键从每张表的1开始递增，这意味着不同类型的实体可能共享相同ID。这与AWS Neptune使用UUID作为节点ID的机制不同。"
+      }
+    },
+    {
+      "segment_id": "f45239ba",
+      "source_content": "This does not work well if you work with [GraphQL](https://graphql.org/learn/schema/#scalar-types), which requires the object ID to be unique.",
+      "source_content_hash": "c7185e48720c12acb0fc4c31f98329984b2968a34cc3e3689820733157eca1a8",
+      "node_type": "paragraph",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "此机制与[GraphQL](https://graphql.org/learn/schema/#scalar-types)要求对象ID全局唯一的特性存在冲突。"
+      }
+    },
+    {
+      "segment_id": "692c6053",
+      "source_content": "To enable the Universal-IDs support for your project, pass the `WithGlobalUniqueID` option to the migration.",
+      "source_content_hash": "b0f172cac288b2e54cc3d36020dcec185fc9c8594c9073f252b63395bbc98dc4",
+      "node_type": "paragraph",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "要为项目启用全局唯一ID支持，需向迁移传递`WithGlobalUniqueID`选项。"
+      }
+    },
+    {
+      "segment_id": "70c0d7b3",
+      "source_content": ":::note\nVersioned-migration users should follow [the documentation](versioned-migrations.mdx#a-word-on-global-unique-ids)\nwhen using `WithGlobalUniqueID` on MySQL 5.*.\n:::",
+      "source_content_hash": "1f7a2f8232f757320964415f4305434f988e6d4269e8ce72de1afb4104dd55b4",
+      "node_type": "containerDirective",
+      "translatable": true,
+      "translations": {
+        "zh-CN": ":::note\n使用MySQL 5.*的版本化迁移用户配置`WithGlobalUniqueID`时，请遵循[相关文档](versioned-migrations.mdx#a-word-on-global-unique-ids)。\n:::"
+      }
+    },
+    {
+      "segment_id": "6e57b94c",
+      "source_content": "```go\npackage main\n\nimport (\n\t\"context\"\n\t\"log\"\n\t\n\t\"<project>/ent\"\n\t\"<project>/ent/migrate\"\n)\n\nfunc main() {\n\tclient, err := ent.Open(\"mysql\", \"root:pass@tcp(localhost:3306)/test\")\n\tif err != nil {\n\t\tlog.Fatalf(\"failed connecting to mysql: %v\", err)\n\t}\n\tdefer client.Close()\n\tctx := context.Background()\n\t// Run migration.\n\tif err := client.Schema.Create(ctx, migrate.WithGlobalUniqueID(true)); err != nil {\n\t\tlog.Fatalf(\"failed creating schema resources: %v\", err)\n\t}\n}\n```",
+      "source_content_hash": "805512b2917174e6fd8043d535e0cc6b6d361b085e81801cab02aa827a8b972c",
+      "node_type": "code",
+      "translatable": false,
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_6e57b94c"
+      }
+    },
+    {
+      "segment_id": "0ddaa835",
+      "source_content": "**How does it work?** `ent` migration allocates a 1<<32 range for the IDs of each entity (table),\nand store this information in a table named `ent_types`. For example, type `A` will have the range\nof `[1,4294967296)` for its IDs, and type `B` will have the range of `[4294967296,8589934592)`, etc.",
+      "source_content_hash": "13bbc7c6389cde20d6f64574992165278082f68ef839c2470662e53793b442bc",
+      "node_type": "paragraph",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "**实现原理**：Ent迁移为每个实体类型（表）分配1<<32的ID范围，并将映射关系存储在`ent_types`表中。例如类型A的ID范围为`[1,4294967296)`，类型B为`[4294967296,8589934592)`，以此类推。"
+      }
+    },
+    {
+      "segment_id": "b08ad0b4",
+      "source_content": "Note that if this option is enabled, the maximum number of possible tables is **65535**.",
+      "source_content_hash": "b3ce34295c3a763e5d744abb041f4fd32e1d7587fc241ff2e947b3ca69dc172c",
+      "node_type": "paragraph",
+      "translatable": true,
+      "translations": {
+        "zh-CN": "注意：启用此选项后，最大支持表数为**65535**。"
+      }
+    }
+  ],
+  "target_i18n_subpath": "docusaurus-plugin-content-docs/current/globalid.mdx",
+  "last_updated_timestamp": "2025-06-08T19:19:52.171507+00:00",
+  "schema_version": "1.0",
+  "translated_versions": {
+    "zh-CN": "1af353b3c1deba43c8ce88ea4da8f193d96e664661a596e5ec92b12237000f45"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "locales": [
+    "zh-CN"
+  ],
+  "folder_patterns": [
+    {
+      "source_dir_relative_to_docusaurus_root": "blog",
+      "target_i18n_subpath": "docusaurus-plugin-content-blog",
+      "original_agent_pattern": {
+        "source_pattern": "blog/**/*",
+        "translation_pattern": "i18n/%locale%/docusaurus-plugin-content-blog/**/%original_file_name%",
+        "type": "blog",
+        "description": "Blog posts and related content (markdown and MDX files)"
+      },
+      "type": "blog",
+      "description": "Blog posts and related content (markdown and MDX files)",
+      "ignore_patterns": null
+    },
+    {
+      "source_dir_relative_to_docusaurus_root": "../md",
+      "target_i18n_subpath": "docusaurus-plugin-content-docs/current",
+      "original_agent_pattern": {
+        "source_pattern": "../md/**/*",
+        "translation_pattern": "i18n/%locale%/docusaurus-plugin-content-docs/current/**/%original_file_name%",
+        "type": "docs",
+        "description": "Documentation content located in custom path (../md relative to project root)"
+      },
+      "type": "docs",
+      "description": "Documentation content located in custom path (../md relative to project root)",
+      "ignore_patterns": null
+    },
+    {
+      "source_dir_relative_to_docusaurus_root": "i18n/en",
+      "target_i18n_subpath": "",
+      "original_agent_pattern": {
+        "source_pattern": "i18n/en/**/*.json",
+        "translation_pattern": "i18n/%locale%/**/%original_file_name%",
+        "type": "json_translations",
+        "description": "JSON translation files for UI components, theme labels, and code messages"
+      },
+      "type": "json_translations",
+      "description": "JSON translation files for UI components, theme labels, and code messages",
+      "ignore_patterns": null
+    }
+  ],
+  "docusaurus_root_dir_relative_to_repo": "doc/website",
+  "docusaurus_config_filepath_relative_to_repo": "doc/website/docusaurus.config.js",
+  "source_language": "en"
+}
