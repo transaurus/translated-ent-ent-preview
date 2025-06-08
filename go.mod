@@ -1,6 +1,6 @@
 module entgo.io/ent
 
-go 1.23
+go 1.23.0
 
 require (
 	ariga.io/atlas v0.32.1-0.20250325101103-175b25e1c1b9
@@ -17,7 +17,7 @@ require (
 	github.com/spf13/cobra v1.7.0
 	github.com/stretchr/testify v1.8.4
 	go.opencensus.io v0.24.0
-	golang.org/x/sync v0.11.0
+	golang.org/x/sync v0.15.0
 	golang.org/x/tools v0.30.0
 )
 
