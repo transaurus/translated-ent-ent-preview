@@ -19,7 +19,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "从`ent.Schema`生成Protobuf结构体固然有用，但我们真正的目标是获得一个能实际操作数据库的CRUD服务端。只需修改一行代码即可实现：通过为schema添加`entproto.Service`注解，我们告知`entproto`代码生成器需要生成gRPC服务定义，`protoc-gen-entgrpc`将读取该定义并生成服务实现。编辑`ent/schema/user.go`修改schema的`Annotations`："
+        "zh-CN": "从`ent.Schema`生成Protobuf结构体固然有用，但我们真正的目标是获得一个能实际操作数据库增删改查的服务器。只需修改一行代码即可实现：当我们用`entproto.Service`注解schema时，就告知`entproto`代码生成器需要生成gRPC服务定义，`protoc-gen-entgrpc`将读取该定义并生成服务实现。编辑`ent/schema/user.go`并修改schema的`Annotations`："
       }
     },
     {
@@ -39,7 +39,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "现在重新运行代码生成："
+        "zh-CN": "重新运行代码生成："
       }
     },
     {
@@ -79,7 +79,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "首先，`entproto`在`entpb.proto`中添加了服务定义："
+        "zh-CN": "首先，`entproto`向`entpb.proto`添加了服务定义："
       }
     },
     {
@@ -99,7 +99,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "此外还新增了两个文件。第一个文件`entpb_grpc.pb.go`包含gRPC客户端存根和接口定义（文件中包含大量内容，其中主要有）："
+        "zh-CN": "此外还新增了两个文件。第一个文件`entpb_grpc.pb.go`包含gRPC客户端存根和接口定义（其中包含大量代码，包括）："
       }
     },
     {
@@ -139,12 +139,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "效果不错！接下来让我们创建可响应服务请求的gRPC服务器。"
+        "zh-CN": "效果不错！接下来我们将创建能响应服务请求的gRPC服务器。"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/tutorial-grpc-generating-a-service.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.146844+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.768222+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "760b7e89f37d70532a6202b829152d4fbc9b22e16c98ee84bc054bc10b2fa43f"

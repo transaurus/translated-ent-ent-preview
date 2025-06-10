@@ -29,7 +29,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "如[介绍章节](code-gen.md)所述，对schema运行`ent`将生成以下资源："
+        "zh-CN": "如[介绍章节](code-gen.md)所述，在schema上运行`ent`将生成以下资源："
       }
     },
     {
@@ -39,7 +39,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "- 用于与图交互的`Client`和`Tx`对象\n- 每个schema类型的CRUD构建器\n- 每个schema类型的实体对象（Go结构体）\n- 包含与构建器交互所用常量及谓词的包\n- 支持SQL方言的`migrate`包，详见[迁移指南](migrate.md)"
+        "zh-CN": "- 用于与图交互的`Client`和`Tx`对象\n- 每个schema类型的CRUD构建器\n- 每个schema类型的实体对象（Go结构体）\n- 包含与构建器交互所用常量与谓词的包\n- 支持SQL方言的`migrate`包，详见[迁移指南](migrate.md)"
       }
     },
     {
@@ -99,7 +99,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "**SaveX**保存宠物；与**Save**不同，**SaveX**在出错时会触发panic"
+        "zh-CN": "**保存X**宠物；与**Save**不同，**SaveX**在出错时会触发panic"
       }
     },
     {
@@ -179,7 +179,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 按ID更新"
+        "zh-CN": "## 通过ID更新"
       }
     },
     {
@@ -209,7 +209,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "在某些项目中，\"批量更新\"操作被禁止并通过hooks阻断。但仍需根据特定条件按ID更新单条记录，此时可按如下方式使用`Where`选项："
+        "zh-CN": "某些项目中会通过钩子禁止\"批量更新\"操作，但仍需在满足特定条件时按ID更新单个实体。此时可使用`Where`选项如下："
       }
     },
     {
@@ -349,7 +349,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info\n由于upsert API通过`ON CONFLICT`子句实现（MySQL中使用`ON DUPLICATE KEY`），Ent仅向数据库执行单条语句，因此此类操作仅会触发创建[钩子](hooks.md)\n:::"
+        "zh-CN": ":::info\n由于upsert API基于`ON CONFLICT`子句实现（MySQL中使用`ON DUPLICATE KEY`），Ent仅向数据库执行单条语句，因此此类操作仅会触发创建[钩子](hooks.md)\n:::"
       }
     },
     {
@@ -469,7 +469,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "更高级的遍历方法可参阅[下一章节](traversals.md)"
+        "zh-CN": "更高级的遍历方法可在[下一章节](traversals.md)找到"
       }
     },
     {
@@ -529,7 +529,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "统计不重复宠物名的数量"
+        "zh-CN": "统计不重复宠物名称的数量"
       }
     },
     {
@@ -549,7 +549,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "选择部分对象和部分关联关系。获取所有宠物及其主人，但仅选择并填充`ID`和`Name`字段。"
+        "zh-CN": "选择部分对象和部分关联关系。\n获取所有宠物及其主人，但仅选择并填充`ID`和`Name`字段。"
       }
     },
     {
@@ -659,7 +659,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "#### 带条件的单条删除"
+        "zh-CN": "#### 带条件的删除单个实体"
       }
     },
     {
@@ -729,7 +729,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "每个生成的节点类型都有专属的变更类型。例如所有[`User`构建器](crud.mdx#create-an-entity)共享同一个生成的`UserMutation`对象，但所有构建器类型都实现了通用的<a target=\"_blank\" href=\"https://pkg.go.dev/entgo.io/ent?tab=doc#Mutation\">`ent.Mutation`</a>接口。"
+        "zh-CN": "每个生成的节点类型都有对应的变更类型。例如所有[`User`构建器](crud.mdx#create-an-entity)共享同一个生成的`UserMutation`对象，但所有构建器类型都实现了通用的<a target=\"_blank\" href=\"https://pkg.go.dev/entgo.io/ent?tab=doc#Mutation\">`ent.Mutation`</a>接口。"
       }
     },
     {
@@ -739,7 +739,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "例如要为`ent.UserCreate`和`ent.UserUpdate`编写通用代码，可使用`UserMutation`对象："
+        "zh-CN": "例如要编写可同时应用于`ent.UserCreate`和`ent.UserUpdate`的通用代码，可使用`UserMutation`对象："
       }
     },
     {
@@ -759,7 +759,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "若需对多种类型应用相同方法集，可使用通用`ent.Mutation`接口或自定义接口实现。"
+        "zh-CN": "某些场景下需要对多种类型应用相同方法集，此时可使用通用`ent.Mutation`接口或自定义接口实现。"
       }
     },
     {
@@ -774,7 +774,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/crud.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.155144+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.773205+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "707c1e75d1fa49840f6a6b7067d23fb4478d0a8dc7b8ba5f9b25d4282d4979bb"

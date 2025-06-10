@@ -29,7 +29,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[支持仓库]\n\n本节描述的变更可在配套仓库的\n[PR #6](https://github.com/rotemtam/ent-versioned-migrations-demo/pull/6/files)\n中找到。\n\n:::"
+        "zh-CN": ":::info[支持仓库]\n\n本节描述的变更可在支持仓库的\n[PR #6](https://github.com/rotemtam/ent-versioned-migrations-demo/pull/6/files)\n中找到。\n\n:::"
       }
     },
     {
@@ -39,7 +39,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 规划迁移"
+        "zh-CN": "## 规划迁移方案"
       }
     },
     {
@@ -69,7 +69,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "添加新字段后，我们需要重新运行项目的代码生成："
+        "zh-CN": "添加新字段后，需要重新运行项目的代码生成："
       }
     },
     {
@@ -109,7 +109,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "可以看到在`ent/migrate/migrations/`目录下创建了名为`20221115101649_add_user_title.sql`的新文件。该文件包含用于在`users`表中创建新增`title`字段的SQL语句："
+        "zh-CN": "可以看到在`ent/migrate/migrations/`目录下生成了名为`20221115101649_add_user_title.sql`的新文件。该文件包含在`users`表中创建新增`title`字段的SQL语句："
       }
     },
     {
@@ -129,7 +129,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "成功！我们已使用Atlas CLI自动为变更生成了新的迁移文件。"
+        "zh-CN": "成功！我们已使用Atlas CLI自动生成了针对变更的新迁移文件。"
       }
     },
     {
@@ -159,7 +159,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "Atlas报告："
+        "zh-CN": "Atlas返回报告："
       }
     },
     {
@@ -184,7 +184,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/versioned/04-new-migration.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.149936+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.769604+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "60a893be177c7eeed3dcf5dc4cc539f5c1ca44cd3af628ef1d86425f58271cc5"

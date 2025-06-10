@@ -49,7 +49,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[配套代码库]\n\n本节描述的变更可在配套代码库的PR [#2](https://github.com/rotemtam/ent-versioned-migrations-demo/pull/2/files)中找到。\n\n:::"
+        "zh-CN": ":::info[支持仓库]\n\n本节的变更可在支持仓库的PR [#2](https://github.com/rotemtam/ent-versioned-migrations-demo/pull/2/files)中找到。\n\n:::"
       }
     },
     {
@@ -59,7 +59,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "第一步是通过传入`sql/versioned-migration`功能标志来启用版本化迁移功能。根据执行Ent代码生成器的方式，您需要选择以下两种方式之一："
+        "zh-CN": "第一步是通过传入`sql/versioned-migration`功能标志来启用版本化迁移。根据执行Ent代码生成器的方式，您需要选择以下两种方式之一："
       }
     },
     {
@@ -99,7 +99,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "运行代码生成后，您会看到以下[新增方法](https://github.com/rotemtam/ent-versioned-migrations-demo/commit/e724fa32330d920fd405b9785fcfece2a46ea56c#diff-370235e5107bbdd35861063f3beff1507723ebdda6e29a39cdde1f1a944594d8)出现在`ent/migrate/migrate.go`文件中："
+        "zh-CN": "运行代码生成后，您会看到`ent/migrate/migrate.go`文件中[新增了以下方法](https://github.com/rotemtam/ent-versioned-migrations-demo/commit/e724fa32330d920fd405b9785fcfece2a46ea56c#diff-370235e5107bbdd35861063f3beff1507723ebdda6e29a39cdde1f1a944594d8)："
       }
     },
     {
@@ -139,7 +139,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[配套代码库]\n\n本节描述的变更可在配套代码库的PR [#4](https://github.com/rotemtam/ent-versioned-migrations-demo/pull/4/files)中找到。\n\n:::"
+        "zh-CN": ":::info[支持仓库]\n\n本节的变更可在支持仓库的PR [#4](https://github.com/rotemtam/ent-versioned-migrations-demo/pull/4/files)中找到。\n\n:::"
       }
     },
     {
@@ -159,7 +159,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "为了能规划出准确且一致的迁移文件，Atlas引入了[开发数据库](https://atlasgo.io/concepts/dev-database)的概念——这是一个临时数据库，用于模拟数据库在不同变更后的状态。因此，要使用Atlas自动规划迁移，我们需要在迁移规划脚本中提供该数据库的连接字符串。通常我们会使用本地Docker容器来启动这样的数据库。现在运行以下命令进行配置："
+        "zh-CN": "为了能规划准确且一致的迁移文件，Atlas引入了[开发数据库](https://atlasgo.io/concepts/dev-database)的概念，这是一个临时数据库，用于模拟数据库在不同变更后的状态。因此，要使用Atlas自动规划迁移，我们需要为迁移规划脚本提供一个连接到此数据库的字符串。通常我们会使用本地Docker容器来启动这样的数据库。现在运行以下命令来配置："
       }
     },
     {
@@ -179,7 +179,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "使用刚配置好的开发数据库，我们可以编写一个利用Atlas规划迁移文件的脚本。在项目的`ent/migrate`目录下新建名为`main.go`的文件："
+        "zh-CN": "使用刚刚配置的开发数据库，我们可以编写一个脚本，利用Atlas为我们规划迁移文件。在项目的`ent/migrate`目录下创建一个名为`main.go`的新文件："
       }
     },
     {
@@ -199,7 +199,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info\n\n注意您需要在高亮行处对脚本进行修改：调整`migrate`包的导入路径以匹配您的项目，并提供开发数据库的连接字符串。\n\n:::"
+        "zh-CN": ":::info\n\n注意您需要在高亮行对上述脚本进行一些修改。编辑`migrate`包的导入路径以匹配您的项目，并提供开发数据库的连接字符串。\n\n:::"
       }
     },
     {
@@ -209,7 +209,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "要运行该脚本，首先在项目的`ent/migrate`目录下创建`migrations`文件夹："
+        "zh-CN": "要运行脚本，首先在项目的`ent/migrate`目录下创建一个`migrations`目录："
       }
     },
     {
@@ -259,7 +259,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "运行脚本后，您会发现在`ent/migrate/migrations`目录下生成了两个新文件。第一个是名为`atlas.sum`的校验文件，Atlas用它来确保迁移历史的线性一致性："
+        "zh-CN": "运行脚本后，您会看到`ent/migrate/migrations`目录下生成了两个新文件。第一个文件名为`atlas.sum`，这是Atlas用于强制保持迁移历史线性的校验和文件："
       }
     },
     {
@@ -279,7 +279,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "第二个文件是实际的迁移文件，其名称基于我们传给脚本的标签："
+        "zh-CN": "第二个文件是实际的迁移文件，其名称基于我们传递给脚本的标签："
       }
     },
     {
@@ -334,7 +334,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/versioned/07-programmatically.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.142685+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.764514+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "fbba9a855626d781b106467dc5efd9ec90069ae53338653054d43553a286aa6f"

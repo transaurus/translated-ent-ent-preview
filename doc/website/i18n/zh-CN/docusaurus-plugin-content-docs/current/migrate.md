@@ -3,11 +3,11 @@ id: migrate
 title: Automatic Migration
 ---
 
-`ent`的迁移支持功能可将数据库模式与项目根目录下`ent/migrate/schema.go`中定义的模式对象保持同步。
+`ent`的迁移功能支持将数据库模式与项目根目录下`ent/migrate/schema.go`中定义的模式对象保持同步。
 
 ## 自动迁移
 
-在应用初始化时运行自动迁移逻辑：
+在应用程序初始化时运行自动迁移逻辑：
 
 ```go
 if err := client.Schema.Create(ctx); err != nil {
@@ -15,9 +15,9 @@ if err := client.Schema.Create(ctx); err != nil {
 }
 ```
 
-`Create`会为`ent`项目创建所有必需的数据库资源。默认情况下，`Create`以*"仅追加"*模式工作；这意味着它仅创建新表和索引、向表追加列或扩展列类型。例如将`int`改为`bigint`。
+`Create`会为`ent`项目创建所有必需的数据库资源。默认情况下，`Create`工作在*"仅追加"*模式下；这意味着它只会创建新表和索引、向表追加列或扩展列类型。例如将`int`改为`bigint`。
 
-如何删除列或索引？
+那么删除列或索引呢？
 
 ## 删除资源
 
@@ -53,7 +53,7 @@ func main() {
 }
 ```
 
-如需在调试模式下运行迁移（打印所有SQL查询），执行：
+要以调试模式运行迁移（打印所有SQL查询），请执行：
 
 ```go
 err := client.Debug().Schema.Create(
@@ -68,13 +68,13 @@ if err != nil {
 
 ## 全局唯一ID
 
-默认情况下，SQL主键从每张表的1开始递增；这意味着不同类型的实体可能共享相同ID。这与AWS Neptune不同，后者的节点ID采用UUID。[阅读本文](features.md#globally-unique-id)了解如何在SQL数据库中使用Ent启用全局唯一ID。
+默认情况下，SQL主键从每个表的1开始；这意味着不同类型的多个实体可以共享相同的ID。与AWS Neptune不同，后者的节点ID是UUID。[阅读本文](features.md#globally-unique-id)了解如何在使用Ent与SQL数据库时启用全局唯一ID。
 
 ## 离线模式
 
 **随着Atlas即将成为默认迁移引擎，离线迁移将被[版本化迁移](versioned-migrations.mdx)取代。**
 
-离线模式允许将模式变更写入`io.Writer`后再执行到数据库。该功能适用于验证SQL命令后再执行，或获取需手动运行的SQL脚本。
+离线模式允许您在将模式更改执行到数据库之前，将其写入`io.Writer`。这对于在SQL命令在数据库上执行之前验证它们非常有用，或者获取要手动运行的SQL脚本。
 
 **打印变更**
 
@@ -139,11 +139,11 @@ func main() {
 
 ## 外键
 
-默认情况下，`ent`在定义关系（边）时会使用外键来确保数据库端的正确性和一致性。
+默认情况下，`ent`在定义关系（边）时使用外键，以在数据库端强制正确性和一致性。
 
-但`ent`也提供通过`WithForeignKeys`选项禁用此功能。需注意将此选项设为`false`时，迁移将不会在模式DDL中创建外键，边验证和清理必须由开发者手动处理。
+然而，`ent`也提供了使用`WithForeignKeys`选项禁用此功能的选项。您应该注意，将此选项设置为`false`将告诉迁移不在模式DDL中创建外键，边验证和清除必须由开发人员手动处理。
 
-我们预计在不久的将来会提供一组钩子，用于在应用层实现外键约束。
+我们预计在不久的将来会提供一组钩子，用于在应用程序级别实现外键约束。
 
 ```go
 package main
@@ -176,7 +176,7 @@ func main() {
 
 ## 迁移钩子
 
-该框架支持为迁移阶段添加钩子（中间件）。此选项非常适合修改或过滤迁移操作的表，或在数据库中创建自定义资源。
+该框架提供了向迁移阶段添加钩子（中间件）的选项。此选项非常适合修改或过滤迁移正在处理的表，或在数据库中创建自定义资源。
 
 ```go
 package main
@@ -216,7 +216,7 @@ func main() {
 
 ## Atlas集成
 
-从v0.10开始，Ent支持通过[Atlas](https://atlasgo.io)运行迁移。这是一个更强大的迁移框架，涵盖当前Ent迁移包未支持的许多功能。要使用Atlas引擎执行迁移，请使用`WithAtlas(true)`选项。
+从v0.10开始，Ent支持使用[Atlas](https://atlasgo.io)运行迁移，这是一个更强大的迁移框架，涵盖了许多当前Ent迁移包不支持的功能。要使用Atlas引擎执行迁移，请使用`WithAtlas(true)`选项。
 
 ```go {21}
 package main
@@ -246,13 +246,13 @@ func main() {
 }
 ```
 
-除标准选项（如`WithDropColumn`、`WithGlobalUniqueID`）外，Atlas集成还提供了用于挂钩到模式迁移步骤的额外选项。
+除了标准选项（如`WithDropColumn`、`WithGlobalUniqueID`），Atlas集成还提供了用于挂钩到模式迁移步骤的额外选项。
 
 ![atlas-migration-process](https://entgo.io/images/assets/migrate-atlas-process.png)
 
-#### Atlas的`Diff`和`Apply`钩子
+#### Atlas `Diff`和`Apply`钩子
 
-以下是两个展示如何挂钩到Atlas的`Diff`和`Apply`步骤的示例。
+以下是两个示例，展示如何挂钩到Atlas `Diff`和`Apply`步骤。
 
 ```go
 package main
@@ -318,7 +318,7 @@ func main() {
 
 #### `Diff`钩子示例
 
-如果在 `ent/schema` 中重命名字段，Ent 不会将此变更识别为重命名操作，而是在差异比对阶段生成 `DropColumn` 和 `AddColumn` 变更。一种解决方案是在字段上使用 [StorageKey](schema-fields.mdx#storage-key) 选项，以保持数据库表中原有的列名。不过，通过 Atlas 的 `Diff` 钩子可以更优雅地将 `DropColumn` 和 `AddColumn` 变更替换为 `RenameColumn` 变更。
+如果`ent/schema`中的字段被重命名，Ent不会将此变更识别为重命名操作，而是在差异比对阶段生成`DropColumn`和`AddColumn`变更。一种解决方案是在字段上使用[StorageKey](schema-fields.mdx#storage-key)选项以保持数据库表中的旧列名。此外，通过Atlas的`Diff`钩子可以将`DropColumn`和`AddColumn`变更替换为`RenameColumn`变更。
 
 ```go
 func main() {
@@ -366,9 +366,9 @@ func renameColumnHook(next schema.Differ) schema.Differ {
 }
 ```
 
-#### `Apply` 钩子示例
+#### `Apply`钩子示例
 
-`Apply` 钩子不仅能访问和修改迁移计划及其原始变更（SQL语句），还特别适用于在计划执行前后执行自定义SQL语句。例如，默认情况下不允许直接将可为空的列改为非空列（无默认值）。但我们可以通过 `Apply` 钩子先 `UPDATE` 该列中所有值为 `NULL` 的行来解决此限制：
+`Apply`钩子不仅能访问和修改迁移计划及其原始变更（SQL语句），还适用于在计划执行前后运行自定义SQL语句。例如，默认情况下不允许将可为空列变更为非空列（无默认值），但可以通过`Apply`钩子先`UPDATE`该列中所有包含`NULL`值的行来实现：
 
 ```go
 func main() {

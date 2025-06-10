@@ -19,7 +19,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "本节我们将延续[GraphQL示例](tutorial-todo-gql.mdx)，讲解如何实现[Relay节点接口规范](https://relay.dev/graphql/objectidentification.htm)。若您不熟悉节点接口，请阅读以下摘自[relay.dev](https://relay.dev/graphql/objectidentification.htm#sel-DABDDBAADLA0Cl0c)的说明："
+        "zh-CN": "本节我们将通过实现 [Relay Node Interface](https://relay.dev/graphql/objectidentification.htm) 来继续完善 [GraphQL 示例](tutorial-todo-gql.mdx)。若您不熟悉 Node 接口，请阅读以下摘自 [relay.dev](https://relay.dev/graphql/objectidentification.htm#sel-DABDDBAADLA0Cl0c) 的说明："
       }
     },
     {
@@ -29,7 +29,7 @@
       "node_type": "blockquote",
       "translatable": true,
       "translations": {
-        "zh-CN": "> 为便于GraphQL客户端优雅处理缓存和数据重取，GraphQL服务需以标准化方式暴露对象标识符。在查询中，模式应提供通过ID获取对象的标准机制；在响应中，模式需标准化提供这些ID。\n>\n> 我们将具有标识符的对象称为\"节点\"。以下查询展示了这两种情况：\n>\n>  ```graphql\n>   {\n>       node(id: \"4\") {\n>           id\n>          ... on User {\n>               name\n>           }\n>       }\n>   }\n> ```"
+        "zh-CN": "> 为便于 GraphQL 客户端优雅地处理缓存和数据重取，GraphQL 服务端需以标准化方式暴露对象标识符。在查询中，模式应提供通过ID获取对象的标准机制；在响应中，模式需标准化提供这些ID。\n>\n> 我们将具有标识符的对象称为\"节点\"。以下查询展示了这两种机制：\n>\n>  ```graphql\n>   {\n>       node(id: \"4\") {\n>           id\n>          ... on User {\n>               name\n>           }\n>       }\n>   }\n> ```"
       }
     },
     {
@@ -49,7 +49,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "本教程代码托管于[github.com/a8m/ent-graphql-example](https://github.com/a8m/ent-graphql-example)，每个步骤都对应Git标签。若想跳过基础配置直接使用GraphQL服务初始版本，可按如下方式克隆仓库："
+        "zh-CN": "本教程代码存放于 [github.com/a8m/ent-graphql-example](https://github.com/a8m/ent-graphql-example)，每个步骤都对应 Git 标签。若想跳过基础配置直接使用 GraphQL 服务初始版本，可按以下方式克隆仓库："
       }
     },
     {
@@ -79,7 +79,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "Ent通过GraphQL集成原生支持节点接口。只需简单几步即可为应用添加支持。首先编辑`gqlgen.yaml`文件，声明Ent提供`Node`接口："
+        "zh-CN": "Ent 通过其 GraphQL 集成原生支持 Node 接口。只需简单几步即可为应用添加支持。首先编辑 `gqlgen.yaml` 文件，声明 Ent 提供 `Node` 接口："
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "与之前类似，我们需要在`ent.resolvers.go`中实现GraphQL解析器。只需一行代码修改，即可用以下实现替换自动生成的`gqlgen`代码："
+        "zh-CN": "与之前类似，我们需要在 `ent.resolvers.go` 中实现 GraphQL 解析器。只需单行改动，将生成的 `gqlgen` 代码替换为："
       }
     },
     {
@@ -149,7 +149,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "现在可以测试新的GraphQL解析器了。首先通过多次执行以下查询创建待办事项（修改变量可选）："
+        "zh-CN": "现在可以测试新的 GraphQL 解析器了。首先通过多次运行以下查询创建待办事项（修改变量可选）："
       }
     },
     {
@@ -169,7 +169,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "对某个待办项执行**Node**接口将返回："
+        "zh-CN": "对某个待办事项执行 **Node** API 将返回："
       }
     },
     {
@@ -189,7 +189,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "对多个待办项执行**Nodes**接口将返回："
+        "zh-CN": "对多个待办事项执行 **Nodes** API 将返回："
       }
     },
     {
@@ -219,12 +219,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "完成！如您所见，仅需少量代码修改，我们的应用就实现了Relay节点接口。下一节我们将展示如何使用Ent实现Relay游标连接规范，这对支持查询结果分页切片非常有用。"
+        "zh-CN": "完成！如您所见，仅需少量代码改动，我们的应用就实现了 Relay Node 接口。下一节我们将展示如何用 Ent 实现 Relay 游标连接规范，这对支持查询结果切片与分页非常有用。"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/tutorial-todo-gql-node.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.166883+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.776917+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "fd00b9d2842792e85bdc8136c820013c81eee0249f2d6a73fe3897e2f4b6e318"

@@ -6,10 +6,10 @@ sidebar_label: Relay Cursor Connections
 
 本节我们将延续[GraphQL示例](tutorial-todo-gql.mdx)，讲解如何实现[Relay游标连接规范](https://relay.dev/graphql/connections.htm)。若您不熟悉游标连接接口，请阅读以下摘自[relay.dev](https://relay.dev/graphql/connections.htm#sel-DABDDDAADFA0E3kM)的说明：
 
-> 在查询中，连接模型为结果集的切片和分页提供了标准机制。
->
-> 在响应中，连接模型提供了游标的标准返回方式，以及告知客户端是否还有更多结果的途径。
->
+> 在查询中，连接模型提供了对结果集进行切片和分页的标准机制。
+> 
+> 在响应中，连接模型提供了提供游标的标准方式，以及告知客户端是否还有更多结果的途径。
+> 
 > 以下查询示例展示了这四个特性：
 > ```graphql
 > {
@@ -34,7 +34,7 @@ sidebar_label: Relay Cursor Connections
 
 #### 克隆代码（可选）
 
-本教程代码托管于[github.com/a8m/ent-graphql-example](https://github.com/a8m/ent-graphql-example)，每个步骤都对应Git标签。若想跳过基础配置直接使用GraphQL服务器的初始版本，可通过以下命令克隆仓库：
+本教程代码托管于[github.com/a8m/ent-graphql-example](https://github.com/a8m/ent-graphql-example)，每个步骤都对应Git标签。若想跳过基础配置直接使用GraphQL服务器的初始版本，可通过以下方式克隆仓库：
 
 ```console
 git clone git@github.com:a8m/ent-graphql-example.git
@@ -44,7 +44,7 @@ go run ./cmd/todo/
 
 ## 为Schema添加注解
 
-通过在Ent的可比较字段上添加`entgql.Annotation`注解即可定义排序。注意给定的`OrderField`名称必须大写，且与GraphQL schema中的枚举值匹配。
+通过在Ent的可比较字段上添加`entgql.Annotation`注解即可定义排序规则。注意指定的`OrderField`名称必须大写，且需与GraphQL schema中的枚举值匹配。
 
 ```go title="ent/schema/todo.go"
 func (Todo) Fields() []ent.Field {
@@ -91,11 +91,11 @@ func (Todo) Annotations() []schema.Annotation {
 }
 ```
 
-将此注解添加到`Todo` schema后，`orderBy`参数将从`TodoOrder`变为`[TodoOrder!]`。
+将此注解添加到`Todo` schema后，`orderBy`参数将从`TodoOrder`变更为`[TodoOrder!]`。
 
 ## 按关联边数量排序
 
-可为非唯一边添加`OrderField`注解，实现根据特定边类型的关联数量对节点排序。
+非唯一边可通过`OrderField`注解实现基于特定边类型计数的节点排序。
 
 ```go title="ent/schema/todo/go"
 func (Todo) Edges() []ent.Edge {
@@ -118,7 +118,7 @@ func (Todo) Edges() []ent.Edge {
 
 ## 按关联边字段排序
 
-可为唯一边添加`OrderField`注解，实现根据关联边字段对节点排序（例如按作者姓名排序文章，或根据父级优先级排序待办事项）。注意：要按边字段排序，该字段必须在被引用类型中标注为`OrderField`。
+唯一边可通过`OrderField`注解实现基于关联边字段的节点排序。例如：_按文章作者姓名排序_，或_根据父级优先级排序待办事项_。注意：要按边字段排序，该字段必须在被引用类型中标注`OrderField`。
 
 此排序项的命名规范为：`UPPER(<边名称>)_<边字段>`。例如`PARENT_PRIORITY`。
 
@@ -156,7 +156,7 @@ func (Todo) Edges() []ent.Edge {
 
 ## 为查询添加分页支持
 
-1\. 启用分页的下一步是告知Ent`Todo`类型属于Relay连接。
+1\. 启用分页的下一步是告知Ent`Todo`类型为Relay连接。
 
 ```go title="ent/schema/todo.go"
 func (Todo) Annotations() []schema.Annotation {
@@ -169,7 +169,7 @@ func (Todo) Annotations() []schema.Annotation {
 }
 ```
 
-2\. 接着运行`go generate .`，您会注意到`ent.resolvers.go`已变更。转到`Todos`解析器，修改其通过`.Paginate()`传递分页参数：
+2\. 接着运行`go generate .`，您会注意到`ent.resolvers.go`已变更。前往`Todos`解析器，更新代码以将分页参数传递给`.Paginate()`：
 
 ```go title="ent.resolvers.go" {2-5}
 func (r *queryResolver) Todos(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int, orderBy *ent.TodoOrder) (*ent.TodoConnection, error) {
@@ -180,13 +180,13 @@ func (r *queryResolver) Todos(ctx context.Context, after *ent.Cursor, first *int
 }
 ```
 
-:::info[Relay 连接配置]
+:::info[Relay连接配置]
 
 `entgql.RelayConnection()` 函数表示该节点或边应支持分页功能，
-因此返回结果将是 Relay 连接类型而非节点列表（`[T!]!` => `<T>Connection!`）。
+因此返回结果将是Relay连接类型而非节点列表（`[T!]!` => `<T>Connection!`）。
 
-在 schema `T`（位于 ent/schema 中）上设置此注解，即可为该节点启用分页功能，Ent 将
-自动生成该 schema 的所有 Relay 类型，包括：`<T>Edge`、`<T>Connection` 和 `PageInfo`。例如：
+在schema `T`（位于ent/schema中）上设置此注解，即可为该节点启用分页功能，Ent将自动生成所有相关的Relay类型，
+如：`<T>Edge`、`<T>Connection`和`PageInfo`。例如：
 
 ```go
 func (Todo) Annotations() []schema.Annotation {
@@ -197,8 +197,7 @@ func (Todo) Annotations() []schema.Annotation {
 }
 ```
 
-在边上设置此注解表示该边的 GraphQL 字段应支持嵌套分页，
-且返回类型为 Relay 连接。例如：
+在边上设置此注解则表示该GraphQL字段应支持嵌套分页，返回类型为Relay连接。例如：
 
 ```go
 func (Todo) Edges() []ent.Edge {
@@ -211,7 +210,7 @@ func (Todo) Edges() []ent.Edge {
 }
 ```
 
-生成的 GraphQL schema 将变为：
+生成的GraphQL schema将变为：
 
 ```diff
 -children: [Todo!]!
@@ -222,7 +221,7 @@ func (Todo) Edges() []ent.Edge {
 
 ## 分页功能使用
 
-现在我们可以测试新的 GraphQL 解析器了。首先通过多次运行以下查询创建几个待办事项（修改变量可选）：
+现在我们可以测试新的GraphQL解析器了。首先通过多次运行以下查询创建若干待办事项（变量可选择性修改）：
 
 ```graphql
 mutation CreateTodo($input: CreateTodoInput!) {
@@ -241,7 +240,7 @@ mutation CreateTodo($input: CreateTodoInput!) {
 # Output: { "data": { "createTodo": { "id": "2", "text": "Create GraphQL Example", "createdAt": "2021-03-10T15:02:18+02:00", "priority": 1, "parent": null } } }
 ```
 
-然后使用分页 API 查询待办事项列表：
+然后使用分页API查询待办事项列表：
 
 ```graphql
 query {
@@ -279,5 +278,5 @@ query {
 
 ---
 
-太棒了！通过几个简单的改动，我们的应用现在支持分页功能了。请继续阅读下一节，
-我们将讲解如何实现 GraphQL 字段集合，并了解 Ent 如何解决 GraphQL 解析器中的*"N+1问题"*。
+太棒了！通过几个简单的改动，我们的应用现已支持分页功能。请继续阅读下一节，我们将讲解如何实现GraphQL字段集合，
+并了解Ent如何解决GraphQL解析器中的*"N+1问题"*。

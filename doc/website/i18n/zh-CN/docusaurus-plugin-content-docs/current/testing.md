@@ -3,7 +3,7 @@ id: testing
 title: Testing
 ---
 
-如果在单元测试中使用 `ent.Client`，可以通过生成的 `enttest` 包创建客户端并自动执行模式迁移，操作如下：
+如果在单元测试中使用 `ent.Client`，可以通过生成的 `enttest` 包创建客户端并自动执行模式迁移，如下所示：
 
 ```go
 package main

@@ -8,9 +8,7 @@
       "source_content_hash": "de6bf272aa9d5d64e161d08f7476b007c752d20fd2da156cddd048b11ef65d16",
       "node_type": "yaml",
       "translatable": false,
-      "translations": {
-        "zh-CN": "@@untranslatable_placeholder_58cfcc64"
-      }
+      "translations": {}
     },
     {
       "segment_id": "10c4cb47",
@@ -18,9 +16,7 @@
       "source_content_hash": "ffc742d78eb313c2e57a6a0244a32ba45938e009a6b63b1af7b9e28de9f1658b",
       "node_type": "mdxjsEsm",
       "translatable": false,
-      "translations": {
-        "zh-CN": "@@untranslatable_placeholder_10c4cb47"
-      }
+      "translations": {}
     },
     {
       "segment_id": "8ac585fb",
@@ -49,7 +45,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[[Atlas Pro功能](https://atlasgo.io/features#pro-plan)]\nAtlas对[复合类型](https://atlasgo.io/atlas-schema/hcl#composite-type)的支持仅限专业版用户使用。要启用此功能，请运行：\n```\natlas login\n```\n:::"
+        "zh-CN": ":::info[[Atlas专业版功能](https://atlasgo.io/features#pro-plan)]\nAtlas对[复合类型](https://atlasgo.io/atlas-schema/hcl#composite-type)的支持仅限专业版用户。使用此功能需执行：\n```\natlas login\n```\n:::"
       }
     },
     {
@@ -68,9 +64,7 @@
       "source_content_hash": "a4404b9dce43845ec41e6725e25a8cfce8953ea9daeac173794ed9b031a06194",
       "node_type": "mdxJsxFlowElement",
       "translatable": false,
-      "translations": {
-        "zh-CN": "@@untranslatable_placeholder_358a309f"
-      }
+      "translations": {}
     },
     {
       "segment_id": "f2f30ae8",
@@ -88,9 +82,7 @@
       "source_content_hash": "496821c033e70d4510db88b24c2448b81f6a4860a232e94aa6828c08a6979cd4",
       "node_type": "code",
       "translatable": false,
-      "translations": {
-        "zh-CN": "@@untranslatable_placeholder_cb57d798"
-      }
+      "translations": {}
     },
     {
       "segment_id": "3b7478ea",
@@ -109,7 +101,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`ent/schema`包主要用于定义Ent类型（对象）、其字段、边和逻辑。复合类型或其他数据库对象在Ent模型中并无直接表示——复合类型只需定义一次，即可在不同字段和模型中多次使用。"
+        "zh-CN": "`ent/schema`包主要用于定义Ent类型（对象）、字段、边及逻辑。复合类型或其他数据库对象在Ent模型中并无对应表示——复合类型只需定义一次，即可在不同字段和模型中多次使用。"
       }
     },
     {
@@ -119,7 +111,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "为了扩展PostgreSQL模式以包含自定义复合类型和Ent类型，我们配置Atlas从[复合模式](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)数据源读取模式状态。按以下步骤为项目进行配置："
+        "zh-CN": "为扩展PostgreSQL模式以包含自定义复合类型和Ent类型，我们配置Atlas通过[复合模式](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)数据源读取模式状态。按以下步骤为项目进行配置："
       }
     },
     {
@@ -129,7 +121,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "1\\. 创建`schema.sql`定义所需的复合类型。同样，您可以用[Atlas Schema HCL语言](https://atlasgo.io/atlas-schema/hcl-types#composite-type)配置复合类型："
+        "zh-CN": "1\\. 创建定义复合类型的`schema.sql`文件。同样可通过[Atlas模式HCL语言](https://atlasgo.io/atlas-schema/hcl-types#composite-type)配置复合类型："
       }
     },
     {
@@ -138,9 +130,7 @@
       "source_content_hash": "37b7fea10b7491e578c793f978f89680325a37bee7cacc0b8f9ac936a10f50e3",
       "node_type": "mdxJsxFlowElement",
       "translatable": false,
-      "translations": {
-        "zh-CN": "@@untranslatable_placeholder_ece60464"
-      }
+      "translations": {}
     },
     {
       "segment_id": "7736989b",
@@ -149,7 +139,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "2\\. 在Ent模式中，定义仅限PostgreSQL方言使用的复合类型字段："
+        "zh-CN": "2\\. 在Ent模式中，仅针对PostgreSQL方言定义使用复合类型的字段："
       }
     },
     {
@@ -158,9 +148,7 @@
       "source_content_hash": "7bdde5be4dff6d887e94cd7aba37480caec20098c2b5adc02dc524c17a3b35f3",
       "node_type": "mdxJsxFlowElement",
       "translatable": false,
-      "translations": {
-        "zh-CN": "@@untranslatable_placeholder_41b1e179"
-      }
+      "translations": {}
     },
     {
       "segment_id": "9c9e2b64",
@@ -169,7 +157,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "3\\. 创建简单的`atlas.hcl`配置文件，其中`composite_schema`需同时包含`schema.sql`中定义的自定义类型和Ent模式："
+        "zh-CN": "3\\. 创建简单的`atlas.hcl`配置文件，其中`composite_schema`需包含`schema.sql`定义的自定义类型及Ent模式："
       }
     },
     {
@@ -178,9 +166,7 @@
       "source_content_hash": "feba72d4fbbff1d3db918705869e392925919d2cc90d5fc0edf887d69bad5264",
       "node_type": "code",
       "translatable": false,
-      "translations": {
-        "zh-CN": "@@untranslatable_placeholder_601bdf38"
-      }
+      "translations": {}
     },
     {
       "segment_id": "b77e7669",
@@ -199,7 +185,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "完成模式设置后，可通过`atlas schema inspect`命令获取其表示形式，生成迁移文件，应用到数据库等。以下是一些入门Atlas的命令："
+        "zh-CN": "完成模式设置后，可通过`atlas schema inspect`命令获取其表示形式，生成迁移文件，应用到数据库等。以下是Atlas入门命令："
       }
     },
     {
@@ -228,9 +214,7 @@
       "source_content_hash": "1842ce4f48f94bbd6a5aa04c673ac0b32a2a5303e5c49b31790f7f34cba2e364",
       "node_type": "code",
       "translatable": false,
-      "translations": {
-        "zh-CN": "@@untranslatable_placeholder_75daf40d"
-      }
+      "translations": {}
     },
     {
       "segment_id": "827eb9a3",
@@ -239,7 +223,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "上述命令将输出如下SQL。注意`address`复合类型在模式中先定义，随后才在`address`字段中使用："
+        "zh-CN": "上述命令将输出如下SQL。注意`address`复合类型在模式中先定义，后用于`address`字段："
       }
     },
     {
@@ -248,9 +232,7 @@
       "source_content_hash": "34ce0dbd2e2f941614f5d944ccb5be793211770e136cf8f483315fae195f44d0",
       "node_type": "code",
       "translatable": false,
-      "translations": {
-        "zh-CN": "@@untranslatable_placeholder_a1af15b5"
-      }
+      "translations": {}
     },
     {
       "segment_id": "2b5df263",
@@ -259,7 +241,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "#### 为模式生成迁移"
+        "zh-CN": "#### 生成模式迁移"
       }
     },
     {
@@ -269,7 +251,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "运行以下命令生成模式迁移："
+        "zh-CN": "运行以下命令生成模式迁移文件："
       }
     },
     {
@@ -278,9 +260,7 @@
       "source_content_hash": "6b7403f27f8ed223e30c839e71ca4751a7ab8d6c8cadab93c9b0579c577ecadd",
       "node_type": "code",
       "translatable": false,
-      "translations": {
-        "zh-CN": "@@untranslatable_placeholder_44ecd2e3"
-      }
+      "translations": {}
     },
     {
       "segment_id": "0427bb2b",
@@ -289,7 +269,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "注意此时会创建包含以下内容的新迁移文件："
+        "zh-CN": "注意新生成的迁移文件包含以下内容："
       }
     },
     {
@@ -298,9 +278,7 @@
       "source_content_hash": "5ababbcacd2ef9de9edb00988b1c310206972132b4a2d9081d94dc9ada742aea",
       "node_type": "code",
       "translatable": false,
-      "translations": {
-        "zh-CN": "@@untranslatable_placeholder_0152e600"
-      }
+      "translations": {}
     },
     {
       "segment_id": "17fd5988",
@@ -319,7 +297,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "要将上述迁移应用到数据库，运行以下命令："
+        "zh-CN": "运行以下命令将生成的迁移应用到数据库："
       }
     },
     {
@@ -328,9 +306,7 @@
       "source_content_hash": "9ac63adaa93ec903e09e8bf048fee595f2113774afd394318a89f192a26e03e1",
       "node_type": "code",
       "translatable": false,
-      "translations": {
-        "zh-CN": "@@untranslatable_placeholder_3c6be27a"
-      }
+      "translations": {}
     },
     {
       "segment_id": "e6432e52",
@@ -339,7 +315,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[直接向数据库应用模式]\n\n有时需要直接将模式应用到数据库而不生成迁移文件，例如在试验模式变更或为测试启动数据库时。此时可使用以下命令直接将模式应用到数据库：\n\n```shell\natlas schema apply \\\n  --env local \\\n  --url \"postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable\"\n```\n\n或使用 [Atlas Go SDK](https://github.com/ariga/atlas-go-sdk)：\n\n```go\nac, err := atlasexec.NewClient(\".\", \"atlas\")\nif err != nil {\n\tlog.Fatalf(\"failed to initialize client: %w\", err)\n}\n// 自动用期望的模式更新数据库\n// 另一种选择是手动使用'migrate apply'或'schema apply'\nif _, err := ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{\n\tEnv: \"local\",\n\tURL: \"postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable\",\n\tAutoApprove: true,\n}); err != nil {\n    log.Fatalf(\"failed to apply schema changes: %w\", err)\n}\n```\n\n:::"
+        "zh-CN": ":::info[直接向数据库应用模式]\n\n有时需要不生成迁移文件而直接将模式应用到数据库。例如，在试验模式变更、为测试启动数据库等场景下。此时可使用以下命令直接将模式应用到数据库：\n\n```shell\natlas schema apply \\\n  --env local \\\n  --url \"postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable\"\n```\n\n或使用 [Atlas Go SDK](https://github.com/ariga/atlas-go-sdk):\n\n```go\nac, err := atlasexec.NewClient(\".\", \"atlas\")\nif err != nil {\n\tlog.Fatalf(\"failed to initialize client: %w\", err)\n}\n// 自动用目标模式更新数据库\n// 另一种选择是手动使用 'migrate apply' 或 'schema apply'\nif _, err := ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{\n\tEnv: \"local\",\n\tURL: \"postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable\",\n\tAutoApprove: true,\n}); err != nil {\n    log.Fatalf(\"failed to apply schema changes: %w\", err)\n}\n```\n\n:::"
       }
     },
     {
@@ -354,7 +330,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/migration/composite.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.146623+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.768449+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "d1402ec366406d8b68230daa25c6f18d0d58871f0d5a06d8cb7406802f43c924"

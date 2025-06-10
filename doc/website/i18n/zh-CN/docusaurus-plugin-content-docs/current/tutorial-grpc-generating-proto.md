@@ -4,9 +4,9 @@ title: Generating Protobufs with entproto
 sidebar_label: Generating Protobufs
 ---
 
-由于Ent与Protobuf模式并非完全一致，我们需要在模式中添加注解来帮助`entproto`准确生成Protobuf定义（在protobuf术语中称为"Messages"）。
+由于Ent与Protobuf模式并非完全一致，我们需要在模式上添加注解来帮助`entproto`准确生成Protobuf定义（在protobuf术语中称为"消息"）。
 
-首先需要添加`entproto.Message()`注解。这是我们选择加入Protobuf模式生成的声明——并非所有模式实体都需要生成proto消息或gRPC服务定义，该注解提供了这种控制能力。将其添加到`ent/schema/user.go`：
+首先需要添加`entproto.Message()`注解。这是我们选择加入Protobuf模式生成的声明——并非所有模式实体都需要生成proto消息或gRPC服务定义，该注解提供了这种控制权。将其添加到`ent/schema/user.go`：
 
 ```go title="ent/schema/user.go"
 func (User) Annotations() []schema.Annotation {
@@ -16,7 +16,7 @@ func (User) Annotations() []schema.Annotation {
 }
 ```
 
-接着需要为每个字段添加注解并分配字段编号。请注意在[定义protobuf消息类型](https://developers.google.com/protocol-buffers/docs/proto3#simple)时，每个字段都必须分配唯一编号。为此，我们在每个字段上添加`entproto.Field`注解。更新`ent/schema/user.go`中的`Fields`：
+接着需要为每个字段添加注解并分配字段编号。请注意在[定义protobuf消息类型](https://developers.google.com/protocol-buffers/docs/proto3#simple)时，每个字段都必须分配唯一编号。为此我们在每个字段上添加`entproto.Field`注解。更新`ent/schema/user.go`中的`Fields`：
 
 ```go title="ent/schema/user.go"
 // Fields of the User.
@@ -36,7 +36,7 @@ func (User) Fields() []ent.Field {
 }
 ```
 
-注意我们没有从1开始编号字段，这是因为`ent`隐式创建了实体的`ID`字段，该字段会自动分配编号1。现在可以生成protobuf消息类型定义。我们需要在`ent/generate.go`中添加`go:generate`指令来调用`entproto`命令行工具。修改后文件如下：
+注意我们没有从1开始编号，因为`ent`会隐式创建实体的`ID`字段，该字段会自动分配编号1。现在可以生成protobuf消息类型定义。我们需要在`ent/generate.go`中添加调用`entproto`命令行工具的`go:generate`指令：
 
 ```go title="ent/generate.go"
 package ent
@@ -51,7 +51,7 @@ package ent
 go generate ./...
 ```
 
-观察新创建的目录`ent/proto`，它将包含所有protobuf相关的生成代码，目前包含：
+可以看到新建的`ent/proto`目录将包含所有protobuf相关生成代码，目前包含：
 
 ```console
 ent/proto
@@ -79,18 +79,18 @@ message User {
 }
 ```
 
-很好！创建了一个新的`.proto`文件，其中包含映射到`User`模式的消息类型定义！
+很好！创建了包含映射到`User`模式的消息类型定义的新`.proto`文件！
 
 ```go title="ent/proto/entpb/generate.go"
 package entpb
 //go:generate protoc -I=.. --go_out=.. --go-grpc_out=.. --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative --entgrpc_out=.. --entgrpc_opt=paths=source_relative,schema_path=../../schema entpb/entpb.proto
 ```
 
-新生成的`generate.go`文件包含调用protobuf代码生成器`protoc`的指令，说明如何从`.proto`文件生成Go代码。要使此命令正常工作，需先安装`protoc`及三个protobuf插件：`protoc-gen-go`（生成Go Protobuf结构体）、`protoc-gen-go-grpc`（生成Go gRPC服务接口和客户端）和`protoc-gen-entgrpc`（生成服务接口实现）。若未安装请按以下指引操作：
+新建的`generate.go`文件包含调用protobuf代码生成器`protoc`的指令，说明如何从`.proto`文件生成Go代码。要使此命令生效，需先安装`protoc`及三个protobuf插件：生成Go Protobuf结构的`protoc-gen-go`、生成Go gRPC服务接口和客户端的`protoc-gen-go-grpc`，以及生成服务接口实现的`protoc-gen-entgrpc`。若未安装请遵循：
 
 - [protoc安装指南](https://grpc.io/docs/protoc-installation/)
 - [protoc-gen-go + protoc-gen-go-grpc安装指南](https://grpc.io/docs/languages/go/quickstart/)
-- 安装`protoc-gen-entgrpc`执行：
+- 安装`protoc-gen-entgrpc`：
 
   ```
   go install entgo.io/contrib/entproto/cmd/protoc-gen-entgrpc@master
@@ -102,9 +102,9 @@ package entpb
 go generate ./...
 ```
 
-观察到新文件`ent/proto/entpb/entpb.pb.go`已生成，其中包含实体的Go结构体代码。
+可见新建的`ent/proto/entpb/entpb.pb.go`文件包含为实体生成的Go结构体。
 
-编写测试验证功能是否正常。创建新文件`pb_test.go`并写入：
+编写测试验证功能是否正常。新建`pb_test.go`文件：
 
 ```go
 package main
@@ -136,4 +136,4 @@ go get -u ./... # install deps of the generated package
 go test ./...
 ```
 
-成功！测试通过。我们已成功从Ent模式生成可工作的Go Protobuf结构体。接下来看看如何自动生成可运行的CRUD gRPC*服务端*。
+太棒了！测试通过。我们已成功从Ent模式生成可工作的Go Protobuf结构体。接下来看看如何自动生成可运行的CRUD gRPC*服务端*。

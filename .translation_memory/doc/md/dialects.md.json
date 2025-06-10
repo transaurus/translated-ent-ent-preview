@@ -29,7 +29,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "MySQL 全面支持 [迁移](migrate.md) 章节中提到的所有功能特性，并持续在以下三个版本进行测试：`5.6.35`、`5.7.26` 和 `8`。"
+        "zh-CN": "MySQL支持[Migration](migrate.md)章节中提到的所有功能，并持续在以下三个版本进行测试：`5.6.35`、`5.7.26` 和 `8`。"
       }
     },
     {
@@ -49,7 +49,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "MariaDB 全面支持 [迁移](migrate.md) 章节中提到的所有功能特性，并持续在以下三个版本进行测试：`10.2`、`10.3` 和最新版本。"
+        "zh-CN": "MariaDB支持[Migration](migrate.md)章节中提到的所有功能，并持续在以下三个版本进行测试：`10.2`、`10.3` 和最新版本。"
       }
     },
     {
@@ -69,7 +69,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "PostgreSQL 全面支持 [迁移](migrate.md) 章节中提到的所有功能特性，并持续在以下五个版本进行测试：`11`、`12`、`13`、`14` 和 `15`。"
+        "zh-CN": "PostgreSQL支持[Migration](migrate.md)章节中提到的所有功能，并持续在以下五个版本进行测试：`11`、`12`、`13`、`14` 和 `15`。"
       }
     },
     {
@@ -89,7 +89,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "CockroachDB 支持目前处于预览阶段，需使用 [Atlas 迁移引擎](migrate.md#atlas-integration)。  \n当前集成测试基于版本 `v21.2.11` 进行。"
+        "zh-CN": "CockroachDB支持目前处于预览阶段，需使用[Atlas迁移引擎](migrate.md#atlas-integration)。  \n当前集成测试基于版本`v21.2.11`进行。"
       }
     },
     {
@@ -109,7 +109,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "通过 [Atlas](https://github.com/ariga/atlas) 驱动，SQLite 支持 [迁移](migrate.md) 章节中提到的所有功能特性。需注意某些变更（如列修改）会通过临时表实现，具体操作流程遵循 [SQLite 官方文档](https://www.sqlite.org/lang_altertable.html#otheralter) 描述的步骤。"
+        "zh-CN": "通过[Atlas](https://github.com/ariga/atlas)驱动，SQLite支持[Migration](migrate.md)章节中提到的所有功能。需注意部分变更（如列修改）会按照[SQLite官方文档](https://www.sqlite.org/lang_altertable.html#otheralter)描述的流程在临时表上执行操作序列。"
       }
     },
     {
@@ -129,7 +129,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "Gremlin 不支持迁移和索引功能，**<ins>目前视为实验性功能</ins>**。"
+        "zh-CN": "Gremlin不支持迁移和索引功能，**<ins>目前视为实验性功能</ins>**。"
       }
     },
     {
@@ -149,12 +149,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "TiDB 支持目前处于预览阶段，需使用 [Atlas 迁移引擎](migrate.md#atlas-integration)。  \nTiDB 与 MySQL 兼容，因此所有 MySQL 支持的功能理论上均适用于 TiDB。  \n已知兼容性问题列表请访问：https://docs.pingcap.com/tidb/stable/mysql-compatibility  \n当前集成测试基于版本 `5.4.0` 和 `6.0.0` 进行。"
+        "zh-CN": "TiDB支持目前处于预览阶段，需使用[Atlas迁移引擎](migrate.md#atlas-integration)。  \nTiDB与MySQL兼容，因此MySQL支持的功能理论上也适用于TiDB。  \n已知兼容性问题列表请访问：https://docs.pingcap.com/tidb/stable/mysql-compatibility  \n当前集成测试基于版本`5.4.0`和`6.0.0`进行。"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/dialects.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.163607+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.776078+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "1a888910c5c2d911cb13aa67b99fdc3b887e06cc81650e07c2f946ff69beceff"

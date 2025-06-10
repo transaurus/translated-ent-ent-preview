@@ -79,7 +79,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "默认情况下所有字段都是必填的，可以通过`Optional`方法设置为可选。"
+        "zh-CN": "默认情况下所有字段都是必需的，可以通过`Optional`方法设置为可选。"
       }
     },
     {
@@ -109,7 +109,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "- 所有Go数值类型。如`int`、`uint8`、`float64`等。\n- `bool`\n- `string`\n- `time.Time`\n- `UUID`\n- `[]byte`（仅限SQL）。\n- `JSON`（仅限SQL）。\n- `Enum`（仅限SQL）。\n- `Other`（仅限SQL）。"
+        "zh-CN": "- 所有Go数字类型。如`int`、`uint8`、`float64`等。\n- `bool`\n- `string`\n- `time.Time`\n- `UUID`\n- `[]byte`（仅限SQL）。\n- `JSON`（仅限SQL）。\n- `Enum`（仅限SQL）。\n- `Other`（仅限SQL）。"
       }
     },
     {
@@ -149,7 +149,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`id`字段是模式中内置的，无需声明。在基于SQL的数据库中，其类型默认为`int`（但可以通过[代码生成选项](code-gen.md#code-generation-options)更改），并在数据库中自动递增。"
+        "zh-CN": "`id`字段是模式中内置的，不需要声明。在基于SQL的数据库中，其类型默认为`int`（但可以通过[代码生成选项](code-gen.md#code-generation-options)更改），并在数据库中自动递增。"
       }
     },
     {
@@ -159,7 +159,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "若要将`id`字段配置为在所有表中唯一，请在运行模式迁移时使用[WithGlobalUniqueID](migrate.md#universal-ids)选项。"
+        "zh-CN": "要将`id`字段配置为在所有表中唯一，请在运行模式迁移时使用[WithGlobalUniqueID](migrate.md#universal-ids)选项。"
       }
     },
     {
@@ -169,7 +169,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "如果需要为`id`字段进行不同的配置，或者需要在应用程序创建实体时提供`id`值（例如UUID），可以覆盖内置的`id`配置。例如："
+        "zh-CN": "如果需要为`id`字段进行不同的配置，或者应用程序在创建实体时需要提供`id`值（例如UUID），可以覆盖内置的`id`配置。例如："
       }
     },
     {
@@ -249,7 +249,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "字段的默认类型是基本的Go类型。例如，字符串字段的类型是`string`，时间字段的类型是`time.Time`。`GoType`方法提供了用自定义类型覆盖默认ent类型的选项。"
+        "zh-CN": "字段的默认类型是基本的Go类型。例如，字符串字段的类型是`string`，时间字段的类型是`time.Time`。`GoType`方法提供了覆盖默认ent类型的选项。"
       }
     },
     {
@@ -259,7 +259,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "自定义类型必须是可以转换为Go基本类型的类型，或者实现了[ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field?tab=doc#ValueScanner)接口的类型，或者具有[外部ValueScanner](#external-valuescanner)。此外，如果提供的类型实现了Validator接口且未设置验证器，则将使用类型验证器。"
+        "zh-CN": "自定义类型必须是可以转换为Go基本类型的类型，实现了[ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field?tab=doc#ValueScanner)接口的类型，或者具有[外部ValueScanner](#external-valuescanner)。此外，如果提供的类型实现了Validator接口且未设置验证器，将使用类型验证器。"
       }
     },
     {
@@ -289,7 +289,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "Ent允许为基本或自定义Go类型附加自定义`ValueScanner`。这使得可以在不实现`ValueScanner`接口的情况下使用标准模式字段，同时控制它们在数据库中的存储方式。此外，此选项还允许用户使用未实现`ValueScanner`的`GoType`，例如`*url.URL`。"
+        "zh-CN": "Ent允许为基本或自定义Go类型附加自定义`ValueScanner`。这使得在使用标准模式字段的同时，可以控制它们如何存储在数据库中，而无需实现`ValueScanner`接口。此外，此选项还允许用户使用未实现`ValueScanner`的`GoType`，如`*url.URL`。"
       }
     },
     {
@@ -379,7 +379,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "可通过[`entsql.Annotation`](https://pkg.go.dev/entgo.io/ent@master/dialect/entsql#Annotation)为默认值配置添加SQL专用字面量或表达式（如函数调用）："
+        "zh-CN": "可通过[`entsql.Annotation`](https://pkg.go.dev/entgo.io/ent@master/dialect/entsql#Annotation)为默认值配置添加SQL特有的字面量或表达式（如函数调用）："
       }
     },
     {
@@ -399,7 +399,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "若`DefaultFunc`返回错误，建议通过[schema-hooks](hooks.md#schema-hooks)妥善处理，详见[此FAQ](faq.md#how-to-use-a-custom-generator-of-ids)"
+        "zh-CN": "若`DefaultFunc`需要返回错误，建议使用[schema-hooks](hooks.md#schema-hooks)进行正确处理，详见[此FAQ](faq.md#how-to-use-a-custom-generator-of-ids)"
       }
     },
     {
@@ -419,7 +419,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "字段验证器是形如`func(T) error`的函数，通过`Validate`方法在模式中定义，会在创建/更新实体前对字段值进行校验"
+        "zh-CN": "字段验证器是通过`Validate`方法在模式中定义的`func(T) error`类型函数，会在创建或更新实体前对字段值进行校验"
       }
     },
     {
@@ -429,7 +429,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "支持的验证器类型包括`string`及所有数值类型"
+        "zh-CN": "支持的验证器类型包括`string`和所有数值类型"
       }
     },
     {
@@ -449,7 +449,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "可复用验证器示例："
+        "zh-CN": "以下是可复用验证器的编写示例："
       }
     },
     {
@@ -479,7 +479,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "框架为每种类型提供内置验证器："
+        "zh-CN": "框架为每种类型提供以下内置验证器："
       }
     },
     {
@@ -489,7 +489,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "- 数值类型：\n  - `Positive()` - 必须为正数\n  - `Negative()` - 必须为负数\n  - `NonNegative()` - 必须非负\n  - `Min(i)` - 必须大于i\n  - `Max(i)` - 必须小于i\n  - `Range(i, j)` - 必须在[i, j]范围内\n\n- `string`类型：\n  - `MinLen(i)` - 最小长度\n  - `MaxLen(i)` - 最大长度\n  - `Match(regexp.Regexp)` - 正则匹配\n  - `NotEmpty` - 非空\n\n- `[]byte`类型：\n  - `MaxLen(i)`\n  - `MinLen(i)`\n  - `NotEmpty`"
+        "zh-CN": "- 数值类型：\n  - `Positive()` 正值\n  - `Negative()` 负值\n  - `NonNegative()` 非负值\n  - `Min(i)` 验证值 > i\n  - `Max(i)` 验证值 < i\n  - `Range(i, j)` 验证值在[i, j]范围内\n\n- `string`类型：\n  - `MinLen(i)` 最小长度\n  - `MaxLen(i)` 最大长度\n  - `Match(regexp.Regexp)` 正则匹配\n  - `NotEmpty` 非空\n\n- `[]byte`类型：\n  - `MaxLen(i)`\n  - `MinLen(i)`\n  - `NotEmpty`"
       }
     },
     {
@@ -509,7 +509,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "可选字段在实体创建时非必须，在数据库中会设置为可空字段。注意：**字段默认必填**，需显式调用`Optional`方法设为可选"
+        "zh-CN": "可选字段在实体创建时非必须，在数据库中会设置为可空字段。与边(edges)不同，**字段默认是必填的**，需显式调用`Optional`方法设为可选"
       }
     },
     {
@@ -539,7 +539,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "当需要区分字段零值与`nil`时（如数据库列含`0`或`NULL`），应使用`Nillable`选项"
+        "zh-CN": "当需要区分字段零值与`nil`时（如数据库列包含`0`或`NULL`），可使用`Nillable`选项"
       }
     },
     {
@@ -549,7 +549,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "对类型为`T`的`Optional`字段启用`Nillable`后，生成的结构体字段类型变为`*T`。数据库返回`NULL`时字段值为`nil`，否则为指向实际值的指针"
+        "zh-CN": "若将类型为`T`的`Optional`字段设为`Nillable`，生成的结构体字段类型会是`*T`。当数据库返回`NULL`时该字段为`nil`，否则为实际值的指针"
       }
     },
     {
@@ -559,7 +559,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "示例配置："
+        "zh-CN": "例如给定模式："
       }
     },
     {
@@ -579,7 +579,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "生成的`User`实体结构："
+        "zh-CN": "生成的`User`实体结构体如下："
       }
     },
     {
@@ -599,7 +599,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "#### 必填可空字段"
+        "zh-CN": "#### 必填的可空字段"
       }
     },
     {
@@ -609,7 +609,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`Nillable`字段还能避免未`Select`查询的字段在JSON序列化时出现零值，例如`time.Time`字段："
+        "zh-CN": "`Nillable`字段还能避免未通过`Select`查询的字段在JSON序列化时出现零值，例如`time.Time`字段"
       }
     },
     {
@@ -629,7 +629,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "生成的`Task`实体结构："
+        "zh-CN": "生成的`Task`实体结构体如下："
       }
     },
     {
@@ -649,7 +649,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "JSON序列化结果："
+        "zh-CN": "`json.Marshal`的输出结果："
       }
     },
     {
@@ -679,7 +679,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "不可变字段只能在实体创建时设置值。即实体更新构建器不会生成这些字段的setter方法。"
+        "zh-CN": "不可变字段只能在实体创建时设置，实体更新构建器不会为其生成setter方法。"
       }
     },
     {
@@ -739,7 +739,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "使用`.Comment()`方法可为字段添加注释。该注释会出现在生成实体代码的字段上方，支持使用`\\n`转义序列换行。"
+        "zh-CN": "使用`.Comment()`方法可为字段添加注释。该注释会出现在生成实体代码的字段上方，支持使用`\\n`换行符进行换行。"
       }
     },
     {
@@ -769,7 +769,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "通过`Deprecated`方法可标记字段为弃用状态。弃用字段在查询时默认不会被选中，且生成代码中会为这些字段添加`Deprecated`注解。"
+        "zh-CN": "通过`Deprecated`方法可标记字段为弃用状态。弃用字段在查询中默认不会被选中，生成代码中其结构体字段会标注`Deprecated`注解。"
       }
     },
     {
@@ -829,7 +829,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "索引可在多字段和某些边类型上定义，但需注意该特性目前仅支持SQL数据库。"
+        "zh-CN": "可在多字段及某些边类型上定义索引，但需注意该特性目前仅支持SQL数据库。"
       }
     },
     {
@@ -859,7 +859,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "通过`StructTag`方法可为生成的实体添加自定义结构体标签。若未提供该选项，或提供的标签未包含`json`标签，系统会自动添加带字段名的默认`json`标签。"
+        "zh-CN": "通过`StructTag`方法可为生成的结构体添加自定义标签。若未提供该选项，或提供的标签中不包含`json`标签，系统会自动添加以字段名为值的默认`json`标签。"
       }
     },
     {
@@ -889,7 +889,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "默认情况下，`ent`仅生成`schema.Fields`方法中配置的字段作为实体模型。例如给定如下模式配置："
+        "zh-CN": "默认情况下，`ent`仅根据`schema.Fields`方法配置的字段生成实体模型。例如给定如下模式配置："
       }
     },
     {
@@ -929,7 +929,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "若需添加不存储到数据库的附加字段，请使用[外部模板](code-gen.md/#external-templates)。例如："
+        "zh-CN": "如需添加不存储到数据库的附加字段，请使用[外部模板](code-gen.md/#external-templates)。例如："
       }
     },
     {
@@ -949,7 +949,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "生成的模型将包含："
+        "zh-CN": "生成的模型如下："
       }
     },
     {
@@ -979,7 +979,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "通过`Sensitive`方法可将字符串字段标记为敏感字段。敏感字段不会被打印输出，且在编码时会被忽略。"
+        "zh-CN": "通过`Sensitive`方法可将字符串字段标记为敏感字段。敏感字段不会被打印，且在编码时会被忽略。"
       }
     },
     {
@@ -1019,7 +1019,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`Enum`构建器支持创建带有允许值列表的枚举字段。"
+        "zh-CN": "`Enum`构建器可创建带有预定义值列表的枚举字段。"
       }
     },
     {
@@ -1039,7 +1039,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[[使用PostgreSQL原生枚举类型](/docs/migration/enum-types)]\n默认情况下，Ent在**PostgreSQL和SQLite**中使用简单字符串类型表示枚举值。但在某些场景下，可能需要使用数据库提供的原生枚举类型。具体操作请参考[枚举迁移指南](/docs/migration/enum-types)。\n:::"
+        "zh-CN": ":::info[[使用PostgreSQL原生枚举类型](/docs/migration/enum-types)]\n默认情况下，Ent在PostgreSQL和SQLite中使用简单字符串类型表示枚举值。但在某些场景下，可能需要使用数据库提供的原生枚举类型。具体操作请参阅[枚举迁移指南](/docs/migration/enum-types)。\n:::"
       }
     },
     {
@@ -1049,7 +1049,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "当使用自定义[`GoType`](#go-type)时，该类型必须可转换为基本`string`类型，或需实现[ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field#ValueScanner)接口。"
+        "zh-CN": "当使用自定义[Go类型](#go-type)时，该类型必须可转换为基本`string`类型，或需实现[ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field#ValueScanner)接口。"
       }
     },
     {
@@ -1059,7 +1059,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "自定义Go类型还需实现[EnumValues](https://pkg.go.dev/entgo.io/ent/schema/field#EnumValues)接口，用于告知Ent枚举的允许值范围。"
+        "zh-CN": "自定义Go类型还需实现[EnumValues](https://pkg.go.dev/entgo.io/ent/schema/field#EnumValues)接口，用于向Ent声明枚举的合法取值范围。"
       }
     },
     {
@@ -1089,7 +1089,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "实现[EnumValues](https://pkg.go.dev/entgo.io/ent/schema/field#EnumValues)接口。"
+        "zh-CN": "实现 [EnumValues](https://pkg.go.dev/entgo.io/ent/schema/field#EnumValues) 接口。"
       }
     },
     {
@@ -1109,7 +1109,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "以下示例展示了如何定义一个使用不可转换为`string`但实现了[ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field#ValueScanner)接口的自定义Go类型的`Enum`字段："
+        "zh-CN": "以下示例展示了如何定义一个使用不可转换为`string`但实现了 [ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field#ValueScanner) 接口的自定义Go类型的`Enum`字段："
       }
     },
     {
@@ -1129,7 +1129,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "同时实现[ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field?tab=doc#ValueScanner)接口。"
+        "zh-CN": "同时实现 [ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field?tab=doc#ValueScanner) 接口。"
       }
     },
     {
@@ -1199,7 +1199,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`Annotations`用于在代码生成时为字段对象附加任意元数据。模板扩展可以获取这些元数据并在模板中使用。"
+        "zh-CN": "`Annotations`用于在代码生成时为字段对象附加任意元数据。模板扩展可以读取这些元数据并在模板中使用。"
       }
     },
     {
@@ -1249,12 +1249,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "按照惯例，字段名应使用`snake_case`。`ent`生成的对应结构体字段将遵循Go语言的`PascalCase`命名规范。如需使用`PascalCase`命名，可通过`StorageKey`或`StructTag`方法实现。"
+        "zh-CN": "按照惯例，字段名应使用`snake_case`。由`ent`生成的对应结构体字段将遵循Go语言的`PascalCase`命名规范。如需使用`PascalCase`命名，可通过`StorageKey`或`StructTag`方法实现。"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/schema-fields.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.153394+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.772071+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "898ba18a90e295af89b7fe160705667eea058f37f1bf123993adf628180f118b"

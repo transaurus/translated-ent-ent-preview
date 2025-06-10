@@ -4,7 +4,7 @@ title: Generating a gRPC Service
 sidebar_label: Generating a Service
 ---
 
-从`ent.Schema`生成Protobuf结构体固然有用，但我们真正的目标是获得一个能实际操作数据库的CRUD服务端。只需修改一行代码即可实现：通过为schema添加`entproto.Service`注解，我们告知`entproto`代码生成器需要生成gRPC服务定义，`protoc-gen-entgrpc`将读取该定义并生成服务实现。编辑`ent/schema/user.go`修改schema的`Annotations`：
+从`ent.Schema`生成Protobuf结构体固然有用，但我们真正的目标是获得一个能实际操作数据库增删改查的服务器。只需修改一行代码即可实现：当我们用`entproto.Service`注解schema时，就告知`entproto`代码生成器需要生成gRPC服务定义，`protoc-gen-entgrpc`将读取该定义并生成服务实现。编辑`ent/schema/user.go`并修改schema的`Annotations`：
 
 ```go title="ent/schema/user.go" {4}
 func (User) Annotations() []schema.Annotation {
@@ -15,7 +15,7 @@ func (User) Annotations() []schema.Annotation {
 }
 ```
 
-现在重新运行代码生成：
+重新运行代码生成：
 
 ```console
 go generate ./...
@@ -32,7 +32,7 @@ ent/proto/entpb
 └── generate.go
 ```
 
-首先，`entproto`在`entpb.proto`中添加了服务定义：
+首先，`entproto`向`entpb.proto`添加了服务定义：
 
 ```protobuf title="ent/proto/entpb/entpb.proto"
 service UserService {
@@ -50,7 +50,7 @@ service UserService {
 }
 ```
 
-此外还新增了两个文件。第一个文件`entpb_grpc.pb.go`包含gRPC客户端存根和接口定义（文件中包含大量内容，其中主要有）：
+此外还新增了两个文件。第一个文件`entpb_grpc.pb.go`包含gRPC客户端存根和接口定义（其中包含大量代码，包括）：
 
 ```go title="ent/proto/entpb/entpb_grpc.pb.go"
 // UserServiceClient is the client API for UserService service.
@@ -99,4 +99,4 @@ func (svc *UserService) Get(ctx context.Context, req *GetUserRequest) (*User, er
 
 ```
 
-效果不错！接下来让我们创建可响应服务请求的gRPC服务器。
+效果不错！接下来我们将创建能响应服务请求的gRPC服务器。

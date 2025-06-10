@@ -19,7 +19,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "本文档包含对Ent文档网站贡献修改的指南。"
+        "zh-CN": "本文档包含了对Ent文档网站贡献修改的指南。"
       }
     },
     {
@@ -39,7 +39,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "遵循以下简短指南来贡献文档改进和新增内容："
+        "zh-CN": "按照以下简短指南贡献文档改进和新增内容："
       }
     },
     {
@@ -59,7 +59,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "1\\. [Fork并本地克隆](https://docs.github.com/en/github/getting-started-with-github/quickstart/fork-a-repo) \n[主仓库](https://github.com/ent/ent)。"
+        "zh-CN": "1\\. [Fork并本地克隆](https://docs.github.com/en/github/getting-started-with-github/quickstart/fork-a-repo)项目[主仓库](https://github.com/ent/ent)。"
       }
     },
     {
@@ -69,7 +69,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "2\\. 文档站点使用[Docusaurus](https://docusaurus.io/)构建，运行需要安装[Node.js](https://nodejs.org/en/)。"
+        "zh-CN": "2\\. 文档站点使用[Docusaurus](https://docusaurus.io/)构建，运行需要先安装[Node.js](https://nodejs.org/en/)。"
       }
     },
     {
@@ -79,7 +79,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "3\\. 安装依赖项："
+        "zh-CN": "3\\. 安装依赖："
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "5\\. 在浏览器中访问 [http://localhost:3000](http://localhost:3000)。"
+        "zh-CN": "5\\. 在浏览器中打开[http://localhost:3000](http://localhost:3000)。"
       }
     },
     {
@@ -139,7 +139,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "* 文档文件位于`doc/md`目录，采用[Markdown格式](https://en.wikipedia.org/wiki/Markdown)\n  并包含顶部\"front-matter\"样式注解。详细了解Docusaurus的[文档格式](https://docusaurus.io/docs/docs-introduction)。\n* Ent采用[Golang提交信息](https://github.com/golang/go/wiki/CommitMessage)格式保持仓库历史清晰可读。\n  提交时请使用如下格式的提交信息："
+        "zh-CN": "* 文档文件位于`doc/md`目录，采用[Markdown格式](https://en.wikipedia.org/wiki/Markdown)编写，顶部包含\"front-matter\"样式注解。详细了解Docusaurus的[文档格式](https://docusaurus.io/docs/docs-introduction)。\n* Ent采用[Golang提交信息](https://github.com/golang/go/wiki/CommitMessage)格式保持仓库历史清晰可读。提交时请使用如下格式的提交信息："
       }
     },
     {
@@ -199,7 +199,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "其中`id`应为文档唯一标识符，需与文件名（不含`.md`后缀）保持一致，`title`是文档标题，将显示在页面和站点导航元素中。"
+        "zh-CN": "其中`id`应为文档唯一标识符，需与文件名（不含`.md`后缀）保持一致；`title`是文档标题，将显示在页面和站点导航元素中。"
       }
     },
     {
@@ -209,7 +209,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "3\\. 若需页面显示在文档网站侧边栏，将其`id`添加至`website/sidebars.js`，例如："
+        "zh-CN": "3\\. 若要使页面出现在文档网站侧边栏，需将其`id`添加至`website/sidebars.js`文件，例如："
       }
     },
     {
@@ -224,7 +224,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/writing-docs.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.164706+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.775380+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "ff4ae62f7f44f366f29166b70d6a0e9c17d0eeacdaf9d0cea45cfcabaece1d6b"

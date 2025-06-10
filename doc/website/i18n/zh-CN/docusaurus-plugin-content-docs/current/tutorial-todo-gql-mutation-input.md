@@ -4,11 +4,11 @@ title: Mutation Inputs
 sidebar_label: Mutation Inputs
 ---
 
-本节我们将延续[GraphQL示例](tutorial-todo-gql.mdx)，讲解如何通过Go模板扩展Ent代码生成器，并为GraphQL变更操作生成可直接应用于Ent变更的[输入类型](https://graphql.org/graphql-js/mutations-and-input-types/)对象。
+本节我们将通过扩展Ent代码生成器，使用Go模板为GraphQL突变生成可直接应用于Ent突变的[输入类型](https://graphql.org/graphql-js/mutations-and-input-types/)对象，继续完善[GraphQL示例](tutorial-todo-gql.mdx)。
 
 #### 克隆代码（可选）
 
-本教程代码托管于[github.com/a8m/ent-graphql-example](https://github.com/a8m/ent-graphql-example)，每个步骤都有对应的Git标签。若想跳过基础配置直接使用GraphQL服务器的初始版本，可按以下方式克隆仓库并运行程序：
+本教程代码托管于[github.com/a8m/ent-graphql-example](https://github.com/a8m/ent-graphql-example)，每个步骤都对应Git标签。若想跳过基础配置直接使用GraphQL服务器的初始版本，可按以下方式克隆仓库并运行程序：
 
 ```console
 git clone git@github.com:a8m/ent-graphql-example.git
@@ -16,9 +16,9 @@ cd ent-graphql-example
 go run ./cmd/todo/
 ```
 
-## 变更类型
+## 突变类型
 
-Ent支持生成变更类型。这类类型可作为GraphQL变更的输入参数，并由Ent进行处理验证。我们需要声明GraphQL的`Todo`类型支持创建和更新操作：
+Ent支持生成突变类型。这些类型可作为GraphQL突变的输入，由Ent进行处理和验证。以下配置声明我们的GraphQL `Todo`类型支持创建和更新操作：
 
 ```go title="ent/schema/todo.go"
 func (Todo) Annotations() []schema.Annotation {
@@ -30,17 +30,17 @@ func (Todo) Annotations() []schema.Annotation {
 }
 ```
 
-接着运行代码生成：
+运行代码生成命令：
 
 ```go
 go generate .
 ```
 
-您会注意到Ent已生成两种类型：`ent.CreateTodoInput`和`ent.UpdateTodoInput`。
+您将注意到Ent生成了两种类型：`ent.CreateTodoInput`和`ent.UpdateTodoInput`。
 
-## 变更操作
+## 突变实现
 
-生成变更输入类型后，我们可以将其与GraphQL变更操作关联：
+生成突变输入类型后，可将其与GraphQL突变进行绑定：
 
 ```graphql title="todo.graphql"
 type Mutation {
@@ -49,7 +49,7 @@ type Mutation {
 }
 ```
 
-运行代码生成将创建实际变更操作，最后只需将解析器与Ent绑定即可。
+运行代码生成将产生实际突变，最后只需将解析器与Ent绑定即可。
 
 ```go
 go generate .
@@ -69,9 +69,9 @@ func (r *mutationResolver) UpdateTodo(ctx context.Context, id int, input ent.Upd
 
 ## 测试`CreateTodo`解析器
 
-首先通过执行两次`createTodo`变更来创建2个待办事项。
+首先通过执行两次`createTodo`突变来创建2个待办事项。
 
-#### 变更语句
+#### 突变语句
 
 ```graphql
 mutation CreateTodo {
@@ -103,7 +103,7 @@ mutation CreateTodo {
 }
 ```
 
-#### 变更语句
+#### 突变语句
 
 ```graphql
 mutation CreateTodo {
@@ -137,7 +137,7 @@ mutation CreateTodo {
 
 ## 测试`UpdateTodo`解析器
 
-最后测试`UpdateTodo`解析器，将第二个待办事项的`parent`字段更新为`1`：
+最后测试`UpdateTodo`解析器，将第二个待办事项的`parent`字段更新为`1`。
 
 ```graphql
 mutation UpdateTodo {
@@ -173,9 +173,9 @@ mutation UpdateTodo {
 }
 ```
 
-## 通过变更创建关联边
+## 通过突变创建边关系
 
-若要在同个变更中创建节点的关联边，可扩展GQL变更输入类型添加边字段：
+若要在同一次突变中创建节点的边关系，可扩展GQL突变输入的边字段：
 
 ```graphql title="extended.graphql"
 extend input CreateTodoInput {
@@ -189,7 +189,7 @@ extend input CreateTodoInput {
 go generate .
 ```
 
-GQLGen会为`createChildren`字段生成解析器，您可以在解析器中调用：
+GQLGen将生成`createChildren`字段的解析器，您可以在解析器中调用：
 
 ```go title="extended.resolvers.go"
 // CreateChildren is the resolver for the createChildren field.
@@ -242,9 +242,9 @@ func (r *mutationResolver) UpdateTodo(ctx context.Context, id int, input ent.Upd
 }
 ```
 
-测试带子节点的变更操作：
+测试带子节点的突变：
 
-**变更语句**
+**突变语句**
 
 ```graphql
 mutation {
@@ -291,7 +291,7 @@ mutation {
 }
 ```
 
-若启用调试客户端，可见子节点是在同一事务中创建的：
+若启用调试客户端，可见子节点创建于同一事务中：
 
 ```log
 2022/12/14 00:27:41 driver.Tx(7e04b00b-7941-41c5-9aee-41c8c2d85312): started

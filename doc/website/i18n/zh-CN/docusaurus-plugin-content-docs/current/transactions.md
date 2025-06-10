@@ -58,17 +58,17 @@ func rollback(tx *ent.Tx, err error) error {
 }
 ```
 
-若需在事务成功后查询已创建实体的关联边（例如 `a8m.QueryGroups()`），必须调用 `Unwrap()` 方法。该方法会将实体内部封装的底层客户端状态恢复为非事务模式。
+若需在事务成功后查询已创建实体的关联边（例如 `a8m.QueryGroups()`），必须调用 `Unwrap()` 方法。该方法会将实体内部嵌入的底层客户端状态恢复为非事务版本。
 
 :::warning[注意]
-对非事务性实体调用 `Unwrap()`（例如事务已提交或回滚后）将引发 panic。
+对非事务性实体（即事务已提交或回滚后）调用 `Unwrap()` 将引发 panic。
 :::
 
-完整示例参见 [GitHub](https://github.com/ent/ent/tree/master/examples/traversal)。
+完整示例见 [GitHub](https://github.com/ent/ent/tree/master/examples/traversal)。
 
-## 事务客户端
+## 事务型客户端
 
-当现有代码已基于 `*ent.Client` 实现，且需要改造（或封装）为事务交互时，可通过事务获取事务客户端。该 `*ent.Client` 实例派生自现有事务。
+当现有代码已使用 `*ent.Client` 且需要改造（或封装）为事务交互时，可通过事务获取事务型客户端——即基于现有事务的 `*ent.Client`。
 
 ```go
 // WrapGen wraps the existing "Gen" function in a transaction.
@@ -92,7 +92,7 @@ func Gen(ctx context.Context, client *ent.Client) error {
 }
 ```
 
-完整示例参见 [GitHub](https://github.com/ent/ent/tree/master/examples/traversal)。
+完整示例见 [GitHub](https://github.com/ent/ent/tree/master/examples/traversal)。
 
 ## 最佳实践
 
@@ -138,7 +138,7 @@ func Do(ctx context.Context, client *ent.Client) {
 
 ## 钩子
 
-与[模式钩子](hooks.md#schema-hooks)和[运行时钩子](hooks.md#runtime-hooks)类似，可在活跃事务上注册钩子，这些钩子将在 `Tx.Commit` 或 `Tx.Rollback` 时执行：
+与[模式钩子](hooks.md#schema-hooks)和[运行时钩子](hooks.md#runtime-hooks)类似，可在活跃事务上注册钩子，这些钩子将在执行 `Tx.Commit` 或 `Tx.Rollback` 时触发：
 
 ```go
 func Do(ctx context.Context, client *ent.Client) error {

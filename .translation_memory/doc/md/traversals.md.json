@@ -129,7 +129,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "接下来编写代码，将顶点和边填充到图中："
+        "zh-CN": "接下来编写填充顶点和边的代码："
       }
     },
     {
@@ -149,7 +149,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "让我们通过几个遍历示例来展示相关代码："
+        "zh-CN": "让我们通过几个遍历示例来展示具体实现："
       }
     },
     {
@@ -169,7 +169,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "上述遍历从 `Group` 实体开始，经过其 `admin`（边），继续到其 `friends`（边），获取它们的 `pets`（边），再获取每只宠物的 `friends`（边），最终请求这些宠物的主人。"
+        "zh-CN": "上述遍历从 `Group` 实体开始，通过其 `admin`（边）继续遍历，\n接着通过 `friends`（边）遍历，获取它们的 `pets`（边），\n再获取每只宠物的 `friends`（边），最终查询这些宠物对应的主人。"
       }
     },
     {
@@ -189,7 +189,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "那么以下遍历又如何呢？"
+        "zh-CN": "那么下面这个遍历又该如何实现？"
       }
     },
     {
@@ -209,7 +209,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "我们希望获取所有满足条件的宠物（实体）：这些宠物的 `owner`（边）是某个群组 `admin`（边）的 `friend`（边）。"
+        "zh-CN": "我们需要获取所有满足条件的宠物（实体）：这些宠物的 `owner`（边）\n是某个群组 `admin`（边）的 `friend`（边）。"
       }
     },
     {
@@ -234,7 +234,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/traversals.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.158755+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.775181+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "9198775f9d8a831c4ef681b7d9b878f79bbc15435c1db6bd2b95e0c6236b28a8"

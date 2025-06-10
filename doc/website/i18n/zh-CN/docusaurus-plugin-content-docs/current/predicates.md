@@ -16,20 +16,20 @@ title: Predicates
 - **字符串类型**:
   - =, !=, >, <, >=, <=
   - IN, NOT IN
-  - 包含(Contains), 前缀匹配(HasPrefix), 后缀匹配(HasSuffix)
-  - 不区分大小写包含(ContainsFold), 不区分大小写匹配(EqualFold) (**SQL**特有)
+  - Contains(包含), HasPrefix(前缀匹配), HasSuffix(后缀匹配)
+  - ContainsFold(不区分大小写包含), EqualFold(不区分大小写相等) (**SQL**特有)
 - **JSON类型**
   - =, !=
   - 对嵌套值使用=, !=, >, <, >=, <= (JSON路径)
-  - 对嵌套值使用包含检查(Contains) (JSON路径)
-  - 检查键是否存在(HasKey), 数组长度检查(Len&lt;P>)
+  - 对嵌套值使用Contains(包含) (JSON路径)
+  - HasKey(检查键存在), Len&lt;P>(检查数组长度)
   - 对嵌套值检查`null`字面量 (JSON路径)
 - **可选字段**:
-  - 为空(IsNil), 非空(NotNil)
+  - IsNil(为空), NotNil(非空)
 
 ## 边(Edge)谓词
 
-- **HasEdge**。例如，对于名为`owner`且类型为`Pet`的边，使用：
+- **HasEdge(存在边)**。例如，对于名为`owner`且类型为`Pet`的边，使用：
 
   ```go
    client.Pet.
@@ -38,7 +38,7 @@ title: Predicates
 		All(ctx)
   ```
 
-- **HasEdgeWith**。为边谓词添加谓词列表。
+- **HasEdgeWith(带条件的边)**。为边谓词添加谓词列表。
 
   ```go
    client.Pet.
@@ -47,7 +47,7 @@ title: Predicates
 		All(ctx)
   ```
 
-## 逻辑非(NOT)
+## 否定(NOT)
 
 ```go
 client.Pet.
@@ -56,7 +56,7 @@ client.Pet.
 	All(ctx)
 ```
 
-## 逻辑或(OR)
+## 析取(OR)
 
 ```go
 client.Pet.
@@ -70,7 +70,7 @@ client.Pet.
 	All(ctx)
 ```
 
-## 逻辑与(AND)
+## 合取(AND)
 
 ```go
 client.Pet.
@@ -86,7 +86,7 @@ client.Pet.
 
 ## 自定义谓词
 
-当需要编写特定于数据库方言的逻辑或控制执行查询时，自定义谓词会非常有用。
+当需要编写特定于数据库方言的逻辑或控制执行的查询时，自定义谓词会非常有用。
 
 #### 获取用户1、2和3的所有宠物
 
@@ -105,7 +105,7 @@ pets := client.Pet.
 SELECT DISTINCT `pets`.`id`, `pets`.`owner_id` FROM `pets` WHERE `owner_id` IN (1, 2, 3)
 ```
 
-#### 统计JSON字段`URL`中包含`Scheme`键的用户数量
+#### 统计JSON字段`URL`包含`Scheme`键的用户数量
 
 ```go
 count := client.User.
@@ -136,7 +136,7 @@ users := client.User.Query().
 	AllX(ctx)
 ```
 
-该查询可以改写为三种形式：`IN`、`EXISTS`和`JOIN`。
+该查询可以改写为三种形式：`IN`、`EXISTS`和`JOIN`
 
 ```go
 // `IN` version.
@@ -187,10 +187,10 @@ SELECT DISTINCT `users`.`id`, `users`.`age`, `users`.`name` FROM `users` JOIN `c
 SELECT DISTINCT `users`.`id`, `users`.`age`, `users`.`name` FROM `users` WHERE EXISTS (SELECT * FROM `cars` WHERE `cars`.`model` = 'Tesla' AND `users`.`id` = `cars`.`owner_id`)
 ```
 
-#### 获取名称包含特定模式的宠物
+#### 获取名称符合特定模式的宠物
 
 生成的代码提供了`HasPrefix`、`HasSuffix`、`Contains`和`ContainsFold`谓词用于模式匹配。
-但若需使用带有自定义模式的`LIKE`操作符，请参考以下示例。
+但如需使用带有自定义模式的`LIKE`操作符，请参考以下示例。
 
 ```go
 pets := client.Pet.Query().
@@ -208,7 +208,7 @@ SELECT DISTINCT `pets`.`id`, `pets`.`owner_id`, `pets`.`name`, `pets`.`age`, `pe
 
 #### 自定义SQL函数
 
-如需使用内置SQL函数如`DATE()`，可通过以下方式实现：
+要使用内置SQL函数如`DATE()`，可通过以下方式实现：
 
 1\. 使用`sql.P`选项传递方言感知的谓词函数：
 
@@ -248,7 +248,7 @@ SELECT `id` FROM `users` WHERE DATE(`last_login_at`) >= ?
 
 ## JSON谓词
 
-JSON谓词默认不会作为代码生成的一部分自动生成。但ent官方提供了[`sqljson`](https://pkg.go.dev/entgo.io/ent/dialect/sql/sqljson)包，可通过[自定义谓词选项](#custom-predicates)对JSON列应用谓词操作。
+JSON谓词默认不会作为代码生成的一部分自动生成。但ent提供了一个名为[`sqljson`](https://pkg.go.dev/entgo.io/ent/dialect/sql/sqljson)的官方包，可通过[自定义谓词选项](#custom-predicates)对JSON列应用谓词操作。
 
 #### 比较JSON值
 
@@ -282,7 +282,7 @@ sqljson.ValueIsNull(user.FieldData, sqljson.Path("attributes"))
 sqljson.ValueIsNull(user.FieldData, sqljson.DotPath("attributes[1].body"))
 ```
 
-需注意：`ValueIsNull`仅在值为JSON `null`时返回true，而数据库`NULL`不会触发。
+注意：`ValueIsNull`仅在值为JSON `null`时返回true，不适用于数据库的`NULL`值。
 
 #### 比较JSON数组长度
 
@@ -305,7 +305,7 @@ sqljson.ValueContains(user.FieldData, attrs, sqljson.Path("attributes"))
 sqljson.ValueContains(user.FieldData, code, sqljson.DotPath("attributes[0].status_code"))
 ```
 
-#### 检查JSON字符串值是否包含子串/具有前后缀
+#### 检查JSON字符串值是否包含子串/特定前缀/后缀
 
 ```go
 sqljson.StringContains(user.FieldURL, "github", sqljson.Path("host"))
@@ -325,7 +325,7 @@ sqljson.ValueNotIn(user.FieldURL, []any{"github", "gitlab"}, sqljson.Path("Host"
 
 ## 字段比较
 
-`dialect/sql`包提供了一组比较函数，可用于在查询中进行字段比较。
+`dialect/sql`包提供了一组比较函数，可用于查询中的字段比较。
 
 ```go
 client.Order.Query().

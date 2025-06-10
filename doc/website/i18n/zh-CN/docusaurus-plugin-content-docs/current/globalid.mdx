@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem';
 原方案通过名为`ent_types`的表存储Ent模式与ID范围的映射关系，新方案改用静态配置文件存储映射。要迁移至新版全局ID功能，可使用`entfix`命令将现有`ent_types`表转换至新配置文件。
 
 :::warning[注意]
-请注意，不同部署环境中`ent_types`表可能存在差异（尤其在使用自动迁移而非版本化迁移时）。必须确保所有部署环境的`ent_types`表完全一致，否则无法转换至新版全局ID功能。
+请注意，不同部署环境中的`ent_types`表可能存在差异（尤其在使用自动迁移而非版本化迁移时）。必须确保所有部署环境的`ent_types`表完全一致，否则无法转换至新版全局ID功能。
 :::
 
 第一步通过以下命令安装`entfix`工具：
@@ -20,7 +20,7 @@ import TabItem from '@theme/TabItem';
 go install entgo.io/ent/cmd/entfix@latest
 ```
 
-随后运行`entfix globalid`命令迁移至全局ID功能。该命令需访问数据库读取`ent_types`表，可连接生产数据库、只读副本，或版本化迁移场景下已应用全部迁移的临时数据库。
+随后运行`entfix globalid`命令迁移至全局ID功能。该命令需访问数据库读取`ent_types`表，可连接生产数据库、只读副本，或版本化迁移场景下的临时数据库（需已应用全部迁移）。
 
 ```shell
 entfix globalid --dialect mysql --dsn "root:pass@tcp(localhost:3306)/app" --path ./ent
@@ -43,11 +43,11 @@ IMPORTANT INFORMATION
 Success! Please run code generation to complete the process.
 ```
 
-最后重新执行代码生成，若生成代码中出现包含`const IncrementStarts`的单行文件`internal/globalid.go`即表示迁移成功。最终需移除迁移配置中的`migrate.WithGlobalUniqueID(true)`选项。
+最后重新运行代码生成，若生成代码中出现包含`const IncrementStarts`的单行文件`internal/globalid.go`即表示迁移成功。最终需移除迁移配置中的`migrate.WithGlobalUniqueID(true)`选项。
 
 # 可选：保留`ent_types`表
 
-如需保留`ent_types`表作为回滚保障（确认无需回滚后再删除），可使用Atlas组合模式：
+如需保留`ent_types`表作为回滚保障（确认无需回滚前不删除），可通过Atlas组合模式实现：
 
 <Tabs
 defaultValue="schema"
@@ -106,14 +106,14 @@ env {
 
 ## 全局唯一ID（已废弃的迁移选项）
 
-默认情况下，SQL主键从每张表的1开始递增，这意味着不同类型的实体可能共享相同ID。这与AWS Neptune使用UUID作为节点ID的机制不同。
+默认情况下，SQL主键从每张表的1开始递增，这意味着不同类型的实体可能具有相同ID。这与AWS Neptune使用UUID作为节点ID的机制不同。
 
-此机制与[GraphQL](https://graphql.org/learn/schema/#scalar-types)要求对象ID全局唯一的特性存在冲突。
+此机制与[GraphQL](https://graphql.org/learn/schema/#scalar-types)规范存在冲突，因其要求对象ID必须全局唯一。
 
-要为项目启用全局唯一ID支持，需向迁移传递`WithGlobalUniqueID`选项。
+要启用全局唯一ID支持，需向迁移传递`WithGlobalUniqueID`选项。
 
 :::note
-使用MySQL 5.*的版本化迁移用户配置`WithGlobalUniqueID`时，请遵循[相关文档](versioned-migrations.mdx#a-word-on-global-unique-ids)。
+使用MySQL 5.*的版本化迁移用户，在启用`WithGlobalUniqueID`时应参考[相关文档](versioned-migrations.mdx#a-word-on-global-unique-ids)。
 :::
 
 ```go
@@ -141,6 +141,6 @@ func main() {
 }
 ```
 
-**实现原理**：Ent迁移为每个实体类型（表）分配1<<32的ID范围，并将映射关系存储在`ent_types`表中。例如类型A的ID范围为`[1,4294967296)`，类型B为`[4294967296,8589934592)`，以此类推。
+**实现原理**：Ent迁移为每个实体类型（表）分配1<<32的ID范围，并将该信息存储在`ent_types`表中。例如类型A的ID范围为`[1,4294967296)`，类型B为`[4294967296,8589934592)`，以此类推。
 
 注意：启用此选项后，最大支持表数为**65535**。

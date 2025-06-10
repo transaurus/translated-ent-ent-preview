@@ -29,7 +29,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "[Postgres扩展](https://www.postgresql.org/docs/current/sql-createextension.html)是通过提供新数据类型、操作符、函数、过程语言等功能来增强数据库的附加模块。"
+        "zh-CN": "[Postgres扩展](https://www.postgresql.org/docs/current/sql-createextension.html)是通过提供新数据类型、运算符、函数、过程语言等功能来增强数据库的附加模块。"
       }
     },
     {
@@ -109,7 +109,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`ent/schema`包主要用于定义Ent类型（对象）、其字段、边和逻辑。像`postgis`或`hstore`这样的扩展在Ent模式中没有表示形式。Postgres扩展可以在Postgres数据库中安装一次，并可在不同模式中多次使用。"
+        "zh-CN": "`ent/schema`包主要用于定义Ent类型（对象）、字段、边和逻辑。像`postgis`或`hstore`这样的扩展在Ent模式中没有表示形式。Postgres扩展可以在数据库中安装一次，并可在不同模式中多次使用。"
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "为了将PostgreSQL模式迁移扩展到包括扩展和我们的Ent类型，我们配置Atlas从[复合模式](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)数据源读取模式状态。按照以下步骤为您的项目进行配置："
+        "zh-CN": "为了将PostgreSQL模式迁移扩展到包括扩展和Ent类型，我们配置Atlas从[复合模式](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)数据源读取模式状态。按照以下步骤为项目进行配置："
       }
     },
     {
@@ -129,7 +129,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "1\\. 创建一个`schema.sql`文件，定义数据库所需的扩展。同样，您可以在[Atlas Schema HCL语言](https://atlasgo.io/atlas-schema/hcl-types#extension)中定义扩展："
+        "zh-CN": "1\\. 创建`schema.sql`定义数据库所需的扩展。同样，您可以用[Atlas Schema HCL语言](https://atlasgo.io/atlas-schema/hcl-types#extension)定义扩展："
       }
     },
     {
@@ -149,7 +149,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "2\\. 在Ent模式中，定义一个使用扩展提供的数据类型的字段。在本例中，我们使用`postgis`扩展提供的`GEOMETRY(Point, 4326)`数据类型："
+        "zh-CN": "2\\. 在Ent模式中，定义使用扩展提供的数据类型的字段。在此示例中，我们使用`postgis`扩展提供的`GEOMETRY(Point, 4326)`数据类型："
       }
     },
     {
@@ -169,7 +169,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "3\\. 创建一个简单的`atlas.hcl`配置文件，其中包含一个`composite_schema`，该模式包括`schema.sql`中定义的扩展和您的Ent模式："
+        "zh-CN": "3\\. 创建一个简单的`atlas.hcl`配置文件，其中包含`composite_schema`，该模式同时包括`schema.sql`中定义的扩展和您的Ent模式："
       }
     },
     {
@@ -199,7 +199,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "设置好复合模式后，我们可以使用`atlas schema inspect`命令获取其表示形式，为其生成模式迁移，将其应用到数据库等。以下是一些帮助您开始使用Atlas的命令："
+        "zh-CN": "设置复合模式后，我们可以使用`atlas schema inspect`命令获取其表示形式，为其生成模式迁移，将其应用到数据库等。以下是一些入门Atlas的命令："
       }
     },
     {
@@ -219,7 +219,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`atlas schema inspect`命令通常用于检查数据库。但我们也可以使用它来检查`composite_schema`并打印其SQL表示形式："
+        "zh-CN": "`atlas schema inspect`命令通常用于检查数据库。但我们也可以用它来检查`composite_schema`并打印其SQL表示形式："
       }
     },
     {
@@ -259,7 +259,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[扩展是数据库级对象]\n尽管`CREATE EXTENSION`命令支持`SCHEMA`参数，但它仅指示扩展对象将安装在何处。扩展本身安装在数据库级别，无法多次加载到不同模式中。\n\n因此，为了避免与其他模式冲突，在使用扩展时，迁移的范围应设置为数据库，其中对象使用模式名称限定。因此，在`atlas.hcl`文件中，开发数据库URL中的`search_path`被删除。\n:::"
+        "zh-CN": ":::info[扩展是数据库级对象]\n尽管`CREATE EXTENSION`命令支持`SCHEMA`参数，但它仅指示扩展对象的安装位置。扩展本身安装在数据库级别，无法多次加载到不同模式中。\n\n因此，为避免与其他模式冲突，在使用扩展时，迁移的范围应设置为数据库级别，其中对象使用模式名称限定。因此，在`atlas.hcl`文件中，开发数据库URL中的`search_path`被移除。\n:::"
       }
     },
     {
@@ -299,7 +299,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "注意，将创建一个新的迁移文件，其内容如下："
+        "zh-CN": "注意，将创建一个包含以下内容的新迁移文件："
       }
     },
     {
@@ -349,7 +349,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[直接向数据库应用模式]\n\n有时需要在不生成迁移文件的情况下直接将模式应用到数据库。例如，在测试模式变更或启动测试数据库时。此时可使用以下命令直接将模式应用到数据库：\n\n```shell\natlas schema apply \\\n  --env local \\\n  --url \"postgres://postgres:pass@localhost:5432/database?sslmode=disable\"\n```\n\n或使用 [Atlas Go SDK](https://github.com/ariga/atlas-go-sdk)：\n\n```go\nac, err := atlasexec.NewClient(\".\", \"atlas\")\nif err != nil {\n\tlog.Fatalf(\"failed to initialize client: %w\", err)\n}\n// 自动用目标模式更新数据库\n// 另一种选择是手动使用 'migrate apply' 或 'schema apply'\nif _, err := ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{\n\tEnv: \"local\",\n\tURL: \"postgres://postgres:pass@localhost:5432/database?sslmode=disable\",\n\tAutoApprove: true,\n}); err != nil {\n    log.Fatalf(\"failed to apply schema changes: %w\", err)\n}\n```\n\n:::"
+        "zh-CN": ":::info[直接向数据库应用模式]\n\n有时需要不生成迁移文件而直接将模式应用到数据库。例如，在试验模式变更、为测试启动数据库等场景中。此时可使用以下命令直接将模式应用到数据库：\n\n```shell\natlas schema apply \\\n  --env local \\\n  --url \"postgres://postgres:pass@localhost:5432/database?sslmode=disable\"\n```\n\n或使用 [Atlas Go SDK](https://github.com/ariga/atlas-go-sdk)：\n\n```go\nac, err := atlasexec.NewClient(\".\", \"atlas\")\nif err != nil {\n\tlog.Fatalf(\"failed to initialize client: %w\", err)\n}\n// 自动用目标模式更新数据库\n// 另一种选择是手动使用 'migrate apply' 或 'schema apply'\nif _, err := ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{\n\tEnv: \"local\",\n\tURL: \"postgres://postgres:pass@localhost:5432/database?sslmode=disable\",\n\tAutoApprove: true,\n}); err != nil {\n    log.Fatalf(\"failed to apply schema changes: %w\", err)\n}\n```\n\n:::"
       }
     },
     {
@@ -359,12 +359,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "本指南的完整代码可在 [GitHub](https://github.com/ent/ent/tree/master/examples/enumtypes) 查看。"
+        "zh-CN": "本指南的代码可在 [GitHub](https://github.com/ent/ent/tree/master/examples/enumtypes) 获取。"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/migration/extension.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.147509+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.767973+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "4498b793c10bfbbfe24571ccd1fef40a1ed6eff9c57e3cb12559eea274ef5e72"

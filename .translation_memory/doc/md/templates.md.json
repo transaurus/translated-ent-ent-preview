@@ -19,7 +19,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`ent` 接受外部的 [Go 模板](https://golang.org/pkg/text/template)，通过 `--template` 标志执行。  \n若模板名称已被 `ent` 预定义，则会覆盖现有模板；否则，执行输出将写入与模板同名的文件中。例如："
+        "zh-CN": "`ent` 通过 `--template` 标志支持执行外部的 [Go 模板](https://golang.org/pkg/text/template)。若模板名称已被 `ent` 预定义，则会覆盖原有模板；否则会将执行输出写入与模板同名的文件中。例如："
       }
     },
     {
@@ -29,7 +29,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`stringer.tmpl` - 此模板示例将写入名为 `ent/stringer.go` 的文件中。"
+        "zh-CN": "`stringer.tmpl` - 此模板示例将写入名为 `ent/stringer.go` 的文件。"
       }
     },
     {
@@ -49,7 +49,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`debug.tmpl` - 此模板示例将写入名为 `ent/debug.go` 的文件中。"
+        "zh-CN": "`debug.tmpl` - 此模板示例将写入名为 `ent/debug.go` 的文件。"
       }
     },
     {
@@ -69,7 +69,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "若要覆盖现有模板，需使用其原名称。例如："
+        "zh-CN": "如需覆盖现有模板，请使用其名称。例如："
       }
     },
     {
@@ -99,7 +99,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "如前所述，`ent` 会将每个模板的执行输出写入与模板同名的文件中。  \n例如，定义为 `{{ define \"stringer\" }}` 的模板输出将写入 `ent/stringer.go` 文件。"
+        "zh-CN": "如前所述，`ent` 会将每个模板的执行输出写入与模板同名的文件中。例如，定义为 `{{ define \"stringer\" }}` 的模板输出将写入 `ent/stringer.go` 文件。"
       }
     },
     {
@@ -139,7 +139,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "2\\. `{{ define \"<root-template>/helper/.+\" }}` 用于局部辅助模板。若模板的执行输出会写入文件，则视为\"根模板\"。例如："
+        "zh-CN": "2\\. `{{ define \"<root-template>/helper/.+\" }}` 用于局部辅助模板。若模板的执行输出会写入文件，则该模板被视为\"根\"模板。例如："
       }
     },
     {
@@ -169,7 +169,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "模式注解允许将元数据附加到字段和边，并将其注入外部模板。  \n注解必须是可序列化为 JSON 原始值的 Go 类型（如结构体、映射或切片），并实现 [Annotation](https://pkg.go.dev/entgo.io/ent/schema?tab=doc#Annotation) 接口。"
+        "zh-CN": "模式注解允许将元数据附加到字段和边，并注入到外部模板中。注解必须是可序列化为 JSON 原始值的 Go 类型（如结构体、映射或切片），且需实现 [Annotation](https://pkg.go.dev/entgo.io/ent/schema?tab=doc#Annotation) 接口。"
       }
     },
     {
@@ -179,7 +179,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "以下为注解定义及其在模式和模板中的使用示例："
+        "zh-CN": "以下为注解在模式和模板中的使用示例："
       }
     },
     {
@@ -339,7 +339,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "- 为 GraphQL 实现 `Node` API 的自定义模板 -  \n[GitHub](https://github.com/ent/ent/blob/master/entc/integration/template/ent/template/node.tmpl)\n\n- 使用自定义函数执行外部模板的示例。参见 [配置](https://github.com/ent/ent/blob/master/examples/entcpkg/ent/entc.go) 及其  \n[README](https://github.com/ent/ent/blob/master/examples/entcpkg) 文件。"
+        "zh-CN": "- 为 GraphQL 实现 `Node` API 的自定义模板 - \n[GitHub](https://github.com/ent/ent/blob/master/entc/integration/template/ent/template/node.tmpl)。\n\n- 使用自定义函数执行外部模板的示例。参见 [配置](https://github.com/ent/ent/blob/master/examples/entcpkg/ent/entc.go) 及其 \n[README](https://github.com/ent/ent/blob/master/examples/entcpkg) 文件。"
       }
     },
     {
@@ -399,7 +399,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "实际效果演示："
+        "zh-CN": "实际效果如下："
       }
     },
     {
@@ -409,12 +409,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "![template-autocomplete](https://entgo.io/images/assets/template-autocomplete.gif)"
+        "zh-CN": "![模板自动补全](https://entgo.io/images/assets/template-autocomplete.gif)"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/templates.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.141029+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.763680+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "2573ecba8c802557ffb6a6dd873b60b42edd44d6be7fb89384167f66f7800fce"

@@ -159,7 +159,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 向Schema添加边"
+        "zh-CN": "## 向Schema添加边关系"
       }
     },
     {
@@ -169,7 +169,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "假设我们需要设计待办事项列表，使项目可以相互依赖。因此我们为每个待办事项添加`parent`边以获取其依赖项，同时添加反向引用边`children`以获取所有依赖它的项目。"
+        "zh-CN": "假设我们需要设计待办事项间的依赖关系。因此我们为每个待办事项添加`parent`边以获取其依赖项，同时添加反向引用边`children`来获取所有依赖它的项。"
       }
     },
     {
@@ -179,7 +179,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "让我们再次修改`todo/ent/schema/todo.go`中的schema："
+        "zh-CN": "再次修改`todo/ent/schema/todo.go`中的schema："
       }
     },
     {
@@ -199,7 +199,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "添加这些边后，需要像之前一样运行代码生成："
+        "zh-CN": "添加这些边关系后，需要像之前一样运行代码生成："
       }
     },
     {
@@ -219,7 +219,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 连接两个待办事项"
+        "zh-CN": "## 建立待办事项关联"
       }
     },
     {
@@ -229,7 +229,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "我们通过更新刚创建的两个待办事项来继续边示例。设定项目2（*\"添加追踪示例\"*）依赖于项目1（*\"添加GraphQL示例\"*）。"
+        "zh-CN": "我们通过更新刚创建的两个待办事项继续边关系示例。设定item-2（*\"添加追踪示例\"*）依赖于item-1（*\"添加GraphQL示例\"*）。"
       }
     },
     {
@@ -269,7 +269,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "将项目2连接到项目1后，我们已准备好开始查询待办事项列表。"
+        "zh-CN": "建立item-2与item-1的关联后，现在可以开始查询待办事项列表。"
       }
     },
     {
@@ -319,7 +319,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "#### 查询所有不依赖其他事项但被其他事项依赖的待办事项："
+        "zh-CN": "#### 查询所有不依赖其他事项且被其他事项依赖的待办事项："
       }
     },
     {
@@ -354,7 +354,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/tutorial-todo-crud.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.169677+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.777319+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "2eeb93a0d79a015a8cda387eebdf292f4d2904ab17e4825df2dc8752e32a2b0c"

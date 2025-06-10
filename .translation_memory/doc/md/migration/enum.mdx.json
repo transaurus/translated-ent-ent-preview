@@ -49,7 +49,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[[Atlas Pro功能](https://atlasgo.io/features#pro-plan)]\n本指南中使用的[复合模式](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)支持是Pro版专属功能。使用前请执行：\n```\natlas login\n```\n:::"
+        "zh-CN": ":::info[[Atlas Pro功能](https://atlasgo.io/features#pro-plan)]\n本指南使用的[复合模式](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)支持是Pro版专属功能。使用前请执行：\n```\natlas login\n```\n:::"
       }
     },
     {
@@ -109,7 +109,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`ent/schema`包主要用于定义Ent类型（对象）、字段、边及业务逻辑。外部枚举类型或其他数据库对象在Ent模型中并无直接体现——Postgres枚举类型只需在数据库模式中定义一次，即可在多个字段和模型中复用。"
+        "zh-CN": "`ent/schema`包主要用于定义Ent类型（对象）、字段、边及业务逻辑。外部枚举类型或其他数据库对象在Ent模型中并无对应表示——Postgres枚举类型只需在Postgres模式中定义一次，即可在多个字段和模型中复用。"
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "为扩展PostgreSQL模式使其同时包含自定义枚举类型和Ent类型，我们需配置Atlas从[复合模式](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)数据源读取模式状态。请按以下步骤配置项目："
+        "zh-CN": "为扩展PostgreSQL模式使其包含自定义枚举类型和Ent类型，我们需要配置Atlas从[复合模式](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)数据源读取模式状态。按以下步骤为项目进行配置："
       }
     },
     {
@@ -129,7 +129,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "1\\. 创建`schema.sql`定义枚举类型（也可使用[Atlas Schema HCL语言](https://atlasgo.io/atlas-schema/hcl-types#enum)定义）："
+        "zh-CN": "1\\. 创建`schema.sql`文件定义枚举类型。您也可以用[Atlas Schema HCL语言](https://atlasgo.io/atlas-schema/hcl-types#enum)定义："
       }
     },
     {
@@ -169,7 +169,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::note\n当包含驱动特定类型的模式用于其他数据库时，Ent将回退到驱动默认类型（如SQLite中的`TEXT`，MariaDB/MySQL中的`ENUM(...)`）。\n:::"
+        "zh-CN": ":::note\n当包含驱动特定类型的模式用于其他数据库时，Ent会回退到驱动默认类型（如SQLite中的`TEXT`，MariaDB或MySQL中的`ENUM (...)`）。\n:::"
       }
     },
     {
@@ -179,7 +179,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "3\\. 创建`atlas.hcl`配置文件，通过`composite_schema`同时包含`schema.sql`定义的自定义枚举类型和Ent模式："
+        "zh-CN": "3\\. 创建简单的`atlas.hcl`配置文件，通过`composite_schema`同时包含`schema.sql`中定义的自定义枚举类型和Ent模式："
       }
     },
     {
@@ -199,7 +199,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 使用指南"
+        "zh-CN": "## 使用方式"
       }
     },
     {
@@ -209,7 +209,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "配置复合模式后，可通过`atlas schema inspect`命令获取其表示形式，生成模式迁移文件并应用到数据库等。以下是Atlas的入门命令："
+        "zh-CN": "配置复合模式后，可通过`atlas schema inspect`命令获取其表示形式、生成模式迁移文件、应用到数据库等。以下为Atlas入门命令示例："
       }
     },
     {
@@ -229,7 +229,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`atlas schema inspect`命令通常用于检查数据库，也可用于检查`composite_schema`并输出其SQL表示："
+        "zh-CN": "`atlas schema inspect`命令通常用于检查数据库，但也可用于检查`composite_schema`并打印其SQL表示："
       }
     },
     {
@@ -249,7 +249,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "该命令输出如下SQL，注意`status`枚举类型在模式中的定义位置优先于其在`users.status`列中的使用："
+        "zh-CN": "该命令输出如下SQL。注意`status`枚举类型在模式中的定义位置优先于其在`users.status`列中的使用："
       }
     },
     {
@@ -269,7 +269,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "#### 生成模式迁移"
+        "zh-CN": "#### 生成模式迁移文件"
       }
     },
     {
@@ -279,7 +279,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "执行以下命令生成模式迁移文件："
+        "zh-CN": "执行以下命令生成模式迁移："
       }
     },
     {
@@ -349,7 +349,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[直接向数据库应用模式]\n\n有时需要直接将模式应用到数据库而不生成迁移文件，例如在测试模式变更或启动测试数据库时。此时可使用以下命令直接将模式应用到数据库：\n\n```shell\natlas schema apply \\\n  --env local \\\n  --url \"postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable\"\n```\n\n或使用 [Atlas Go SDK](https://github.com/ariga/atlas-go-sdk)：\n\n```go\nac, err := atlasexec.NewClient(\".\", \"atlas\")\nif err != nil {\n\tlog.Fatalf(\"初始化客户端失败: %w\", err)\n}\n// 自动用目标模式更新数据库\n// 另一种方式是手动使用 'migrate apply' 或 'schema apply'\nif _, err := ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{\n\tEnv: \"local\",\n\tURL: \"postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable\",\n\tAutoApprove: true,\n}); err != nil {\n    log.Fatalf(\"应用模式变更失败: %w\", err)\n}\n```\n\n:::"
+        "zh-CN": ":::info[直接向数据库应用模式]\n\n有时需要直接将模式应用到数据库而不生成迁移文件，例如在测试模式变更或启动测试数据库等场景中。此时可以使用以下命令直接将模式应用到数据库：\n\n```shell\natlas schema apply \\\n  --env local \\\n  --url \"postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable\"\n```\n\n或使用 [Atlas Go SDK](https://github.com/ariga/atlas-go-sdk)：\n\n```go\nac, err := atlasexec.NewClient(\".\", \"atlas\")\nif err != nil {\n\tlog.Fatalf(\"failed to initialize client: %w\", err)\n}\n// 自动用目标模式更新数据库\n// 另一种方式是手动执行 'migrate apply' 或 'schema apply'\nif _, err := ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{\n\tEnv: \"local\",\n\tURL: \"postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable\",\n\tAutoApprove: true,\n}); err != nil {\n    log.Fatalf(\"failed to apply schema changes: %w\", err)\n}\n```\n\n:::"
       }
     },
     {
@@ -359,12 +359,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "本指南代码可在 [GitHub](https://github.com/ent/ent/tree/master/examples/enumtypes) 获取。"
+        "zh-CN": "本指南的代码可在 [GitHub](https://github.com/ent/ent/tree/master/examples/enumtypes) 获取。"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/migration/enum.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.145683+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.766942+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "4daf05848eac530a401d35cae071ede4c33b482d1f7001c3d2ce3c67f2b11c76"

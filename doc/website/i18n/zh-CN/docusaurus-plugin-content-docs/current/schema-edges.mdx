@@ -27,9 +27,9 @@ import TabItem from '@theme/TabItem';
 </TabItem>
 </Tabs>
 
-上述示例中展示了通过边声明的两种关系，下面我们逐一解析：
+上例中展示了通过边声明的两种关系，我们来逐一解析：
 
-1\. `pets` / `owner` 边：表示用户的宠物与宠物的主人：
+1\. `pets` / `owner` 边；用户的宠物与宠物的主人：
 
 <Tabs>
 <TabItem value="user" label="User" default>
@@ -96,16 +96,16 @@ func (Pet) Edges() []ent.Edge {
 </TabItem>
 </Tabs>
 
-可以看出，一个`User`实体可以**拥有多只**宠物，但一个`Pet`实体只能**有一个**主人。  
-在关系定义中，`pets`边属于*O2M*（一对多）关系，而`owner`边属于*M2O*（多对一）关系。
+如图所示，`User` 实体可以**拥有多个**宠物，但 `Pet` 实体只能**拥有一个**主人。  
+在关系定义中，`pets` 边属于 *O2M*（一对多）关系，而 `owner` 边属于 *M2O*（多对一）关系。
 
-`User`模式通过`edge.To`**主导**了`pets/owner`关系，而`Pet`模式仅通过`edge.From`配合`Ref`方法声明了对该关系的反向引用。
+`User` 模式通过 `edge.To` **拥有** `pets/owner` 关系，而 `Pet` 模式仅通过 `edge.From` 配合 `Ref` 方法声明了对该关系的反向引用。
 
-`Ref`方法用于说明引用的是`User`模式中的哪个边，因为一个模式可能包含多个指向其他模式的引用。
+`Ref` 方法用于说明我们引用的是 `User` 模式中的哪个边，因为从一个模式到另一个模式可能存在多个引用关系。
 
-边的基数（cardinality）可通过`Unique`方法控制，下文将详细说明。
+边的基数（Cardinality）可通过 `Unique` 方法控制，下文将详细说明。
 
-2\. `users` / `groups` 边：表示群组的用户与用户的群组：
+2\. `users` / `groups` 边；群组的用户与用户的群组：
 
 <Tabs>
 <TabItem value="group" label="Group" default>
@@ -173,29 +173,29 @@ func (User) Edges() []ent.Edge {
 </TabItem>
 </Tabs>
 
-可以看出，一个`Group`实体可以**包含多个**用户，一个`User`实体也可以**属于多个**群组。  
-在关系定义中，`users`边和`groups`边都属于*M2M*（多对多）关系。
+如图所示，`Group` 实体可以**拥有多个**用户，`User` 实体也可以**拥有多个**群组。  
+在关系定义中，`users` 边属于 *M2M*（多对多）关系，`groups` 边同样属于 *M2M*（多对多）关系。
 
-## To与From
+## To 与 From
 
-`edge.To`和`edge.From`是用于创建边/关系的两种构建器。
+`edge.To` 和 `edge.From` 是用于创建边/关系的两种构建器。
 
-使用`edge.To`构建器定义边的模式将主导该关系，而`edge.From`构建器仅用于声明关系的反向引用（可使用不同名称）。
+使用 `edge.To` 构建器定义边的模式拥有该关系的所有权，而 `edge.From` 构建器仅提供关系的反向引用（可使用不同名称）。
 
 下面通过几个示例演示如何用边定义不同类型的关系。
 
 ## 关系类型
 
-- [两种类型的O2O](#o2o-two-types)
-- [同类型的O2O](#o2o-same-type)
-- [双向O2O](#o2o-bidirectional)
-- [两种类型的O2M](#o2m-two-types)
-- [同类型的O2M](#o2m-same-type)
-- [两种类型的M2M](#m2m-two-types)
-- [同类型的M2M](#m2m-same-type)
-- [双向M2M](#m2m-bidirectional)
+- [跨类型一对一](#o2o-two-types)
+- [同类型一对一](#o2o-same-type)
+- [双向一对一](#o2o-bidirectional)
+- [跨类型一对多](#o2m-two-types)
+- [同类型一对多](#o2m-same-type)
+- [跨类型多对多](#m2m-two-types)
+- [同类型多对多](#m2m-same-type)
+- [双向多对多](#m2m-bidirectional)
 
-## 两种类型的O2O
+## 跨类型一对一
 
 <Tabs>
 <TabItem value="graph" label="Graph" default>
@@ -214,9 +214,9 @@ func (User) Edges() []ent.Edge {
 </TabItem>
 </Tabs>
 
-本例中，一个用户**只能拥有一张**信用卡，一张卡**只能属于一个**所有者。
+本例中，用户**只能拥有一张**信用卡，卡片**只能有一个**所有者。
 
-`User`模式通过`edge.To`定义了名为`card`的边，`Card`模式则通过`edge.From`定义了名为`owner`的反向引用。
+`User` 模式通过 `edge.To` 定义了名为 `card` 的边，`Card` 模式通过 `edge.From` 定义了名为 `owner` 的反向引用。
 
 <Tabs>
 <TabItem value="user" label="User" default>
@@ -250,7 +250,7 @@ func (Card) Edges() []ent.Edge {
 </TabItem>
 </Tabs>
 
-操作这些边的API如下：
+操作这些边的 API 如下：
 
 ```go
 func Do(ctx context.Context, client *ent.Client) error {
@@ -291,9 +291,9 @@ func Do(ctx context.Context, client *ent.Client) error {
 }
 ```
 
-完整示例参见[GitHub](https://github.com/ent/ent/tree/master/examples/o2o2types)。
+完整示例参见 [GitHub](https://github.com/ent/ent/tree/master/examples/o2o2types)。
 
-## 同类型的O2O
+## 同类型一对一
 
 <Tabs>
 <TabItem value="graph" label="Graph" default>
@@ -312,7 +312,7 @@ func Do(ctx context.Context, client *ent.Client) error {
 </TabItem>
 </Tabs>
 
-在这个链表示例中，我们有一个名为`next`/`prev`的递归关系。列表中的每个节点只能有一个`next`节点。如果节点A通过`next`指向节点B，B可以通过`prev`（反向引用边）获取其指针。
+在这个链表示例中，我们有一个名为`next`/`prev`的递归关系。列表中的每个节点只能有一个`next`节点。如果节点A通过`next`指向节点B，B可以通过`prev`边（反向引用边）获取其指针。
 
 ```go title="ent/schema/node.go"
 // Edges of the Node.
@@ -326,7 +326,7 @@ func (Node) Edges() []ent.Edge {
 }
 ```
 
-如你所见，在相同类型的关系中，可以在同一个构建器中声明边及其引用。
+如你所见，在同类型关系的情况下，可以在同一个构建器中声明边及其引用。
 
 ```diff
 func (Node) Edges() []ent.Edge {
@@ -399,9 +399,9 @@ func Do(ctx context.Context, client *ent.Client) error {
 }
 ```
 
-完整示例可在[GitHub](https://github.com/ent/ent/tree/master/examples/o2orecur)找到。
+完整示例可在[GitHub](https://github.com/ent/ent/tree/master/examples/o2orecur)上找到。
 
-## O2O 双向关系
+## O2O双向关系
 
 <Tabs>
 <TabItem value="graph" label="Graph" default>
@@ -420,9 +420,9 @@ func Do(ctx context.Context, client *ent.Client) error {
 </TabItem>
 </Tabs>
 
-在这个用户-配偶示例中，我们有一个名为`spouse`的对称O2O关系。每个用户只能有一个配偶。如果用户A将其配偶（通过`spouse`边）设置为B，B可以通过`spouse`边获取其配偶。
+在这个用户-配偶示例中，我们有一个名为`spouse`的对称O2O关系。每个用户只能有一个配偶。如果用户A将其配偶（通过`spouse`边）设为B，B可以通过`spouse`边获取其配偶。
 
-注意，在双向边的情况下没有所有者/反向引用的概念。
+注意，在双向边的情况下不存在所有者/反向术语。
 
 ```go title="ent/schema/user.go"
 // Edges of the User.
@@ -507,9 +507,9 @@ func (User) Edges() []ent.Edge {
 }
 ```
 
-完整示例可在[GitHub](https://github.com/ent/ent/tree/master/examples/o2obidi)找到。
+完整示例可在[GitHub](https://github.com/ent/ent/tree/master/examples/o2obidi)上找到。
 
-## O2M 两种类型
+## O2M两种类型
 
 <Tabs>
 <TabItem value="graph" label="Graph" default>
@@ -629,9 +629,9 @@ func (Pet) Edges() []ent.Edge {
 }
 ```
 
-完整示例可在[GitHub](https://github.com/ent/ent/tree/master/examples/o2m2types)找到。
+完整示例可在[GitHub](https://github.com/ent/ent/tree/master/examples/o2m2types)上找到。
 
-## O2M 相同类型
+## O2M同类型
 
 <Tabs>
 <TabItem value="graph" label="Graph" default>
@@ -663,7 +663,7 @@ func (Node) Edges() []ent.Edge {
 }
 ```
 
-如你所见，在相同类型的关系中，可以在同一个构建器中声明边及其引用。
+如你所见，在同类型关系的情况下，可以在同一个构建器中声明边及其引用。
 
 ```diff
 func (Node) Edges() []ent.Edge {
@@ -770,9 +770,9 @@ func (Node) Edges() []ent.Edge {
 }
 ```
 
-完整示例可在[GitHub](https://github.com/ent/ent/tree/master/examples/o2mrecur)找到。
+完整示例可在[GitHub](https://github.com/ent/ent/tree/master/examples/o2mrecur)上找到。
 
-## M2M 两种类型
+## M2M两种类型
 
 <Tabs>
 <TabItem value="graph" label="Graph" default>
@@ -791,8 +791,8 @@ func (Node) Edges() []ent.Edge {
 </TabItem>
 </Tabs>
 
-在这个群组-用户示例中，我们展示了群组与用户之间的多对多（M2M）关系。  
-每个群组可以**包含多个**用户，而每个用户也可以加入**多个**群组。
+在这个群组-用户示例中，我们建立了群组与用户之间的多对多关系(M2M)。
+每个群组可以包含多个用户，每个用户也可以加入多个群组。
 
 ```go title="ent/schema/group.go"
 // Edges of the Group.
@@ -813,7 +813,7 @@ func (User) Edges() []ent.Edge {
 }
 ```
 
-操作这些边的API如下：
+操作这些关系的API如下：
 
 ```go
 func Do(ctx context.Context, client *ent.Client) error {
@@ -876,7 +876,7 @@ func Do(ctx context.Context, client *ent.Client) error {
 ```
 
 :::note
-调用 `AddGroups`（M2M边）时，如果边已存在且非[边模式](#edge-schema)，则不会执行任何操作：
+调用`AddGroups`(M2M关系)时，若该关系已存在且不属于[边模式](#edge-schema)，将不会执行任何操作：
 
 ```go {6}
 a8m := client.User.
@@ -884,13 +884,13 @@ a8m := client.User.
 	SetName("a8m").
 	AddGroups(
 		hub,
-		hub, // 无操作.
+		hub, // 无操作
 	).
 	SaveX(ctx)
 ```
 :::
 
-完整示例见[GitHub](https://github.com/ent/ent/tree/master/examples/m2m2types)。
+完整示例可在[GitHub](https://github.com/ent/ent/tree/master/examples/m2m2types)查看。
 
 ## 同类型多对多关系
 
@@ -911,7 +911,7 @@ a8m := client.User.
 </TabItem>
 </Tabs>
 
-在这个关注者示例中，我们展示了用户之间的多对多关系。每个用户可以关注**多个**用户，同时也可以被**多个**用户关注。
+在这个关注者示例中，我们建立了用户之间的多对多关系。每个用户可以关注多个用户，也可以被多个用户关注。
 
 ```go title="ent/schema/user.go"
 // Edges of the User.
@@ -923,7 +923,7 @@ func (User) Edges() []ent.Edge {
 }
 ```
 
-如你所见，对于同类型的关系，可以在同一个构建器中声明边及其反向引用。
+如您所见，对于同类型的关系，可以在同一个构建器中声明边及其反向引用。
 
 ```diff
 func (User) Edges() []ent.Edge {
@@ -938,7 +938,7 @@ func (User) Edges() []ent.Edge {
 }
 ```
 
-操作这些边的API如下：
+操作这些关系的API如下：
 
 ```go
 func Do(ctx context.Context, client *ent.Client) error {
@@ -995,7 +995,7 @@ func Do(ctx context.Context, client *ent.Client) error {
 ```
 
 :::note
-调用 `AddFollowers`（M2M边）时，如果边已存在且非[边模式](#edge-schema)，则不会执行任何操作：
+调用`AddFollowers`(M2M关系)时，若该关系已存在且不属于[边模式](#edge-schema)，将不会执行任何操作：
 
 ```go {6}
 a8m := client.User.
@@ -1003,13 +1003,13 @@ a8m := client.User.
 	SetName("a8m").
 	AddFollowers(
 		nati,
-		nati, // 无操作.
+		nati, // 无操作
 	).
 	SaveX(ctx)
 ```
 :::
 
-完整示例见[GitHub](https://github.com/ent/ent/tree/master/examples/m2mrecur)。
+完整示例可在[GitHub](https://github.com/ent/ent/tree/master/examples/m2mrecur)查看。
 
 ## 双向多对多关系
 
@@ -1030,10 +1030,10 @@ a8m := client.User.
 </TabItem>
 </Tabs>
 
-在这个用户-好友示例中，我们展示了名为`friends`的**对称多对多关系**。  
-每个用户可以拥有**多个**好友。如果用户A与B成为好友，那么B也自动成为A的好友。
+在这个用户好友示例中，我们建立了名为`friends`的对称多对多关系。
+每个用户可以拥有多个好友。若用户A与B成为好友，则B也自动成为A的好友。
 
-注意：双向边关系中不存在所有者/反向的概念。
+注意：双向边关系中不存在所有者/反向引用的概念。
 
 ```go title="ent/schema/user.go"
 // Edges of the User.
@@ -1044,7 +1044,7 @@ func (User) Edges() []ent.Edge {
 }
 ```
 
-操作这些边的API如下：
+操作这些关系的API如下：
 
 ```go
 func Do(ctx context.Context, client *ent.Client) error {
@@ -1086,7 +1086,7 @@ func Do(ctx context.Context, client *ent.Client) error {
 ```
 
 :::note
-调用 `AddFriends`（双向M2M边）时，如果边已存在且非[边模式](#edge-schema)，则不会执行任何操作：
+调用`AddFriends`(双向M2M关系)时，若该关系已存在且不属于[边模式](#edge-schema)，将不会执行任何操作：
 
 ```go {6}
 a8m := client.User.
@@ -1094,18 +1094,18 @@ a8m := client.User.
 	SetName("a8m").
 	AddFriends(
 		nati,
-		nati, // 无操作.
+		nati, // 无操作
 	).
 	SaveX(ctx)
 ```
 :::
 
-完整示例见[GitHub](https://github.com/ent/ent/tree/master/examples/m2mbidi)。
+完整示例可在[GitHub](https://github.com/ent/ent/tree/master/examples/m2mbidi)查看。
 
 ## 边字段
 
-边的`Field`选项允许将外键作为常规字段暴露在模式中。  
-注意：只有持有外键（边ID）的关系才能使用此选项。
+边的`Field`选项允许将外键作为常规字段暴露在模式中。
+注意：只有包含外键(边ID)的关系才能使用此选项。
 
 ```go title="ent/schema/post.go"
 // Fields of the Post.
@@ -1141,11 +1141,11 @@ func Do(ctx context.Context, client *ent.Client) error {
 }
 ```
 
-更多示例见[GitHub](https://github.com/ent/ent/tree/master/entc/integration/edgefield)。
+更多示例请参见[GitHub](https://github.com/ent/ent/tree/master/entc/integration/edgefield)。
 
 #### 迁移至边字段
 
-如[StorageKey](#storagekey)部分所述，Ent通过`edge.To`配置边的存储键（例如外键）。因此，若需为已存在于数据库列中的现有边添加字段，需按如下方式使用`StorageKey`选项进行设置：
+如[StorageKey](#storagekey)章节所述，Ent通过`edge.To`配置边的存储键（如外键）。因此，若需为已存在于数据库中的边（现有列）添加字段，需按如下方式使用`StorageKey`选项进行设置：
 
 ```diff
 // Fields of the Post.
@@ -1180,15 +1180,15 @@ func (Post) Fields() []ent.Field {
 }
 ```
 
-如果不确定在使用边字段选项前外键的命名规则，请查看项目中生成的模式描述文件：`<project>/ent/migrate/schema.go`。
+若不确定在使用边字段选项前外键的命名规则，可查看项目中生成的模式描述文件：`<项目路径>/ent/migrate/schema.go`。
 
 ## 边模式
 
-边模式是用于多对多(M2M)关系的中间实体模式。通过`Through`选项，用户可为关系定义边模式。这使得用户能够在其公共API中公开关系、存储额外字段、对边执行CRUD操作，并为边设置钩子和隐私策略。
+边模式是M2M关系的中间实体模式。通过`Through`选项，用户可为关系定义边模式。这使得用户能够在其公共API中暴露关系、存储额外字段、对边执行CRUD操作，并为边设置钩子和隐私策略。
 
 #### 用户好友关系示例
 
-以下示例展示了如何通过边模式建模两个用户之间的好友关系，该模式包含关系的两个必填字段（`user_id`和`friend_id`），以及一个在创建时自动设置值的附加字段`created_at`。
+以下示例展示了如何使用边模式建模两个用户之间的好友关系，其中包含关系的两个必填字段（`user_id`和`friend_id`），以及一个在创建时自动设置值的附加字段`created_at`。
 
 <Tabs>
 <TabItem value="graph" label="Graph" default>
@@ -1276,14 +1276,14 @@ func (Friendship) Edges() []ent.Edge {
 </Tabs>
 
 :::info
-- 与实体模式类似，若未明确声明，边模式的`ID`字段将自动生成。
+- 与实体模式类似，若未明确说明，边模式的`ID`字段会自动生成。
 - 边模式不能被多个关系复用。
-- 边模式中的`user_id`和`friend_id`字段作为关系的组成部分必须存在。
+- 边模式中的`user_id`和`friend_id`字段作为关系组成部分必须存在。
 :::
 
 #### 用户点赞示例
 
-以下示例展示了如何建模用户"点赞"推文的系统，其中推文被"点赞"的时间戳会存入数据库。这是在边上存储附加字段的一种方式。
+以下示例展示了如何建模用户"点赞"推文的系统，其中推文被"点赞"的时间戳会存储在数据库中。这是在边上存储附加字段的一种方式。
 
 <Tabs
 defaultValue="user"
@@ -1387,14 +1387,14 @@ func (Like) Edges() []ent.Edge {
 </Tabs>
 
 :::info
-上例中，`field.ID`注解用于告知Ent边模式标识符是由两个边字段`user_id`和`tweet_id`组成的复合主键。因此，`Like`结构体及其构建器方法（如`Get`、`OnlyID`等）不会生成`ID`字段。
+上例中，`field.ID`注解用于告知Ent边模式标识符是由`user_id`和`tweet_id`两个边字段组成的复合主键。因此`Like`结构体不会生成`ID`字段及其构建方法（如`Get`、`OnlyID`等）。
 :::
 
-#### 边模式在其他边类型中的应用
+#### 边模式在其他边类型中的使用
 
-某些情况下，用户希望将O2M/M2O或O2O关系存储在单独的表（即连接表）中，以便在未来变更边类型时简化迁移。例如，通过删除唯一约束而非将外键值迁移到新表，将O2M/M2O边改为M2M关系。
+某些情况下，用户希望将O2M/M2O或O2O关系存储在单独的表（即连接表）中，以便在未来更改边类型时简化迁移。例如，通过删除唯一约束而非将外键值迁移到新表，将O2M/M2O边改为M2M关系。
 
-以下示例展示了一个模型：用户可"创作"推文，但约束条件是每条推文只能由一个用户撰写。与常规O2M/M2O边不同，通过使用边模式，我们在连接表上通过对`tweet_id`列建立唯一索引来强制执行此约束。未来可删除该约束以允许多个用户参与推文的"创作"，从而在不迁移数据至新表的情况下将边类型改为M2M。
+以下示例展示的模型中，用户可"创作"推文，但约束条件是每条推文只能由一个用户撰写。与常规O2M/M2O边不同，通过使用边模式，我们在连接表上通过对`tweet_id`列建立唯一索引来强制此约束。未来可删除该约束以允许多用户共同"创作"推文，从而在不迁移数据到新表的情况下将边类型改为M2M。
 
 <Tabs
 defaultValue="user"
@@ -1502,7 +1502,7 @@ func (UserTweet) Indexes() []ent.Index {
 
 ## 必填边
 
-通过构建器上的`Required`方法，可将边定义为实体创建时的必填项。
+通过构建器的`Required`方法，可将边定义为实体创建时的必填项。
 
 ```go {7}
 // Edges of the Card.
@@ -1516,15 +1516,15 @@ func (Card) Edges() []ent.Edge {
 }
 ```
 
-在上例中，没有所属用户的卡片实体将无法被创建。
+在上例中，银行卡实体必须在有所属用户的情况下才能创建。
 
 :::info
-请注意，从 [v0.10](https://github.com/ent/ent/releases/tag/v0.10.0) 版本开始，对于非[自引用](#o2m-same-type)的必需边，外键列在数据库中会被创建为 `NOT NULL`。如需迁移现有外键列，请使用 [Atlas 迁移](migrate.md#atlas-integration) 选项。
+请注意，从 [v0.10](https://github.com/ent/ent/releases/tag/v0.10.0) 版本开始，对于非[自引用](#o2m-same-type)的必需边(required edges)，外键列在数据库中将默认创建为 `NOT NULL`。如需迁移现有外键列，请使用 [Atlas 迁移](migrate.md#atlas-integration) 功能。
 :::
 
-## 不可变边
+## 不可变边(Immutable)
 
-不可变边是指只能在实体创建时设置或添加的边。即实体更新构建器不会生成对应的 setter 方法。
+不可变边指只能在实体创建时设置或添加的边，这意味着实体更新构建器不会生成对应的setter方法。
 
 ```go {8}
 // Edges of the User.
@@ -1539,11 +1539,11 @@ func (User) Edges() []ent.Edge {
 }
 ```
 
-## 存储键
+## 存储键(StorageKey)
 
-默认情况下，Ent 根据边所有者（持有 `edge.To` 的 schema）而非反向引用（`edge.From`）来配置边存储键。这是因为反向引用是可选的且可能被移除。
+默认情况下，Ent通过边所有者（持有`edge.To`的schema）而非反向引用(`edge.From`)来配置边存储键，因为反向引用是可选的且可能被移除。
 
-要为边使用自定义存储配置，请按如下方式使用 `StorageKey` 方法：
+如需自定义边的存储配置，请按如下方式使用`StorageKey`方法：
 
 ```go
 // Edges of the User.
@@ -1570,9 +1570,9 @@ func (User) Edges() []ent.Edge {
 }
 ```
 
-## 结构体标签
+## 结构体标签(Struct Tags)
 
-可通过 `StructTag` 方法向生成的实体添加自定义结构体标签。注意：若未提供此选项，或提供的标签不包含 `json` 标签，则会自动添加以字段名为值的默认 `json` 标签。
+可通过`StructTag`方法向生成的实体添加自定义结构体标签。注意：若未提供此选项，或提供的标签不包含`json`标签，系统将自动添加以字段名为值的默认`json`标签。
 
 ```go
 // Edges of the User.
@@ -1585,15 +1585,15 @@ func (User) Edges() []ent.Edge {
 }
 ```
 
-## 索引
+## 索引(Indexes)
 
-可在多字段和某些类型的边上定义索引。但需注意，当前这是仅限 SQL 的功能特性。
+可在多字段及某些边类型上定义索引，但需注意当前该功能仅限SQL数据库使用。
 
-更多细节请参阅 [索引](schema-indexes.md) 章节。
+详见[索引](schema-indexes.md)章节。
 
-## 注释
+## 注释(Comments)
 
-可通过 `.Comment()` 方法为边添加注释。该注释会出现在生成实体代码中对应边的上方。使用 `\n` 转义序列可支持换行。
+通过`.Comment()`方法可为边添加注释，该注释会出现在生成实体代码中对应边的上方。可使用`\n`转义序列实现换行。
 
 ```go
 // Edges of the User.
@@ -1606,11 +1606,11 @@ func (User) Edges() []ent.Edge {
 }
 ```
 
-## 注解
+## 注解(Annotations)
 
-`Annotations` 用于在代码生成时为边对象附加任意元数据。模板扩展可以获取这些元数据并在模板中使用。
+`Annotations`用于在代码生成时为边对象附加任意元数据。模板扩展可通过该元数据在模板内部使用。
 
-注意：元数据对象必须可序列化为 JSON 原始值（如结构体、map 或切片）。
+注意元数据对象必须可序列化为JSON原始值（如结构体、map或slice）。
 
 ```go
 // Pet schema.
@@ -1629,8 +1629,8 @@ func (Pet) Edges() []ent.Edge {
 }
 ```
 
-关于注解及其在模板中的用法，详见 [模板文档](templates.md#annotations)。
+关于注解及其在模板中的用法，详见[模板文档](templates.md#annotations)。
 
-## 命名规范
+## 命名规范(Naming Convention)
 
-按照惯例，边名称应使用 `snake_case` 格式。Ent 生成的对应结构体字段将遵循 Go 语言的 `PascalCase` 惯例。如需使用 `PascalCase` 格式，可通过 `StorageKey` 或 `StructTag` 方法实现。
+按照规范，边名称应使用`snake_case`格式。Ent生成的对应结构体字段将遵循Go语言的`PascalCase`惯例。如需使用`PascalCase`格式，可通过`StorageKey`或`StructTag`方法实现。

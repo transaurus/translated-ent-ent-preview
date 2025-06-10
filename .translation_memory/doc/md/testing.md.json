@@ -19,7 +19,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "如果在单元测试中使用 `ent.Client`，可以通过生成的 `enttest` 包创建客户端并自动执行模式迁移，操作如下："
+        "zh-CN": "如果在单元测试中使用 `ent.Client`，可以通过生成的 `enttest` 包创建客户端并自动执行模式迁移，如下所示："
       }
     },
     {
@@ -54,7 +54,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/testing.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.140190+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.763465+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "aaf8562ae9c79c9ddfa4970d12286a7e6dea8c6d2dcb474ecfc9bf491a81e81b"

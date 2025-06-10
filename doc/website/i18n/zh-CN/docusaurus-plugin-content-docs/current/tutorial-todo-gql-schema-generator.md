@@ -58,7 +58,7 @@ func (Todo) Annotations() []schema.Annotation {
 }
 ```
 
-`entgql.RelayConnection()`注解也可用于边字段，以生成first/last/after/before等参数，并将字段类型改为`<T>Connection!`。例如将`children: [Todo!]!`改为`children(first: Int, last: Int, after: Cursor, before: Cursor): TodoConnection!`，您可以在边字段添加该注解：
+`entgql.RelayConnection()`注解也可用于边字段，以生成first/last/after/before等参数，并将字段类型改为`<T>Connection!`。例如将`children`字段从`children: [Todo!]!`改为`children(first: Int, last: Int, after: Cursor, before: Cursor): TodoConnection!`。您可以在边字段添加该注解：
 
 ```go {7} title="ent/schema/todo.go"
 // Edges of the Todo.
@@ -74,7 +74,7 @@ func (Todo) Edges() []ent.Edge {
 
 ### 清理手写模式
 
-请从`todo.graphql`中移除以下类型，避免与EntGQL在`ent.graphql`中生成的类型冲突。
+请从`todo.graphql`中移除以下类型，避免与EntGQL在`ent.graphql`文件中生成的类型冲突。
 
 ```diff title="todo.graphql"
 -interface Node {
@@ -199,7 +199,7 @@ type Mutation {
 
 ### 确保Ent与GQLGen的执行顺序
 
-我们还需要修改`generate.go`文件以确保Ent和GQLGen的执行顺序。这是为了让GQLGen能正确识别Ent生成的对象并执行代码生成。
+我们还需要修改`generate.go`文件来确保Ent和GQLGen的执行顺序。这是为了让GQLGen能正确识别Ent生成的对象并执行代码生成器。
 
 首先删除`ent/generate.go`文件，然后更新`ent/entc.go`文件中的路径（因为Ent代码生成将从项目根目录运行）。
 
@@ -228,7 +228,7 @@ func main() {
 } 
 ```
 
-更新`generate.go`以包含Ent代码生成。
+更新`generate.go`以包含ent代码生成。
 
 ```go {3} title="generate.go"
 package todo
@@ -237,7 +237,7 @@ package todo
 //go:generate go run -mod=mod github.com/99designs/gqlgen
 ```
 
-修改`generate.go`后，执行以下命令进行代码生成：
+修改`generate.go`文件后，即可执行代码生成：
 
 ```console
 go generate ./...
@@ -247,7 +247,7 @@ go generate ./...
 
 ### 扩展Ent生成的类型
 
-您会注意到生成的类型将包含已定义的`Query`类型对象及其字段：
+您会注意到生成的类型将包含已预定义字段的`Query`类型对象：
 
 ```graphql
 type Query {
@@ -292,8 +292,8 @@ extend type Query {
 }
 ```
 
-您可以扩展任何由Ent生成的类型。若要跳过某个字段，可以在该字段或边上使用`entgql.Skip()`。
+您可以扩展任何由Ent生成的类型。要跳过某个字段，可以在该字段或边上使用`entgql.Skip()`。
 
 ---
 
-完成！如您所见，采用模式生成器功能后，我们不再需要手动编写GQL模式。如有疑问或需要帮助？欢迎加入我们的[Discord服务器](https://discord.gg/qZmPgTE6RX)或[Slack频道](https://entgo.io/docs/slack)。
+完成！如您所见，在适配模式生成器功能后，我们不再需要手动编写GQL模式。有问题？需要入门帮助？欢迎加入我们的[Discord服务器](https://discord.gg/qZmPgTE6RX)或[Slack频道](https://entgo.io/docs/slack)。

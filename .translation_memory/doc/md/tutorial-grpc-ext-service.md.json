@@ -19,7 +19,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "通常您会希望在gRPC服务器中包含那些无法从Ent模式自动生成的方法。为此，可以在`entpb`目录下的额外`.proto`文件中定义这些方法，并将其作为附加服务实现。"
+        "zh-CN": "通常您会希望在gRPC服务器中包含并非自动从Ent模式生成的方法。要实现这一目标，需要在`entpb`目录下的额外`.proto`文件中定义这些方法。"
       }
     },
     {
@@ -39,7 +39,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "例如，假设需要添加名为`TopUser`的方法来返回ID号最大的用户。在`entpb`目录创建新的`.proto`文件并定义服务："
+        "zh-CN": "例如，假设要添加名为`TopUser`的方法来返回ID号最大的用户。为此，在`entpb`目录下创建新的`.proto`文件并定义新服务："
       }
     },
     {
@@ -79,7 +79,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "重新运行代码生成命令："
+        "zh-CN": "然后重新运行代码生成："
       }
     },
     {
@@ -99,7 +99,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "此时`ent/proto/entpb`目录会生成新文件："
+        "zh-CN": "观察`ent/proto/entpb`目录下生成的新文件："
       }
     },
     {
@@ -164,7 +164,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/tutorial-grpc-ext-service.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.151185+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.768690+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "54a0941f3de96bc3196630c3657f2a2cd1ed4df836a81983ae0d39709268090a"

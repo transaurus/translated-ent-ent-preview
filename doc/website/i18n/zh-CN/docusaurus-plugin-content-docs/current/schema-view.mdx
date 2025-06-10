@@ -7,7 +7,7 @@ slug: /schema-views
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Ent 支持操作数据库视图。与通常由表支撑的常规 Ent 类型（模式）不同，视图作为"虚拟表"存在，其数据来源于查询结果。以下示例展示了如何在 Ent 中定义 `VIEW`。更多细节选项请参阅指南后续内容。
+Ent支持操作数据库视图。与通常由表支撑的常规Ent类型（模式）不同，视图作为"虚拟表"存在，其数据来源于查询结果。以下示例演示了如何在Ent中定义`VIEW`。更多细节选项请参阅本指南后续内容。
 
 <Tabs>
 <TabItem value="Builder Definition">
@@ -87,14 +87,14 @@ func (CleanUser) Fields() []ent.Field {
 
 :::info[表与视图的关键区别]
 - 视图是只读的，因此不会为其生成变更构建器。如需定义可插入/更新的视图，请将其定义为常规模式并按照下文指南配置迁移。
-- 与 `ent.Schema` 不同，`ent.View` 默认不包含 `ID` 字段。如需在视图中包含 `id` 字段，需显式定义为字段。
-- 钩子无法注册到视图，因其只读特性。
-- Atlas 为 Ent 视图提供原生支持，包括版本化迁移和测试。但若未使用 Atlas，需手动管理视图迁移，因 Ent 不提供其模式迁移功能。
+- 与`ent.Schema`不同，`ent.View`默认不包含`ID`字段。如需在视图中包含`id`字段，可显式定义该字段。
+- 无法在视图上注册钩子，因其为只读结构。
+- Atlas为Ent视图提供开箱即用的支持，包括版本化迁移和测试。但若未使用Atlas，则需要手动管理视图迁移，因为Ent不提供视图的模式迁移功能。
 :::
 
 ## 简介
 
-定义在 `ent/schema` 包中的视图需嵌入 `ent.View` 类型而非 `ent.Schema` 类型。除字段外，视图可包含边、拦截器和注解以实现额外集成。例如：
+定义在`ent/schema`包中的视图需嵌入`ent.View`类型而非`ent.Schema`类型。除字段外，它们还可包含边、拦截器和注解以实现额外集成。例如：
 
 ```go title="ent/schema/user.go"
 // CleanUser represents a user without its PII field.
@@ -114,41 +114,41 @@ func (CleanUser) Fields() []ent.Field {
 }
 ```
 
-定义完成后，可运行 `go generate ./ent` 生成与该视图交互所需的资源。例如：
+定义完成后，可运行`go generate ./ent`生成与该视图交互所需的资源。例如：
 
 ```go
 client.CleanUser.Query().OnlyX(ctx)
 ```
 
-注意：`ent.View` 不会生成 `Create`/`Update`/`Delete` 构建器。
+注意：`ent.View`不会生成`Create`/`Update`/`Delete`构建器。
 
 ## 迁移与测试
 
-定义视图模式后，需向 Ent（及 Atlas）声明构成该视图的 SQL 查询。若未配置，执行如上述定义的 Ent 查询将因缺少 `clean_users` 表而失败。
+定义视图模式后，需向Ent（及Atlas）声明定义该视图的SQL查询。若未配置，执行诸如上述定义的Ent查询将会失败，因为数据库中不存在名为`clean_users`的表。
 
-:::note[Atlas 指南]
-本文档后续内容假设您使用 Ent 配合 [Atlas Pro](https://atlasgo.io/features#pro-plan)，因 Ent 本身不支持视图或其他非表数据库对象的迁移。但使用 Atlas 或其专业订阅<u>并非强制</u>。只要视图存在于数据库中，Ent 客户端即可查询。
+:::note[Atlas指南]
+本文档后续内容假设您使用Ent配合[Atlas Pro](https://atlasgo.io/features#pro-plan)，因为Ent本身不支持视图或其他非表结构数据库对象的迁移。但使用Atlas或其专业订阅<u>并非强制要求</u>。只要视图存在于数据库中，Ent客户端即可查询。
 :::
 
-配置视图定义 (`AS SELECT ...`) 有两种方案：
+配置视图定义(`AS SELECT ...`)有两种方案：
 
-1. 在 Go 代码的 `ent/schema` 内定义
-2. 保持 `ent/schema` 独立于视图定义，通过 Atlas 手动或自动创建外部定义
+1. 在Go代码的`ent/schema`内定义
+2. 保持`ent/schema`独立于视图定义，通过Atlas手动或自动创建外部定义
 
-以下分别探讨这两种方案：
+下面分别探讨这两种方案：
 
-### Go 代码定义
+### Go代码定义
 
-本示例展示如何在 Ent 模式中定义包含 SQL 定义 (`AS ...`) 的 `ent.View`。
+本示例演示如何在Ent模式中定义包含SQL定义(`AS ...`)的`ent.View`。
 
-此方案主要优势在于：`CREATE VIEW` 的正确性会在迁移阶段而非查询阶段被验证。例如，若 `ent/schema` 中定义的 `ent.Field` 在 SQL 定义中不存在，PostgreSQL 将返回如下错误：
+此方案主要优势在于：`CREATE VIEW`的正确性会在迁移阶段而非查询阶段被验证。例如，若`ent/schema`中定义的`ent.Field`在SQL定义中不存在，PostgreSQL将返回如下错误：
 
 ```text
 // highlight-next-line-error-message
 create "clean_users" view: pq: CREATE VIEW specifies more column names than columns
 ```
 
-以下是包含字段定义和 `SELECT` 查询的视图示例：
+以下是包含字段定义及其`SELECT`查询的视图示例：
 
 <Tabs>
 <TabItem value="Builder Definition">
@@ -215,7 +215,7 @@ func (CleanUser) Fields() []ent.Field {
 </TabItem>
 </Tabs>
 
-通过创建包含必要参数的 `atlas.hcl` 文件简化配置，该配置文件将在下文[使用](#usage)章节中使用：
+我们通过创建包含必要参数的`atlas.hcl`文件来简化配置。该配置文件将在下文[使用](#usage)章节中使用：
 
 ```hcl title="atlas.hcl"
 env "local" {
@@ -224,7 +224,7 @@ env "local" {
 }
 ```
 
-完整示例参见 [Ent 代码库](https://github.com/ent/ent/tree/master/examples/viewschema)。
+完整示例参见[Ent代码库](https://github.com/ent/ent/tree/master/examples/viewschema)。
 
 ### 外部定义
 
@@ -246,9 +246,9 @@ func (CleanUser) Fields() []ent.Field {
 }
 ```
 
-在Ent中定义视图模式后，需要单独配置（或创建）SQL的`CREATE VIEW`定义，以确保在Ent运行时查询时该视图存在于数据库中。
+在Ent中定义视图模式后，需要单独配置（或创建）SQL的`CREATE VIEW`定义，以确保在Ent运行时查询时该视图已存在于数据库中。
 
-对于此示例，我们将使用Atlas的`composite_schema`数据源，从我们的`ent/schema`包和一个描述此视图的SQL文件构建模式图。让我们创建一个名为`schema.sql`的文件，并将视图定义粘贴到其中：
+对于此示例，我们将使用Atlas的`composite_schema`数据源，从我们的`ent/schema`包和一个描述此视图的SQL文件构建模式图。让我们创建一个名为`schema.sql`的文件，并将视图定义粘贴其中：
 
 ```sql title="schema.sql"
 -- Create "clean_users" view
@@ -258,7 +258,7 @@ CREATE VIEW "clean_users" ("id", "name", "public_info") AS SELECT id,
    FROM users;
 ```
 
-接下来，我们创建一个`atlas.hcl`配置文件，其中包含一个`composite_schema`，该模式同时包含我们的`ent/schema`和`schema.sql`文件：
+接下来，我们创建一个`atlas.hcl`配置文件，其中包含一个`composite_schema`，该模式包含我们的`ent/schema`和`schema.sql`文件：
 
 ```hcl title="atlas.hcl"
 data "composite_schema" "app" {
@@ -280,9 +280,9 @@ env "local" {
 
 完整示例可在[Ent仓库](https://github.com/ent/ent/tree/master/examples/viewcomposite)中找到。
 
-## 使用方法
+## 使用
 
-设置好模式后，我们可以使用`atlas schema inspect`命令获取其表示，为其生成迁移，将其应用到数据库等。以下是一些使用Atlas入门的命令：
+设置好模式后，我们可以使用`atlas schema inspect`命令获取其表示，为其生成迁移，将其应用到数据库等。以下是一些命令，帮助您开始使用Atlas：
 
 #### 检查模式
 
@@ -338,9 +338,9 @@ atlas migrate apply \
   --url "postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable"
 ```
 
-:::info[直接在数据库上应用模式]
+:::info[直接将模式应用到数据库]
 
-有时，需要直接将模式应用到数据库而不生成迁移文件。例如，在试验模式更改、为测试启动数据库等情况下。在这种情况下，可以使用以下命令直接将模式应用到数据库：
+有时，需要直接将模式应用到数据库而不生成迁移文件。例如，在试验模式更改、为测试启动数据库等情况下。在这种情况下，您可以使用以下命令直接将模式应用到数据库：
 
 ```shell
 atlas schema apply \
@@ -348,7 +348,7 @@ atlas schema apply \
   --url "postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable"
 ```
 
-或者在编写测试时，可以使用[Atlas Go SDK](https://github.com/ariga/atlas-go-sdk)在运行断言之前将模式与数据库对齐：
+或者，在编写测试时，可以使用[Atlas Go SDK](https://github.com/ariga/atlas-go-sdk)在运行断言之前将模式与数据库对齐：
 
 ```go
 ac, err := atlasexec.NewClient(".", "atlas")
@@ -356,7 +356,7 @@ if err != nil {
 	log.Fatalf("failed to initialize client: %w", err)
 }
 // 自动更新数据库以匹配所需模式。
-// 另一种选择是手动使用'migrate apply'或'schema apply'。
+// 另一个选项是手动使用'migrate apply'或'schema apply'。
 if _, err := ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{
 	Env: "local",
 	URL: "postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable",

@@ -6,9 +6,9 @@ title: Data Migrations
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-迁移通常用于更改数据库模式，但在某些情况下需要修改数据库中存储的数据。例如添加种子数据，或使用自定义默认值回填空列。
+迁移通常用于变更数据库结构，但在某些场景下，也需要修改数据库中存储的数据。例如添加种子数据，或为空列填充自定义默认值。
 
-此类迁移称为数据迁移。本文将讨论如何利用Ent规划数据迁移，并将其集成到常规的模式迁移工作流中。
+这类迁移称为数据迁移。本文将探讨如何利用Ent规划数据迁移，并将其集成到常规的数据库结构迁移工作流中。
 
 ### 迁移类型
 
@@ -16,31 +16,31 @@ Ent当前支持两种迁移类型：[版本化迁移](versioned-migrations.mdx)�
 
 ## 版本化迁移
 
-使用版本化迁移时，数据迁移应存储在相同的`migrations`目录中，并与常规迁移以相同方式执行。但建议将数据迁移与模式迁移分开存储，以便于测试。
+使用版本化迁移时，数据迁移文件应存放在相同的`migrations`目录下，执行方式与常规迁移相同。但建议将数据迁移与结构迁移分开存储，以便于单独测试。
 
-此类迁移采用SQL格式，即使Ent模式发生修改且生成代码不再兼容数据迁移文件，仍可安全执行（且存储内容保持不变）。
+此类迁移采用SQL格式，即使Ent模型发生变更导致生成代码与迁移文件不兼容时，仍可安全执行原始SQL文件。
 
-创建数据迁移脚本有两种方式：手动编写和自动生成。手动编写时用户需撰写所有SQL语句以精确控制执行内容；也可使用Ent自动生成数据迁移。建议验证生成文件的正确性，某些情况下可能需手动修正。
+创建数据迁移脚本有两种方式：手动编写与自动生成。手动编写需用户自行撰写所有SQL语句，可精确控制执行逻辑；自动生成则通过Ent工具生成迁移文件。建议对生成文件进行人工校验，某些情况下可能需要手动修正。
 
 ### 手动创建
 
-1\. 若未安装Atlas，请参阅其[入门指南](https://atlasgo.io/getting-started/#installation)
+1\. 若未安装Atlas，请参考[入门指南](https://atlasgo.io/getting-started/#installation)进行安装。
 
-2\. 使用[Atlas](https://atlasgo.io/versioned/new)创建新迁移文件：
+2\. 使用[Atlas工具](https://atlasgo.io/versioned/new)创建新迁移文件：
 
 ```shell
 atlas migrate new <migration_name> \
   --dir "file://my/project/migrations"
 ```
 
-3\. 编辑迁移文件并添加自定义数据迁移。例如：
+3\. 编辑迁移文件并添加自定义数据迁移逻辑。例如：
 
 ```sql title="ent/migrate/migrations/20221126185750_backfill_data.sql"
 -- Backfill NULL or null tags with a default value.
 UPDATE `users` SET `tags` = '["foo","bar"]' WHERE `tags` IS NULL OR JSON_CONTAINS(`tags`, 'null', '$');
 ```
 
-4\. 更新迁移目录[完整性文件](https://atlasgo.io/concepts/migration-directory-integrity)：
+4\. 更新迁移目录的[完整性文件](https://atlasgo.io/concepts/migration-directory-integrity)：
 
 ```shell
 atlas migrate hash \
@@ -51,11 +51,11 @@ atlas migrate hash \
 
 ### 自动生成脚本
 
-当前Ent提供数据迁移文件的初步生成支持。该功能可简化大多数情况下复杂SQL语句的手动编写过程。但仍建议验证生成文件的正确性，极端情况下可能需手动编辑。
+当前Ent提供数据迁移文件的初步生成支持。该功能可简化复杂SQL语句的手动编写过程，但仍建议校验生成结果，极端情况下可能需人工调整。
 
-1\. 若未配置，请先创建[版本化迁移设置](/docs/versioned/intro)
+1\. 若未配置[版本化迁移](/docs/versioned/intro)，请先完成基础配置。
 
-2\. 创建首个数据迁移函数。下方示例演示如何编写此类函数：
+2\. 创建数据迁移函数。下文示例演示编写规范：
 
 <Tabs>
 <TabItem value="single" label="Single Statement" default>
@@ -200,7 +200,7 @@ INSERT INTO `users` (`age`, `name`, `tags`) VALUES (1, 'a8m', '["foo"]'), (1, 'n
 </TabItem>
 </Tabs>
 
-3\. 若生成文件被编辑，需通过以下命令更新迁移目录[完整性文件](https://atlasgo.io/concepts/migration-directory-integrity)：
+3\. 若生成文件经过编辑，需通过以下命令更新迁移目录[完整性文件](https://atlasgo.io/concepts/migration-directory-integrity)：
 
 ```shell
 atlas migrate hash \
@@ -209,7 +209,7 @@ atlas migrate hash \
 
 ### 测试
 
-添加迁移文件后，强烈建议在本地数据库应用以验证其有效性及预期结果。该过程可手动完成或通过程序自动化。
+添加迁移文件后，强烈建议在本地数据库执行验证，确保其有效性并符合预期结果。该流程可手动执行或通过程序自动化。
 
 1\. 执行所有迁移文件直至最新创建的数据迁移文件：
 
@@ -223,7 +223,7 @@ atlas migrate apply $[number_of_files-1] \
   -u "mysql://root:pass@localhost:3306/test"
 ```
 
-2\. 确认最新迁移文件处于待执行状态：
+2\. 确认待执行的最后迁移文件：
 
 ```shell
 atlas migrate status \
@@ -237,7 +237,7 @@ Migration Status: PENDING
   -- Pending Files:   1
 ```
 
-3\. 在本地数据库填充临时数据以模拟执行数据迁移前的生产环境状态。
+3\. 在本地数据库填充临时数据，模拟执行数据迁移前的生产环境状态。
 
 4\. 运行 `atlas migrate apply` 并确保其执行成功。
 

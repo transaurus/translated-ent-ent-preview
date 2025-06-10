@@ -30,7 +30,7 @@ You are now connected to "a8m" on Atlas Cloud.
 
 ## 注解Ent模式
 
-`entsql`包允许使用数据库模式名称注解Ent模式。例如：
+`entsql`包允许通过数据库模式名称注解Ent模式。例如：
 
 ```go
 // Annotations of the User.
@@ -41,7 +41,7 @@ func (User) Annotations() []schema.Annotation {
 }
 ```
 
-要在多个Ent模式间共享相同的模式配置，可以使用`ent.Mixin`或定义并嵌入_基础_模式：
+要在多个Ent模式间共享相同的模式配置，可使用`ent.Mixin`或定义并嵌入_基础_模式：
 
 <Tabs>
 <TabItem value="mixin" label="Mixin schema">
@@ -105,7 +105,7 @@ type User struct {
 
 ## 生成迁移
 
-要生成迁移，使用`atlas migrate diff`命令。例如：
+使用`atlas migrate diff`命令生成迁移。例如：
 
 <Tabs
 defaultValue="mysql"

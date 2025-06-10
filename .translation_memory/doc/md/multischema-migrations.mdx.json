@@ -99,7 +99,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`entsql`包允许使用数据库模式名称注解Ent模式。例如："
+        "zh-CN": "`entsql`包允许通过数据库模式名称注解Ent模式。例如："
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "要在多个Ent模式间共享相同的模式配置，可以使用`ent.Mixin`或定义并嵌入_基础_模式："
+        "zh-CN": "要在多个Ent模式间共享相同的模式配置，可使用`ent.Mixin`或定义并嵌入_基础_模式："
       }
     },
     {
@@ -149,7 +149,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "要生成迁移，使用`atlas migrate diff`命令。例如："
+        "zh-CN": "使用`atlas migrate diff`命令生成迁移。例如："
       }
     },
     {
@@ -174,7 +174,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/multischema-migrations.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.154114+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.770091+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "a949a80f3674b4a4eed6df85e2eb2dd5cdad46db0710743456427dc8bfcd573b"

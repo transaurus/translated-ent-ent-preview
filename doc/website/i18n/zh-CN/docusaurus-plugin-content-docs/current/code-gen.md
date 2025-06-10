@@ -5,7 +5,7 @@ title: Introduction
 
 ## 安装
 
-项目自带名为`ent`的代码生成工具。执行以下命令安装`ent`：
+该项目附带一个名为`ent`的代码生成工具。要安装`ent`，请运行以下命令：
 
 ```bash
 go get entgo.io/ent/cmd/ent
@@ -13,42 +13,42 @@ go get entgo.io/ent/cmd/ent
 
 ## 初始化新Schema
 
-执行`ent init`命令生成一个或多个Schema模板：
+要生成一个或多个Schema模板，请按如下方式运行`ent init`：
 
 ```bash
 go run -mod=mod entgo.io/ent/cmd/ent new User Pet
 ```
 
-`init`命令将在`ent/schema`目录下创建两个Schema文件（`user.go`和`pet.go`）。若`ent`目录不存在，工具会自动创建。项目约定在根目录下建立`ent`目录。
+`init`命令将在`ent/schema`目录下创建2个Schema文件（`user.go`和`pet.go`）。如果`ent`目录不存在，它也会自动创建。项目约定是在项目根目录下创建`ent`目录。
 
 ## 生成资源文件
 
-添加若干[字段](schema-fields.mdx)和[边](schema-edges.mdx)后，执行`ent generate`生成实体操作资源文件。可在项目根目录运行该命令，或使用`go generate`：
+添加若干[字段](schema-fields.mdx)和[边](schema-edges.mdx)后，您需要生成实体操作所需的资源文件。从项目根目录运行`ent generate`，或使用`go generate`：
 
 ```bash
 go generate ./ent
 ```
 
-`generate`命令会为Schema生成以下资源：
+`generate`命令会为Schema生成以下资源文件：
 
 - 用于操作图的`Client`和`Tx`对象
 - 每个Schema类型的CRUD构建器（参见[CRUD](crud.mdx)）
-- 各Schema类型对应的实体对象（Go结构体）
-- 包含构建器使用的常量和谓词的包
-- 支持SQL方言的`migrate`包（参见[迁移](migrate.md)）
+- 每个Schema类型对应的实体对象（Go结构体）
+- 包含与构建器交互所需的常量和谓词的包
+- 用于SQL方言的`migrate`包（参见[迁移](migrate.md)）
 - 用于添加变更中间件的`hook`包（参见[钩子](hooks.md)）
 
 ## `entc`与`ent`的版本兼容性
 
-使用`ent`CLI时，需确保CLI版本与项目中引用的`ent`版本**完全一致**。
+在项目中使用`ent`CLI时，需确保CLI使用的版本与项目引用的`ent`版本完全一致。
 
-可通过`go generate`命令强制使用`go.mod`文件中指定的版本。若项目未使用[Go模块](https://github.com/golang/go/wiki/Modules#quick-start)，请先初始化：
+实现方式之一是让`go generate`在运行`ent`时使用`go.mod`文件中指定的版本。如果项目未使用[Go模块](https://github.com/golang/go/wiki/Modules#quick-start)，请按以下方式初始化：
 
 ```console
 go mod init <project>
 ```
 
-然后重新执行以下命令将`ent`添加至`go.mod`文件：
+然后重新运行以下命令将`ent`添加到`go.mod`文件：
 
 ```console
 go get entgo.io/ent/cmd/ent
@@ -62,11 +62,11 @@ package ent
 //go:generate go run -mod=mod entgo.io/ent/cmd/ent generate ./schema
 ```
 
-最后在项目根目录执行`go generate ./ent`即可运行Schema代码生成。
+最后，从项目根目录运行`go generate ./ent`即可对项目Schema执行`ent`代码生成。
 
 ## 代码生成选项
 
-执行`ent generate -h`查看所有代码生成选项：
+运行`ent generate -h`查看代码生成选项详情：
 
 ```console
 generate go code for the schema directory
@@ -89,21 +89,21 @@ Flags:
 
 ## 存储选项
 
-`ent`支持生成SQL和Gremlin两种方言的资源文件，默认生成SQL方言。
+`ent`可为SQL和Gremlin方言生成资源文件，默认方言为SQL。
 
 ## 外部模板
 
-`ent`支持执行外部Go模板。若模板名与内置模板重复将覆盖原模板，否则会生成与模板同名的输出文件。支持`file`、`dir`和`glob`三种格式：
+`ent`支持执行外部Go模板。若模板名与`ent`内置模板重复将覆盖原模板，否则会将执行结果写入与模板同名的文件。标志格式支持`file`、`dir`和`glob`：
 
 ```console
 go run -mod=mod entgo.io/ent/cmd/ent generate --template <dir-path> --template glob="path/to/*.tmpl" ./ent/schema
 ```
 
-更多示例详见[外部模板文档](templates.md)。
+更多信息和示例请参阅[外部模板文档](templates.md)。
 
 ## 以包形式使用`entc`
 
-另一种代码生成方式是在`ent/entc.go`中创建以下内容，然后通过`ent/generate.go`执行：
+另一种运行`ent`代码生成的方式是：先创建包含以下内容的`ent/entc.go`文件，再通过`ent/generate.go`文件执行：
 
 ```go title="ent/entc.go"
 // +build ignore
@@ -174,7 +174,7 @@ User:
 
 ## 代码生成钩子
 
-`entc` 包提供了在代码生成阶段添加钩子（中间件）的功能。该功能适用于为模式添加自定义验证器，或基于图模式生成额外资产。
+`entc` 包支持在代码生成阶段添加钩子（中间件），该功能适用于为模式添加自定义校验逻辑，或基于图模式生成额外资产。
 
 ```go
 // +build ignore
@@ -221,7 +221,7 @@ func EnsureStructTag(name string) gen.Hook {
 
 ## 外部依赖
 
-若需扩展 `ent` 包下生成的客户端和构建器，并注入外部依赖作为结构体字段，请在 [`ent/entc.go`](#use-entc-as-a-package) 文件中使用 `entc.Dependency` 选项：
+如需扩展 `ent` 包下生成的客户端和构建器，并注入外部依赖作为结构体字段，请在 [`ent/entc.go`](#use-entc-as-a-package) 文件中使用 `entc.Dependency` 选项：
 
 ```go title="ent/entc.go" {3-12}
 func main() {
@@ -243,7 +243,7 @@ func main() {
 }
 ```
 
-然后在应用程序中使用：
+随后在应用程序中使用：
 
 ```go title="example_test.go" {5-6,15-16}
 func Example_Deps() {

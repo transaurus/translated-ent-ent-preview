@@ -6,9 +6,9 @@ title: Paging And Ordering
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-## 结果集限制
+## 限制数量
 
-`Limit` 方法将查询结果限制为 `n` 条记录。
+`Limit` 将查询结果限制为 `n` 个实体。
 
 ```go
 users, err := client.User.
@@ -19,7 +19,7 @@ users, err := client.User.
 
 ## 偏移量
 
-`Offset` 方法设置查询返回的起始节点位置。
+`Offset` 设置查询返回的起始节点位置。
 
 ```go
 users, err := client.User.
@@ -30,7 +30,7 @@ users, err := client.User.
 
 ## 排序
 
-`Order` 方法按一个或多个字段值对实体进行排序。注意：若指定字段不是有效列或外键，将返回错误。
+`Order` 按一个或多个字段的值对实体进行排序。注意：若指定字段不是有效列或外键，将返回错误。
 
 ```go
 users, err := client.User.Query().
@@ -38,7 +38,7 @@ users, err := client.User.Query().
 	All(ctx)
 ```
 
-自 `v0.12.0` 版本起，Ent 会为字段和边生成类型安全的排序函数。以下示例演示如何使用这些生成函数：
+从 `v0.12.0` 版本开始，Ent 会为字段和边生成类型安全的排序函数。以下示例演示如何使用这些生成函数：
 
 ```go
 // Get all users sorted by their name (and nickname) in ascending order.
@@ -65,7 +65,7 @@ users, err := client.User.Query().
 
 ## 按边数量排序
 
-`Order` 也可用于根据实体关联边的数量进行排序。例如，以下查询返回所有用户并按他们拥有的帖子数量排序：
+`Order` 也可根据实体拥有的边数量进行排序。例如，以下查询返回按用户拥有帖子数量排序的所有用户：
 
 ```go
 users, err := client.User.Query().
@@ -91,7 +91,7 @@ users, err := client.User.Query().
 
 ## 按边字段排序
 
-实体也可根据边字段的值进行排序。例如，以下查询返回所有帖子并按作者姓名排序：
+实体还可按边字段的值排序。例如，以下查询返回按作者姓名排序的所有帖子：
 
 ```go
 // Posts are sorted by their author's name in ascending
@@ -118,7 +118,7 @@ posts, err := client.Post.Query().
 
 ## 自定义边条件
 
-生成的边排序函数支持自定义条件。例如，以下查询返回所有用户并按他们帖子点赞数与浏览数之和排序：
+生成的边排序函数支持自定义条件。例如，以下查询返回按用户帖子点赞数与浏览数之和排序的所有用户：
 
 ```go
 // Ascending order.
@@ -154,7 +154,7 @@ posts, err := client.User.Query().
 
 ## 选择排序条件
 
-像 `SUM()` 和 `COUNT()` 这样的聚合条件并未在模式中定义，因此不会出现在生成的实体上。但有时需要获取这些信息用于用户展示或实现基于游标的分页。每个实体上定义的 `Value` 方法允许在查询中选择排序值时获取该值：
+诸如 `SUM()` 和 `COUNT()` 的排序条件未在模式中定义，因此不存在于生成的实体上。但有时需要获取这些信息以展示给用户或实现基于游标的分页。每个实体上定义的 `Value` 方法允许在查询中选择排序值时获取该值：
 
 ```go
 // Define the alias for the order term.
@@ -182,7 +182,7 @@ for _, u := range users {
 
 ## 自定义排序
 
-如需编写特定存储逻辑，可使用自定义排序函数。
+若需编写特定存储逻辑，自定义排序函数会非常有用。
 
 ```go
 names, err := client.Pet.Query().

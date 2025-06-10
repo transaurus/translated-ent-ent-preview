@@ -19,7 +19,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "首先，我们为项目初始化一个新的Go模块："
+        "zh-CN": "首先为我们的项目初始化一个新的Go模块："
       }
     },
     {
@@ -39,7 +39,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "接着，使用`go run`命令调用ent代码生成器来初始化一个模式："
+        "zh-CN": "接着使用`go run`命令调用ent代码生成器来初始化一个模式："
       }
     },
     {
@@ -79,7 +79,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "接下来，将`entproto`包添加到项目中："
+        "zh-CN": "接下来我们将`entproto`包添加到项目中："
       }
     },
     {
@@ -99,7 +99,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "随后，我们将定义`User`实体的模式。打开`ent/schema/user.go`进行编辑："
+        "zh-CN": "现在我们将定义`User`实体的模式。打开`ent/schema/user.go`进行编辑："
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "在此步骤中，我们为`User`实体添加了两个唯一字段：`name`和`email_address`。`ent.Schema`仅定义了模式结构。要生成可用的生产代码，需要运行Ent的代码生成工具。执行："
+        "zh-CN": "这一步中，我们为`User`实体添加了两个唯一字段：`name`和`email_address`。`ent.Schema`仅是模式的定义。要从中生成可用的生产代码，需要运行Ent的代码生成工具。执行："
       }
     },
     {
@@ -159,12 +159,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "至此，我们可以连接数据库、运行迁移创建`users`表并开始读写数据。这些操作在[设置教程](tutorial-setup.md)中有详细说明，现在让我们直接进入主题，学习如何从模式生成Protobuf定义和gRPC服务器。"
+        "zh-CN": "至此，我们可以连接数据库、运行迁移创建`users`表并开始读写数据。具体操作详见[设置教程](tutorial-setup.md)，现在让我们直接学习如何从模式生成Protobuf定义和gRPC服务器。"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/tutorial-grpc-setting-up.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.150690+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.766637+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "29e5696dfae5e0303563157b86893e5b6f7a6bbd5d0918c2e3ca26d9a6e5304c"

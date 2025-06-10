@@ -19,7 +19,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "本指南面向首次使用者，提供从零开始搭建Ent项目的详细说明。在开始前，请确保您的机器已安装以下必备组件。"
+        "zh-CN": "本指南面向首次使用Ent框架的用户，提供从零开始搭建项目的详细说明。在开始前，请确保您的开发环境已安装以下必备组件。"
       }
     },
     {
@@ -49,7 +49,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "安装完这些依赖后，为项目创建目录并初始化Go模块："
+        "zh-CN": "安装完依赖后，为项目创建目录并初始化Go模块："
       }
     },
     {
@@ -79,7 +79,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "运行以下Go命令安装Ent，并初始化项目结构及`Todo`模式："
+        "zh-CN": "执行以下Go命令安装Ent框架，并初始化项目结构及`Todo`数据模型："
       }
     },
     {
@@ -109,7 +109,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "完成Ent安装并执行`ent new`后，项目目录结构应如下所示："
+        "zh-CN": "完成Ent安装并运行`ent new`命令后，项目目录结构应如下所示："
       }
     },
     {
@@ -129,7 +129,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`ent`目录存放生成的资源文件（详见下节），`ent/schema`目录则包含您的实体模式定义。"
+        "zh-CN": "`ent`目录存放生成的代码资产（详见下节），`ent/schema`目录则包含您的实体模型定义。"
       }
     },
     {
@@ -149,7 +149,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "前文执行`ent new Todo`时，已在`todo/ent/schema/`目录下的`todo.go`文件中创建了名为`Todo`的模式："
+        "zh-CN": "前文执行`ent new Todo`时，已在`todo/ent/schema/`目录下的`todo.go`文件中创建了名为`Todo`的模型："
       }
     },
     {
@@ -169,7 +169,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "如您所见，初始模式下未定义任何字段或边。现在运行以下命令生成与`Todo`实体交互的代码："
+        "zh-CN": "如您所见，初始模型未定义任何字段或关联关系。现在运行以下命令生成与`Todo`实体交互的代码资产："
       }
     },
     {
@@ -199,7 +199,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "执行`go generate ./ent`会调用Ent的自动代码生成工具，该工具根据`schema`包中的模式定义生成实际用于数据库交互的Go代码。此时您可以在`./ent/client.go`中找到能够查询和修改`Todo`实体的客户端代码。我们将创建一个[可测试示例](https://go.dev/blog/examples)来使用这些功能，测试中将采用[SQLite](https://github.com/mattn/go-sqlite3)作为数据库驱动。"
+        "zh-CN": "执行`go generate ./ent`会触发Ent的自动化代码生成工具，该工具根据`schema`包中的模型定义生成实际操作的Go代码。此时您可以在`./ent/client.go`中找到用于查询和修改`Todo`实体的客户端代码。我们将创建一个[可测试示例](https://go.dev/blog/examples)来使用这些功能，测试案例中将采用[SQLite](https://github.com/mattn/go-sqlite3)数据库。"
       }
     },
     {
@@ -219,7 +219,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "将以下代码粘贴至`example_test.go`，该代码会实例化`ent.Client`并自动在数据库中创建所有模式资源（表、列等）："
+        "zh-CN": "将以下代码粘贴至`example_test.go`文件，该代码会实例化`ent.Client`并自动在数据库中创建所有模型资源（表、列等）："
       }
     },
     {
@@ -239,7 +239,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "随后运行`go test`验证功能是否正常。"
+        "zh-CN": "随后运行`go test`验证功能是否正常："
       }
     },
     {
@@ -259,12 +259,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "完成项目搭建后，现在可以开始创建待办事项列表。"
+        "zh-CN": "完成项目搭建后，即可开始创建待办事项列表。"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/tutorial-setup.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.165202+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.776306+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "3766560761a5cf9b4ad7ad790dc962e54aafde6bd0515e874501abb97a2b5177"

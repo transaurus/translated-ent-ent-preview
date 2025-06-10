@@ -4,7 +4,7 @@ title: Working with External gRPC Services
 sidebar_label: External gRPC Services
 ---
 
-通常您会希望在gRPC服务器中包含那些无法从Ent模式自动生成的方法。为此，可以在`entpb`目录下的额外`.proto`文件中定义这些方法，并将其作为附加服务实现。
+通常您会希望在gRPC服务器中包含并非自动从Ent模式生成的方法。要实现这一目标，需要在`entpb`目录下的额外`.proto`文件中定义这些方法。
 
 :::info[]
 
@@ -12,7 +12,7 @@ sidebar_label: External gRPC Services
 
 :::
 
-例如，假设需要添加名为`TopUser`的方法来返回ID号最大的用户。在`entpb`目录创建新的`.proto`文件并定义服务：
+例如，假设要添加名为`TopUser`的方法来返回ID号最大的用户。为此，在`entpb`目录下创建新的`.proto`文件并定义新服务：
 
 ```protobuf title="ent/proto/entpb/ext.proto"
 syntax = "proto3";
@@ -38,13 +38,13 @@ service ExtService {
 + //go:generate protoc -I=.. --go_out=.. --go-grpc_out=.. --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative --entgrpc_out=.. --entgrpc_opt=paths=source_relative,schema_path=../../schema entpb/entpb.proto entpb/ext.proto
 ```
 
-重新运行代码生成命令：
+然后重新运行代码生成：
 
 ```shell
 go generate ./...
 ```
 
-此时`ent/proto/entpb`目录会生成新文件：
+观察`ent/proto/entpb`目录下生成的新文件：
 
 ```shell
 tree

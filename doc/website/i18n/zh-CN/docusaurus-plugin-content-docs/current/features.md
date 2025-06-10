@@ -4,13 +4,13 @@ title: Feature Flags
 sidebar_label: Feature Flags
 ---
 
-该框架提供了一系列可通过标志添加或移除的代码生成功能。
+该框架提供了一系列可通过标志位添加或移除的代码生成特性。
 
-## 使用方法
+## 使用方式
 
-功能标志可以通过CLI参数或作为`gen`包的参数提供。
+功能标志可通过CLI参数或作为`gen`包的参数提供。
 
-#### 命令行界面
+#### 命令行
 
 ```console
 go run -mod=mod entgo.io/ent/cmd/ent generate --feature privacy,entql ./ent/schema
@@ -53,43 +53,43 @@ func main() {
 
 ### 自动解决合并冲突
 
-`schema/snapshot`选项指示`entc`（ent代码生成器）将最新模式的快照存储在内部包中，并在用户模式无法构建时自动解决合并冲突。
+`schema/snapshot`选项指示`entc`（ent代码生成器）将最新模式的快照存储在内部包中，当用户模式无法构建时自动解决合并冲突。
 
-此选项可通过`--feature schema/snapshot`标志添加到项目中，更多背景信息请参阅[ent/ent/issues/852](https://github.com/ent/ent/issues/852)。
+可通过`--feature schema/snapshot`标志启用该功能，更多背景信息请参阅[ent/ent/issues/852](https://github.com/ent/ent/issues/852)。
 
 ### 隐私层
 
-隐私层允许为数据库中的实体查询和变更配置隐私策略。
+隐私层允许为数据库实体的查询和变更配置隐私策略。
 
-此选项可通过`--feature privacy`标志添加到项目中，更多详情请参阅[隐私](privacy.mdx)文档。
+可通过`--feature privacy`标志启用该功能，详见[隐私文档](privacy.mdx)。
 
 ### EntQL过滤
 
-`entql`选项为不同的查询构建器提供了运行时通用且动态的过滤能力。
+`entql`选项为不同查询构建器提供运行时通用动态过滤能力。
 
-此选项可通过`--feature entql`标志添加到项目中，更多详情请参阅[隐私](privacy.mdx#multi-tenancy)文档。
+可通过`--feature entql`标志启用该功能，详见[隐私文档](privacy.mdx#multi-tenancy)中的多租户章节。
 
-### 命名边
+### 命名边载
 
-`namedges`选项提供了预加载具有自定义名称边的API。
+`namedges`选项提供通过自定义名称预加载边的API。
 
-此选项可通过`--feature namedges`标志添加到项目中，更多详情请参阅[预加载](eager-load.mdx)文档。
+可通过`--feature namedges`标志启用该功能，详见[主动加载文档](eager-load.mdx)。
 
 ### 双向边引用
 
-`bidiedges`选项指导Ent在预加载（O2M/O2O）边时设置双向引用。
+`bidiedges`选项引导Ent在主动加载(O2M/O2O)边时设置双向引用。
 
-此选项可通过`--feature bidiedges`标志添加到项目中。
+可通过`--feature bidiedges`标志启用该功能。
 
 :::note
-使用标准encoding/json.MarshalJSON的用户应在调用`json.Marshal`之前解除循环引用。
+使用标准encoding/json.MarshalJSON的用户应在调用`json.Marshal`前解除循环引用。
 :::
 
 ### 模式配置
 
-`sql/schemaconfig`选项允许向模型传递替代的SQL数据库名称。当您的模型不全部位于一个数据库下，而是分布在不同的模式中时，这非常有用。
+`sql/schemaconfig`选项允许向模型传递备用SQL数据库名称。当模型不位于同一数据库而是分散在不同模式时特别有用。
 
-此选项可通过`--feature sql/schemaconfig`标志添加到项目中。生成代码后，您可以像这样使用新选项：
+通过`--feature sql/schemaconfig`标志启用后，生成代码即可使用如下新选项：
 
 ```go
 c, err := ent.Open(dialect, conn, ent.AlternateSchema(ent.SchemaConfig{
@@ -102,9 +102,9 @@ c.Car.Query().All(ctx) 	// SELECT * FROM `carsdb`.`cars`
 
 ### 行级锁
 
-`sql/lock`选项允许使用SQL`SELECT ... FOR {UPDATE | SHARE}`语法配置行级锁定。
+`sql/lock`选项支持使用SQL`SELECT ... FOR {UPDATE | SHARE}`语法配置行级锁定。
 
-此选项可通过`--feature sql/lock`标志添加到项目中。
+可通过`--feature sql/lock`标志启用该功能。
 
 ```go
 tx, err := client.Tx(ctx)
@@ -126,11 +126,11 @@ tx.Pet.Query().
 	Only(ctx)
 ```
 
-### 自定义SQL修饰符
+### 自定义SQL修饰器
 
-`sql/modifier`选项允许向构建器添加自定义SQL修饰符，并在语句执行前对其进行修改。
+`sql/modifier`选项允许向构建器添加自定义SQL修饰器，并在语句执行前修改它们。
 
-此选项可通过`--feature sql/modifier`标志添加到项目中。
+可通过`--feature sql/modifier`标志启用该功能。
 
 #### 修改示例1
 
@@ -143,15 +143,15 @@ client.Pet.
 	IntX(ctx)
 ```
 
-上述代码将生成以下SQL查询：
+上述代码将生成如下SQL查询：
 
 ```sql
 SELECT SUM(LENGTH(name)) FROM `pet`
 ```
 
-#### 选择和扫描动态值
+#### 选择并扫描动态值
 
-若您使用SQL修饰器并需要扫描Ent模式定义中不存在的动态值（如聚合或自定义排序），可对`sql.Selector`应用`AppendSelect`/`AppendSelectAs`方法。随后可通过每个实体上定义的`Value`方法访问这些值：
+若需处理SQL修饰符并扫描Ent模式定义中未包含的动态值（如聚合或自定义排序），可对`sql.Selector`应用`AppendSelect`/`AppendSelectAs`方法，随后通过各实体上定义的`Value`方法访问这些值：
 
 ```go {6,11}
 const as = "name_length"
@@ -338,7 +338,7 @@ UPDATE `users` SET `tags` = CASE
 
 ### SQL原生API
 
-`sql/execquery`选项允许使用底层驱动的`ExecContext`/`QueryContext`方法执行语句。完整文档参见：[DB.ExecContext](https://pkg.go.dev/database/sql#DB.ExecContext)与[DB.QueryContext](https://pkg.go.dev/database/sql#DB.QueryContext)。
+`sql/execquery`选项允许通过底层驱动的`ExecContext`/`QueryContext`方法执行语句。完整文档参见：[DB.ExecContext](https://pkg.go.dev/database/sql#DB.ExecContext)与[DB.QueryContext](https://pkg.go.dev/database/sql#DB.QueryContext)。
 
 ```go
 // From ent.Client.
@@ -361,14 +361,14 @@ if _, err := tx.ExecContext("SAVEPOINT user_created"); err != nil {
 ```
 
 :::warning[注意]
-通过`ExecContext`/`QueryContext`执行的语句不会经过Ent，可能会跳过应用程序的基础层（如钩子、隐私（授权）和验证器）。
+通过`ExecContext`/`QueryContext`执行的语句不会经过Ent处理，可能跳过应用程序的基础层（如钩子、隐私授权和验证器）。
 :::
 
 ### 更新插入
 
-`sql/upsert`选项支持使用SQL的`ON CONFLICT`/`ON DUPLICATE KEY`语法配置更新插入与批量更新插入逻辑。完整文档参见：[更新插入API](crud.mdx#upsert-one)。
+`sql/upsert`选项支持使用SQL的`ON CONFLICT`/`ON DUPLICATE KEY`语法配置更新插入与批量更新插入逻辑。完整文档参见[更新插入API](crud.mdx#upsert-one)。
 
-可通过`--feature sql/upsert`标志为项目启用此选项。
+可通过`--feature sql/upsert`标志为项目启用此功能。
 
 ```go
 // Use the new values that were set on create.
@@ -404,16 +404,16 @@ client.User.
 
 ### 全局唯一ID
 
-默认情况下，SQL主键从每张表的1开始递增，这意味着不同类型的实体可能共享相同ID。这与AWS Neptune不同，后者的节点ID采用UUID。
+默认情况下，SQL主键从每张表的1开始递增，这意味着不同类型的实体可能共享相同ID。这与AWS Neptune（节点ID采用UUID）不同。
 
 此机制不适用于需要对象ID全局唯一的[GraphQL](https://graphql.org/learn/schema/#scalar-types)场景。
 
-只需使用`--feature sql/globalid`标志即可为项目启用全局ID支持。
+启用项目全局ID支持只需使用`--feature sql/globalid`标志。
 
 :::warning[注意]
-若您曾使用过`migrate.WithGlobalUniqueID(true)`迁移选项，在切换至新的globalid功能前请阅读[本指南](globalid-migrate)。
+若曾使用`migrate.WithGlobalUniqueID(true)`迁移选项，切换至新globalid功能前请阅读[本指南](globalid-migrate)。
 :::
 
-**实现原理**：Ent迁移会为每个实体（表）分配1<<32范围的ID空间，并将该信息与生成代码（`internal/globalid.go`）一并存储。例如类型`A`的ID范围为`[1,4294967296)`，类型`B`为`[4294967296,8589934592)`，以此类推。
+**实现原理**：Ent迁移为每个实体类型（表）分配1<<32的ID范围，并将该信息与生成代码共同存储（`internal/globalid.go`）。例如类型`A`的ID范围为`[1,4294967296)`，类型`B`为`[4294967296,8589934592)`，以此类推。
 
-请注意，若启用此选项，最大可能的表数量为 **65535**。
+请注意，若启用此选项，最大支持的表数量为 **65535**。

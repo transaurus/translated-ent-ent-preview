@@ -49,7 +49,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "以下面这个图式为例展示API的使用方式："
+        "zh-CN": "以下面这个图结构为例展示API使用方式："
       }
     },
     {
@@ -69,7 +69,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "**查询所有用户及其宠物：**"
+        "zh-CN": "**查询所有用户及其宠物:**"
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "每个查询构建器都有一系列以 `With<E>(...func(<N>Query))` 形式命名的方法，对应其每条边。其中`<E>`代表边名称（如`WithGroups`），`<N>`代表边类型（如`GroupQuery`）。"
+        "zh-CN": "每个查询构建器都有一系列以 `With<E>(...func(<N>Query))` 形式命名的方法，其中 `<E>` 代表边名称（如 `WithGroups`），`<N>` 代表边类型（如 `GroupQuery`）。"
       }
     },
     {
@@ -129,7 +129,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "请注意该功能仅支持SQL方言。"
+        "zh-CN": "注意：该特性仅限SQL方言支持。"
       }
     },
     {
@@ -149,7 +149,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "某些场景下需要以自定义名称预加载边。例如GraphQL查询中，两个别名引用同一条边但使用不同参数。为此Ent提供了`WithNamed<E>` API，需通过[`namedges`](features.md#named-edges)特性标志启用，并可无缝集成[EntGQL字段集合](tutorial-todo-gql-field-collection.md)功能。"
+        "zh-CN": "某些场景下需要为预加载的边指定别名。例如在GraphQL查询中，两个别名可能引用同一条边但使用不同参数。为此Ent提供了 `WithNamed<E>` API，需通过[`namedges`](features.md#named-edges)特性标志启用，并可无缝集成[EntGQL字段集合](tutorial-todo-gql-field-collection.md)功能。"
       }
     },
     {
@@ -179,12 +179,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "由于Ent查询可能同时预加载多条边，无法通过单次`JOIN`操作加载所有关联。因此Ent会为每个关联执行额外查询，该机制将在未来版本中进行优化。"
+        "zh-CN": "由于Ent查询可能预加载多条边，无法通过单次`JOIN`操作加载所有关联。因此Ent会为每个关联执行额外查询，该机制将在未来版本中进行优化。"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/eager-load.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.161423+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.771553+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "1ed994b56ac60b4ed50e30f35ab2b298896ee8615986561b3621593fadf6cf82"

@@ -29,7 +29,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`Aggregate`选项允许添加一个或多个聚合函数。"
+        "zh-CN": "`Aggregate` 选项允许添加一个或多个聚合函数。"
       }
     },
     {
@@ -59,7 +59,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "按所有用户的`name`和`age`字段分组，并计算其年龄总和。"
+        "zh-CN": "按所有用户的 `name` 和 `age` 字段分组，并计算其年龄总和。"
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "以下示例展示如何按用户的`id`和`name`分组，并计算其宠物年龄的平均值。"
+        "zh-CN": "以下示例展示如何按所有用户的 `id` 和 `name` 分组，并计算其宠物平均年龄。"
       }
     },
     {
@@ -139,7 +139,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## Having条件与分组查询"
+        "zh-CN": "## Having 条件 + 分组查询"
       }
     },
     {
@@ -149,7 +149,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "[自定义SQL修饰符](https://entgo.io/docs/feature-flags/#custom-sql-modifiers)可用于全面控制查询各部分。以下示例展示如何检索每个角色中最年长的用户。"
+        "zh-CN": "若需完全控制查询各部分，[自定义SQL修饰符](https://entgo.io/docs/feature-flags/#custom-sql-modifiers)会很有用。\n以下示例展示如何检索每个角色中最年长的用户。"
       }
     },
     {
@@ -169,7 +169,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "**注意：** `sql.Raw`的存在至关重要，它向谓词表明`sql.Max`不是参数。"
+        "zh-CN": "**注意：** `sql.Raw` 至关重要，它向谓词表明 `sql.Max` 不是参数。"
       }
     },
     {
@@ -179,7 +179,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "上述代码最终生成的SQL查询如下："
+        "zh-CN": "上述代码本质上生成以下SQL查询："
       }
     },
     {
@@ -194,7 +194,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/aggregate.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.149253+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.769403+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "54d420ce222caeeff14815cbfb94464dc6fd5aad08e9b068f360496fe87c251e"

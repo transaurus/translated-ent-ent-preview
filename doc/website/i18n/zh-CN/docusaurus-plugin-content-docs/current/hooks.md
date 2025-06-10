@@ -5,16 +5,16 @@ title: Hooks
 
 `Hooks`选项允许在执行图数据变更操作前后添加自定义逻辑。
 
-## 数据变更
+## 变更操作
 
-数据变更操作是指会修改数据库状态的操作。例如向图中添加新节点、删除两个节点间的边，或批量删除节点等。
+变更操作是指会修改数据库状态的操作。例如向图中添加新节点、移除两个节点间的边或批量删除节点等。
 
-共支持5种变更类型：
+共有5种变更类型：
 
 - `Create` - 在图中创建节点
-- `UpdateOne` - 更新图中某个节点（例如递增其字段值）
+- `UpdateOne` - 更新图中的某个节点（例如递增其字段值）
 - `Update` - 批量更新符合谓词条件的节点
-- `DeleteOne` - 从图中删除单个节点
+- `DeleteOne` - 从图中删除某个节点
 - `Delete` - 删除所有符合谓词条件的节点
 
 每种生成的节点类型都有对应的变更类型。例如所有[`User`构建器](crud.mdx#create-an-entity)共享同一个生成的`UserMutation`对象，但所有构建器类型都实现了通用的<a target="_blank" href="https://pkg.go.dev/entgo.io/ent?tab=doc#Mutation">`ent.Mutation`</a>接口。
@@ -23,9 +23,9 @@ title: Hooks
 与数据库触发器不同，钩子是在应用层而非数据库层执行。如需在数据库层执行特定逻辑，请参考[模式迁移指南](/docs/migration/triggers)使用数据库触发器。
 :::
 
-## 钩子机制
+## 钩子
 
-钩子是接收<a target="_blank" href="https://pkg.go.dev/entgo.io/ent?tab=doc#Mutator">`ent.Mutator`</a>并返回变更器的函数，其作为中间件作用于变更器之间，类似于常见的HTTP中间件模式。
+钩子函数接收一个<a target="_blank" href="https://pkg.go.dev/entgo.io/ent?tab=doc#Mutator">`ent.Mutator`</a>并返回新的mutator，作为变更操作之间的中间件运行，其机制类似于常见的HTTP中间件模式。
 
 ```go
 type (
@@ -49,11 +49,11 @@ type (
 )
 ```
 
-存在两种钩子类型——**模式钩子**和**运行时钩子**。**模式钩子**主要用于在模式中定义自定义变更逻辑，**运行时钩子**则用于添加日志、指标、追踪等功能。下面分别说明：
+存在两种钩子类型——**模式钩子**和**运行时钩子**。**模式钩子**主要用于在模式中定义自定义变更逻辑，而**运行时钩子**用于添加日志记录、指标收集、链路追踪等功能。下面分别说明：
 
 ## 运行时钩子
 
-首先通过示例展示如何记录所有类型的变更操作：
+首先通过简单示例展示如何记录所有类型的变更操作：
 
 ```go
 func main() {
@@ -105,7 +105,7 @@ func main() {
 }
 ```
 
-假设需要在多个类型（如`Group`和`User`）间共享字段变更钩子，主要有两种实现方式：
+假设需要在多个类型（如`Group`和`User`）间共享修改字段的钩子，主要有两种实现方式：
 
 ```go
 // Option 1: use type assertion.
@@ -136,7 +136,7 @@ client.Use(func(next ent.Mutator) ent.Mutator {
 
 ## 模式钩子
 
-模式钩子定义在类型模式中，仅作用于匹配该模式的变更操作。将钩子定义在模式中的动机是将节点类型的所有相关逻辑集中管理。
+模式钩子定义在类型模式中，仅作用于匹配该模式的变更操作。将钩子定义在模式中的主要目的是将与节点类型相关的所有逻辑集中管理。
 
 ```go
 package schema
@@ -190,10 +190,10 @@ func (Card) Hooks() []ent.Hook {
 
 ## 钩子注册
 
-使用[**模式钩子**](#schema-hooks)时，模式包与生成的ent包可能出现循环导入。为避免这种情况，ent会生成`ent/runtime`包来负责运行时注册模式钩子。
+使用[**模式钩子**](#schema-hooks)时，可能会出现模式包与生成的ent包之间的循环导入。为避免这种情况，ent会生成`ent/runtime`包来负责在运行时注册模式钩子。
 
 :::important
-用户**必须**导入`ent/runtime`包才能注册模式钩子。该包可导入在`main`包（靠近数据库驱动导入位置），或在创建`ent.Client`的包中：
+用户**必须**导入`ent/runtime`包才能注册模式钩子。该包可在`main`包（靠近数据库驱动导入位置）或创建`ent.Client`的包中导入：
 
 ```go
 import _ "<project>/ent/runtime"
@@ -209,7 +209,7 @@ entc/load: parse schema dir: import cycle not allowed: [ent/schema ent/hook ent/
 To resolve this issue, move the custom types used by the generated code to a separate package: "Type1", "Type2"
 ```
 
-该错误可能由于生成的代码依赖`ent/schema`包中定义的自定义类型，但该包又导入了`ent/hook`包。这种对`ent`包的间接导入形成了循环依赖，导致报错。请按以下步骤解决：
+该错误可能由于生成的代码依赖`ent/schema`包中定义的自定义类型，但该包又导入了`ent/hook`包。这种对`ent`包的间接导入形成了循环依赖，从而导致错误发生。请按以下步骤解决：
 
 - 首先注释掉`ent/schema`中所有钩子、隐私策略或拦截器的使用
 - 将`ent/schema`中定义的自定义类型移至新包，例如`ent/schema/schematype`
@@ -218,13 +218,13 @@ To resolve this issue, move the custom types used by the generated code to a sep
 
 ## 执行顺序
 
-钩子按照注册到客户端的顺序依次调用。因此`client.Use(f, g, h)`会在变更操作时执行`f(g(h(...)))`的链式调用。
+钩子按照注册到客户端的顺序依次调用。因此`client.Use(f, g, h)`会在变更操作时形成`f(g(h(...)))`的执行链。
 
-需注意**运行时钩子**会先于**模式钩子**执行。假设`g`和`h`在模式中定义，而`f`通过`client.Use(...)`注册，则实际执行顺序为：`f(g(h(...)))`。
+需注意**运行时钩子**会先于**模式钩子**执行。即当`g`和`h`在模式中定义，而`f`通过`client.Use(...)`注册时，实际执行顺序为：`f(g(h(...)))`。
 
 ## 钩子辅助工具
 
-生成的hooks包提供了若干辅助函数，可用于控制钩子的触发时机。
+生成的hooks包提供了若干辅助工具，可用于控制钩子的触发时机。
 
 ```go
 package schema
@@ -273,8 +273,8 @@ func (SomeMixin) Hooks() []ent.Hook {
 
 ## 事务钩子
 
-钩子也可在活动事务上注册，将在`Tx.Commit`或`Tx.Rollback`时执行。更多细节请参阅[事务文档](transactions.md#hooks)。
+钩子也可注册到活跃事务上，将在`Tx.Commit`或`Tx.Rollback`时执行。更多细节请参阅[事务文档](transactions.md#hooks)。
 
 ## 代码生成钩子
 
-`entc`包支持为代码生成阶段添加钩子（中间件）列表。完整说明请参见[代码生成文档](code-gen.md#code-generation-hooks)。
+`entc`包支持为代码生成阶段添加钩子（中间件）列表，详见[代码生成文档](code-gen.md#code-generation-hooks)。

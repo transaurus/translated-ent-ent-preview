@@ -29,7 +29,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "PostgreSQL域类型是用户自定义的数据类型，它们扩展了现有类型，允许您添加约束以限制其可持有的值。将字段类型设置为域类型，可以在数据库级别强制执行数据完整性和验证规则。"
+        "zh-CN": "PostgreSQL 域类型是用户定义的数据类型，它扩展了现有类型，允许您添加约束以限制其可持有的值。将字段类型设置为域类型，可以在数据库级别强制执行数据完整性和验证规则。"
       }
     },
     {
@@ -39,7 +39,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "本指南将说明如何在Ent模式中将字段类型定义为域类型，并配置模式迁移以使用Atlas将域和Ent模式作为单个迁移单元进行管理。"
+        "zh-CN": "本指南将介绍如何在 Ent 模式中将字段类型定义为域类型，并配置模式迁移以使用 Atlas 将域和 Ent 模式作为单个迁移单元进行管理。"
       }
     },
     {
@@ -49,7 +49,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[[Atlas Pro功能](https://atlasgo.io/features#pro-plan)]\nAtlas对[域类型](https://atlasgo.io/atlas-schema/hcl#domain)的支持仅限Pro用户使用。\n要使用此功能，请运行：\n```\natlas login\n```\n:::"
+        "zh-CN": ":::info[[Atlas Pro 功能](https://atlasgo.io/features#pro-plan)]\nAtlas 对[域类型](https://atlasgo.io/atlas-schema/hcl#domain)的支持仅限 Pro 用户使用。要使用此功能，请运行：\n```\natlas login\n```\n:::"
       }
     },
     {
@@ -59,7 +59,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 安装Atlas"
+        "zh-CN": "## 安装 Atlas"
       }
     },
     {
@@ -79,7 +79,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 登录Atlas"
+        "zh-CN": "## 登录 Atlas"
       }
     },
     {
@@ -109,7 +109,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`ent/schema`包主要用于定义Ent类型（对象）、它们的字段、边和逻辑。域类型或其他数据库对象在Ent模型中没有表示——一个域类型可以定义一次，并可以在不同的字段和模型中多次使用。"
+        "zh-CN": "`ent/schema` 包主要用于定义 Ent 类型（对象）、其字段、边和逻辑。域类型或其他任何数据库对象在 Ent 模型中没有表示形式——域类型可以定义一次，并可在不同字段和模型中多次使用。"
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "为了扩展我们的PostgreSQL模式以包括自定义域类型和Ent类型，我们配置Atlas从[复合模式](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)数据源读取模式状态。按照以下步骤为您的项目配置此功能："
+        "zh-CN": "为了扩展我们的 PostgreSQL 模式以包含自定义域类型和 Ent 类型，我们配置 Atlas 从[复合模式](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)数据源读取模式状态。按照以下步骤为您的项目进行配置："
       }
     },
     {
@@ -129,7 +129,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "1\\. 创建一个`schema.sql`文件，定义必要的域类型。同样，您可以在[Atlas Schema HCL语言](https://atlasgo.io/atlas-schema/hcl-types#domain)中配置域类型："
+        "zh-CN": "1\\. 创建一个 `schema.sql` 文件来定义必要的域类型。同样，您可以在 [Atlas Schema HCL 语言](https://atlasgo.io/atlas-schema/hcl-types#domain)中配置域类型："
       }
     },
     {
@@ -149,7 +149,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "2\\. 在您的Ent模式中，定义一个仅在PostgreSQL方言中使用域类型的字段："
+        "zh-CN": "2\\. 在您的 Ent 模式中，定义一个仅在 PostgreSQL 方言中使用域类型的字段："
       }
     },
     {
@@ -169,7 +169,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::note\n如果带有自定义驱动特定类型的模式与其他数据库一起使用，Ent将回退到驱动使用的默认类型（例如，\"varchar\"）。\n:::"
+        "zh-CN": ":::note\n如果带有自定义驱动程序特定类型的模式与其他数据库一起使用，Ent 将回退到驱动程序使用的默认类型（例如 \"varchar\"）。\n:::"
       }
     },
     {
@@ -179,7 +179,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "3\\. 创建一个简单的`atlas.hcl`配置文件，其中包含一个`composite_schema`，该模式包括在`schema.sql`中定义的自定义类型和您的Ent模式："
+        "zh-CN": "3\\. 创建一个简单的 `atlas.hcl` 配置文件，其中包含一个 `composite_schema`，该模式既包含在 `schema.sql` 中定义的自定义类型，也包含您的 Ent 模式："
       }
     },
     {
@@ -209,7 +209,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "设置好我们的模式后，我们可以使用`atlas schema inspect`命令获取其表示，为其生成迁移，将其应用到数据库等。以下是一些命令，帮助您开始使用Atlas："
+        "zh-CN": "设置好模式后，我们可以使用 `atlas schema inspect` 命令获取其表示形式，为其生成迁移，将其应用到数据库等。以下是一些帮助您开始使用 Atlas 的命令："
       }
     },
     {
@@ -229,7 +229,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`atlas schema inspect`命令通常用于检查数据库。然而，我们也可以使用它来检查我们的`composite_schema`并打印其SQL表示："
+        "zh-CN": "`atlas schema inspect` 命令通常用于检查数据库。但我们也可以使用它来检查我们的 `composite_schema` 并打印其 SQL 表示形式："
       }
     },
     {
@@ -249,7 +249,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "上述命令打印以下SQL。请注意，`us_postal_code`域类型在`postal_code`字段使用之前已在模式中定义："
+        "zh-CN": "上述命令会打印以下 SQL。请注意，`us_postal_code` 域类型在 `postal_code` 字段中使用之前已在模式中定义："
       }
     },
     {
@@ -349,7 +349,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[直接向数据库应用模式]\n\n有时需要直接将模式应用到数据库而无需生成迁移文件，例如在测试模式变更或启动测试数据库时。此时可使用以下命令直接将模式应用到数据库：\n\n```shell\natlas schema apply \\\n  --env local \\\n  --url \"postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable\"\n```\n\n或使用 [Atlas Go SDK](https://github.com/ariga/atlas-go-sdk)：\n\n```go\nac, err := atlasexec.NewClient(\".\", \"atlas\")\nif err != nil {\n\tlog.Fatalf(\"初始化客户端失败: %w\", err)\n}\n// 自动用目标模式更新数据库\n// 另一种选择是手动使用 'migrate apply' 或 'schema apply'\nif _, err := ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{\n\tEnv: \"local\",\n\tURL: \"postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable\",\n\tAutoApprove: true,\n}); err != nil {\n    log.Fatalf(\"应用模式变更失败: %w\", err)\n}\n```\n\n:::"
+        "zh-CN": ":::info[直接向数据库应用模式]\n\n有时需要不生成迁移文件而直接将模式应用到数据库。例如，在试验模式变更、为测试启动数据库等场景中。此时可使用以下命令直接将模式应用到数据库：\n\n```shell\natlas schema apply \\\n  --env local \\\n  --url \"postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable\"\n```\n\n或使用 [Atlas Go SDK](https://github.com/ariga/atlas-go-sdk)：\n\n```go\nac, err := atlasexec.NewClient(\".\", \"atlas\")\nif err != nil {\n\tlog.Fatalf(\"客户端初始化失败: %w\", err)\n}\n// 自动用目标模式更新数据库\n// 另一种方式是手动使用 'migrate apply' 或 'schema apply'\nif _, err := ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{\n\tEnv: \"local\",\n\tURL: \"postgres://postgres:pass@localhost:5432/database?search_path=public&sslmode=disable\",\n\tAutoApprove: true,\n}); err != nil {\n    log.Fatalf(\"模式变更应用失败: %w\", err)\n}\n```\n\n:::"
       }
     },
     {
@@ -359,12 +359,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "本指南的完整代码可在 [GitHub](https://github.com/ent/ent/tree/master/examples/domaintypes) 查看。"
+        "zh-CN": "本指南的代码可在 [GitHub](https://github.com/ent/ent/tree/master/examples/domaintypes) 获取。"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/migration/domain.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.145916+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.767474+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "dd41a5431ed0e98e34bdf2abbdbe4d4cf23515ad88131e30a1665a109f7f3671"

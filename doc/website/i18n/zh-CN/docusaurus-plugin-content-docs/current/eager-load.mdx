@@ -10,11 +10,11 @@ import TabItem from '@theme/TabItem';
 
 `ent` 支持通过边(edges)查询实体及其关联对象。关联实体将被填充到返回对象的 `Edges` 字段中。
 
-以下面这个图式为例展示API的使用方式：
+以下面这个图结构为例展示API使用方式：
 
 ![er-group-users](https://entgo.io/images/assets/er_user_pets_groups.png)
 
-**查询所有用户及其宠物：**
+**查询所有用户及其宠物:**
 
 ```go
 users, err := client.User.
@@ -106,13 +106,13 @@ for _, admin := range admins {
 
 ## API接口
 
-每个查询构建器都有一系列以 `With<E>(...func(<N>Query))` 形式命名的方法，对应其每条边。其中`<E>`代表边名称（如`WithGroups`），`<N>`代表边类型（如`GroupQuery`）。
+每个查询构建器都有一系列以 `With<E>(...func(<N>Query))` 形式命名的方法，其中 `<E>` 代表边名称（如 `WithGroups`），`<N>` 代表边类型（如 `GroupQuery`）。
 
-请注意该功能仅支持SQL方言。
+注意：该特性仅限SQL方言支持。
 
 ## 命名边查询
 
-某些场景下需要以自定义名称预加载边。例如GraphQL查询中，两个别名引用同一条边但使用不同参数。为此Ent提供了`WithNamed<E>` API，需通过[`namedges`](features.md#named-edges)特性标志启用，并可无缝集成[EntGQL字段集合](tutorial-todo-gql-field-collection.md)功能。
+某些场景下需要为预加载的边指定别名。例如在GraphQL查询中，两个别名可能引用同一条边但使用不同参数。为此Ent提供了 `WithNamed<E>` API，需通过[`namedges`](features.md#named-edges)特性标志启用，并可无缝集成[EntGQL字段集合](tutorial-todo-gql-field-collection.md)功能。
 
 <Tabs
 defaultValue="ent"
@@ -180,4 +180,4 @@ query {
 
 ## 实现原理
 
-由于Ent查询可能同时预加载多条边，无法通过单次`JOIN`操作加载所有关联。因此Ent会为每个关联执行额外查询，该机制将在未来版本中进行优化。
+由于Ent查询可能预加载多条边，无法通过单次`JOIN`操作加载所有关联。因此Ent会为每个关联执行额外查询，该机制将在未来版本中进行优化。

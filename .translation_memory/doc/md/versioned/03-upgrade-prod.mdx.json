@@ -29,7 +29,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[支持仓库]\n\n本节描述的变更可在配套仓库的\n[PR #5](https://github.com/rotemtam/ent-versioned-migrations-demo/pull/5/files)\n中查看。\n\n:::"
+        "zh-CN": ":::info[支持仓库]\n\n本节描述的变更可在支持仓库的\n[PR #5](https://github.com/rotemtam/ent-versioned-migrations-demo/pull/5/files)\n中查看。\n\n:::"
       }
     },
     {
@@ -49,7 +49,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "如果您一直跟随本教程至此，可能会思考如何将生产环境的数据库实例升级为由版本化迁移工作流管理？在本地开发中，我们可以直接删除数据库重新开始，但这显然不适用于生产环境。"
+        "zh-CN": "如果您一直跟随本教程至此，可能会思考如何将生产环境的数据库实例升级为由版本化迁移工作流管理？\n在本地开发中，我们可以直接删除数据库重新开始，但这显然不适用于生产环境。"
       }
     },
     {
@@ -59,7 +59,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "与许多其他数据库模式管理工具类似，[Atlas](https://atlasgo.io)通过在目标数据库中使用元数据表来追踪已应用的迁移。当我们开始在现有数据库上使用Atlas时，必须告知Atlas某个版本之前的所有迁移已被应用。"
+        "zh-CN": "与许多其他数据库模式管理工具类似，[Atlas](https://atlasgo.io) 通过在目标数据库上维护元数据表\n来追踪已应用的迁移。当我们在现有数据库上开始使用 Atlas 时，必须告知 Atlas 某个版本之前的所有迁移\n已被应用。"
       }
     },
     {
@@ -69,7 +69,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "为演示这一点，让我们尝试在由自动迁移工作流管理的现有数据库上运行Atlas的`migrate apply`命令（注意我们使用带有`/db`后缀的连接字符串指向已初始化应用模式的数据库）。"
+        "zh-CN": "为演示这一点，让我们尝试在由自动迁移工作流管理的数据库上运行 Atlas 的 `migrate apply` 命令，\n使用刚创建的迁移目录。注意我们连接的是已存在应用模式的数据库（通过 `/db` 后缀指定连接至 `db` 数据库）。"
       }
     },
     {
@@ -89,7 +89,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "Atlas返回错误："
+        "zh-CN": "Atlas 返回错误："
       }
     },
     {
@@ -109,7 +109,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "这个错误符合预期，因为这是我们首次在该数据库上运行Atlas。如错误所述，我们需要对数据库进行\"基线化\"——即告知Atlas数据库当前状态已对应迁移目录中的某个版本。"
+        "zh-CN": "这个错误符合预期，因为这是我们首次在该数据库运行 Atlas。如错误所述，我们需要对数据库进行\"基线化\"——\n即告知 Atlas 数据库当前状态已对应于迁移目录中的某个版本。"
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "通过`--baseline`标志可解决此问题："
+        "zh-CN": "通过 `--baseline` 标志可解决此问题，该标志用于声明数据库已处于特定版本："
       }
     },
     {
@@ -139,7 +139,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "Atlas报告无需执行新操作："
+        "zh-CN": "Atlas 报告无需执行新操作："
       }
     },
     {
@@ -159,7 +159,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "现在运行正常！接着使用`migrate status`命令验证Atlas对已应用迁移的识别："
+        "zh-CN": "现在情况好转了！接下来使用 `migrate status` 命令验证 Atlas 是否已正确识别已应用的迁移："
       }
     },
     {
@@ -179,7 +179,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "Atlas显示："
+        "zh-CN": "Atlas 显示："
       }
     },
     {
@@ -199,7 +199,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "成功！我们已将项目升级为使用Atlas版本化迁移工作流。"
+        "zh-CN": "成功！我们已将项目升级为使用 Atlas 的版本化迁移工作流。"
       }
     },
     {
@@ -209,12 +209,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "接下来我们将演示当修改Ent模式时，如何为项目添加新迁移。"
+        "zh-CN": "接下来，我们将了解当修改 Ent 模式时如何为项目添加新迁移。"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/versioned/03-upgrade-prod.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.160482+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.775792+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "2c38c829277f422c0ad733e014c395bc3af6912539f42bfa9fd0d5d3795d87ff"

@@ -3,7 +3,7 @@ id: schema-mixin
 title: Mixin
 ---
 
-`Mixin` 允许您创建可复用的 `ent.Schema` 代码片段，这些片段可以通过组合的方式注入到其他模式中。
+`Mixin` 允许您创建可重用的 `ent.Schema` 代码片段，这些片段可以通过组合的方式注入到其他模式中。
 
 `ent.Mixin` 接口定义如下：
 

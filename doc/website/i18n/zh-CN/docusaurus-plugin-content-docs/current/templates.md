@@ -3,10 +3,9 @@ id: templates
 title: External Templates
 ---
 
-`ent` 接受外部的 [Go 模板](https://golang.org/pkg/text/template)，通过 `--template` 标志执行。  
-若模板名称已被 `ent` 预定义，则会覆盖现有模板；否则，执行输出将写入与模板同名的文件中。例如：
+`ent` 通过 `--template` 标志支持执行外部的 [Go 模板](https://golang.org/pkg/text/template)。若模板名称已被 `ent` 预定义，则会覆盖原有模板；否则会将执行输出写入与模板同名的文件中。例如：
 
-`stringer.tmpl` - 此模板示例将写入名为 `ent/stringer.go` 的文件中。
+`stringer.tmpl` - 此模板示例将写入名为 `ent/stringer.go` 的文件。
 
 ```gotemplate
 {{/* The line below tells Intellij/GoLand to enable the autocompletion based on the *gen.Graph type. */}}
@@ -32,7 +31,7 @@ title: External Templates
 {{ end }}
 ```
 
-`debug.tmpl` - 此模板示例将写入名为 `ent/debug.go` 的文件中。
+`debug.tmpl` - 此模板示例将写入名为 `ent/debug.go` 的文件。
 
 ```gotemplate
 {{ define "debug" }}
@@ -58,7 +57,7 @@ title: External Templates
 {{ end }}
 ```
 
-若要覆盖现有模板，需使用其原名称。例如：
+如需覆盖现有模板，请使用其名称。例如：
 
 ```gotemplate
 {{/* A template for adding additional fields to specific types. */}}
@@ -73,8 +72,7 @@ title: External Templates
 
 ## 辅助模板
 
-如前所述，`ent` 会将每个模板的执行输出写入与模板同名的文件中。  
-例如，定义为 `{{ define "stringer" }}` 的模板输出将写入 `ent/stringer.go` 文件。
+如前所述，`ent` 会将每个模板的执行输出写入与模板同名的文件中。例如，定义为 `{{ define "stringer" }}` 的模板输出将写入 `ent/stringer.go` 文件。
 
 默认情况下，`ent` 会将所有通过 `{{ define "<name>" }}` 声明的模板写入独立文件。但有时需要定义辅助模板——这些模板不会被直接调用，而是由其他模板执行。为此，`ent` 支持两种命名格式将模板标记为辅助模板：
 
@@ -90,7 +88,7 @@ title: External Templates
 {{ end }}
 ```
 
-2\. `{{ define "<root-template>/helper/.+" }}` 用于局部辅助模板。若模板的执行输出会写入文件，则视为"根模板"。例如：
+2\. `{{ define "<root-template>/helper/.+" }}` 用于局部辅助模板。若模板的执行输出会写入文件，则该模板被视为"根"模板。例如：
 
 ```gotemplate
 {{/* A root template that is executed on the `gen.Graph` and will be written to a file named: `ent/http.go`.*/}}
@@ -114,10 +112,9 @@ title: External Templates
 
 ## 注解
 
-模式注解允许将元数据附加到字段和边，并将其注入外部模板。  
-注解必须是可序列化为 JSON 原始值的 Go 类型（如结构体、映射或切片），并实现 [Annotation](https://pkg.go.dev/entgo.io/ent/schema?tab=doc#Annotation) 接口。
+模式注解允许将元数据附加到字段和边，并注入到外部模板中。注解必须是可序列化为 JSON 原始值的 Go 类型（如结构体、映射或切片），且需实现 [Annotation](https://pkg.go.dev/entgo.io/ent/schema?tab=doc#Annotation) 接口。
 
-以下为注解定义及其在模式和模板中的使用示例：
+以下为注解在模式和模板中的使用示例：
 
 1\. 注解定义：
 
@@ -233,10 +230,10 @@ func main() {
 
 ## 示例
 
-- 为 GraphQL 实现 `Node` API 的自定义模板 -  
-[GitHub](https://github.com/ent/ent/blob/master/entc/integration/template/ent/template/node.tmpl)
+- 为 GraphQL 实现 `Node` API 的自定义模板 - 
+[GitHub](https://github.com/ent/ent/blob/master/entc/integration/template/ent/template/node.tmpl)。
 
-- 使用自定义函数执行外部模板的示例。参见 [配置](https://github.com/ent/ent/blob/master/examples/entcpkg/ent/entc.go) 及其  
+- 使用自定义函数执行外部模板的示例。参见 [配置](https://github.com/ent/ent/blob/master/examples/entcpkg/ent/entc.go) 及其 
 [README](https://github.com/ent/ent/blob/master/examples/entcpkg) 文件。
 
 ## 文档
@@ -256,6 +253,6 @@ JetBrains用户可通过添加以下模板注解来启用模板中的自动补�
 {{ end }}
 ```
 
-实际效果演示：
+实际效果如下：
 
-![template-autocomplete](https://entgo.io/images/assets/template-autocomplete.gif)
+![模板自动补全](https://entgo.io/images/assets/template-autocomplete.gif)

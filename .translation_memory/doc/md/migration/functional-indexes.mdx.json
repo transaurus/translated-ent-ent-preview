@@ -8,7 +8,9 @@
       "source_content_hash": "6a2e3767489c3ed06d41c851724ce253353d70348d3bf6bb20c3624cdef331e8",
       "node_type": "yaml",
       "translatable": false,
-      "translations": {}
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_58cfcc64"
+      }
     },
     {
       "segment_id": "10c4cb47",
@@ -16,7 +18,9 @@
       "source_content_hash": "afb49515c4f9b6aa67a78520d36b482a67d6d58297f2162ef1448cbea548208e",
       "node_type": "mdxjsEsm",
       "translatable": false,
-      "translations": {}
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_10c4cb47"
+      }
     },
     {
       "segment_id": "53eaf0e1",
@@ -25,7 +29,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "函数索引是一种基于表达式值而非列值构建的索引类型。这类索引适用于对未存储在表中的函数或表达式结果进行索引，目前被[MySQL、MariaDB](https://atlasgo.io/guides/mysql/functional-indexes)、[PostgreSQL](https://atlasgo.io/guides/postgres/functional-indexes)和[SQLite](https://atlasgo.io/guides/sqlite/functional-indexes)支持。"
+        "zh-CN": "函数索引是一种基于表达式值（而非列值）构建的索引类型。这种索引适用于对未存储在表中的函数或表达式结果建立索引，目前被 [MySQL、MariaDB](https://atlasgo.io/guides/mysql/functional-indexes)、[PostgreSQL](https://atlasgo.io/guides/postgres/functional-indexes) 和 [SQLite](https://atlasgo.io/guides/sqlite/functional-indexes) 支持。"
       }
     },
     {
@@ -35,7 +39,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "本指南将介绍如何通过函数索引扩展Ent schema，并配置Atlas的schema迁移功能，将函数索引与Ent schema作为单一迁移单元进行管理。"
+        "zh-CN": "本指南将介绍如何通过函数索引扩展Ent schema，并配置Atlas实现将函数索引与Ent schema作为单一迁移单元进行管理。"
       }
     },
     {
@@ -45,7 +49,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[[Atlas Pro功能](https://atlasgo.io/features#pro-plan)]\n本指南使用的[复合Schema](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)支持为Pro版专属功能。使用前请执行：\n```\natlas login\n```\n:::"
+        "zh-CN": ":::info[[Atlas Pro功能](https://atlasgo.io/features#pro-plan)]\n本指南使用的[复合Schema](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)功能为Pro版专属。使用前请执行：\n```\natlas login\n```\n:::"
       }
     },
     {
@@ -64,7 +68,9 @@
       "source_content_hash": "a4404b9dce43845ec41e6725e25a8cfce8953ea9daeac173794ed9b031a06194",
       "node_type": "mdxJsxFlowElement",
       "translatable": false,
-      "translations": {}
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_358a309f"
+      }
     },
     {
       "segment_id": "f2f30ae8",
@@ -82,7 +88,9 @@
       "source_content_hash": "496821c033e70d4510db88b24c2448b81f6a4860a232e94aa6828c08a6979cd4",
       "node_type": "code",
       "translatable": false,
-      "translations": {}
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_cb57d798"
+      }
     },
     {
       "segment_id": "3b7478ea",
@@ -101,7 +109,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`ent/schema`包主要用于定义Ent类型（对象）、字段、边及其逻辑。由于Ent仅支持在字段、边（外键）及其组合上定义索引，函数索引在Ent schema中没有直接体现。"
+        "zh-CN": "`ent/schema`包通常用于定义Ent类型（对象）、字段、边关系和业务逻辑。由于Ent原生仅支持基于字段、边关系（外键）及其组合的索引，函数索引无法直接在Ent schema中表示。"
       }
     },
     {
@@ -111,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "为了在PostgreSQL schema迁移中为Ent类型（表）添加函数索引，我们需要配置Atlas从[复合Schema](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)数据源读取schema状态。按以下步骤为项目进行配置："
+        "zh-CN": "若要在PostgreSQL迁移中为Ent类型（表）添加函数索引，需配置Atlas通过[复合Schema](https://atlasgo.io/atlas-schema/projects#data-source-composite_schema)数据源读取schema状态。具体配置步骤如下："
       }
     },
     {
@@ -121,7 +129,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "1\\. 首先定义一个包含单一类型（表）的基础schema：`User`（表`users`）："
+        "zh-CN": "1\\. 首先定义包含单个类型（表）的基础schema：`User`（对应表`users`）："
       }
     },
     {
@@ -130,7 +138,9 @@
       "source_content_hash": "a78def4640918c7fb485875720cff825731a4528f50d772180a0d2ce44b6bc4a",
       "node_type": "code",
       "translatable": false,
-      "translations": {}
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_229d6705"
+      }
     },
     {
       "segment_id": "79ad944d",
@@ -139,7 +149,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "2\\. 接下来在`schema.sql`文件中为`name`字段定义函数索引："
+        "zh-CN": "2\\. 接着在`schema.sql`文件中为`name`字段定义函数索引："
       }
     },
     {
@@ -148,7 +158,9 @@
       "source_content_hash": "705a3e4f0220cfd844ed92dd22d1e3de47d06ae5e6c02e50f1573016a1486dfd",
       "node_type": "code",
       "translatable": false,
-      "translations": {}
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_5d4925eb"
+      }
     },
     {
       "segment_id": "e7772088",
@@ -157,7 +169,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "3\\. 创建基础`atlas.hcl`配置文件，通过`composite_schema`同时包含`schema.sql`定义的函数索引和Ent schema："
+        "zh-CN": "3\\. 创建`atlas.hcl`配置文件，通过`composite_schema`同时包含`schema.sql`定义的函数索引和Ent schema："
       }
     },
     {
@@ -166,7 +178,9 @@
       "source_content_hash": "b7364561bc721e58d36e3537668d1de77f3f856c68872623735e3f4a57d5a613",
       "node_type": "code",
       "translatable": false,
-      "translations": {}
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_af983f82"
+      }
     },
     {
       "segment_id": "bd30d33e",
@@ -185,7 +199,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "完成复合schema配置后，可通过`atlas schema inspect`命令获取其表示形式，生成schema迁移文件，应用到数据库等。以下是Atlas的入门命令示例："
+        "zh-CN": "完成复合Schema配置后，可通过`atlas schema inspect`命令获取其SQL表示、生成迁移文件、应用到数据库等。以下是Atlas的常用命令示例："
       }
     },
     {
@@ -195,7 +209,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "#### 检查Schema"
+        "zh-CN": "#### 查看Schema结构"
       }
     },
     {
@@ -205,7 +219,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`atlas schema inspect`命令通常用于检查数据库，但也可用于检查`composite_schema`并打印其SQL表示形式："
+        "zh-CN": "`atlas schema inspect`命令通常用于查看数据库结构，但也可用于查看`composite_schema`并输出其SQL表示："
       }
     },
     {
@@ -214,7 +228,9 @@
       "source_content_hash": "1842ce4f48f94bbd6a5aa04c673ac0b32a2a5303e5c49b31790f7f34cba2e364",
       "node_type": "code",
       "translatable": false,
-      "translations": {}
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_a476a172"
+      }
     },
     {
       "segment_id": "0e80209e",
@@ -223,7 +239,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "执行上述命令将输出如下SQL："
+        "zh-CN": "该命令将输出如下SQL语句："
       }
     },
     {
@@ -232,7 +248,9 @@
       "source_content_hash": "a3d144fe9c9825df149c681d0e5f2281017d41c20941e581591a04e53d2839a3",
       "node_type": "code",
       "translatable": false,
-      "translations": {}
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_59534425"
+      }
     },
     {
       "segment_id": "44aaa880",
@@ -241,7 +259,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "注意，我们的函数索引定义在`users`表的`name`字段上。"
+        "zh-CN": "注意输出中包含我们在`users`表的`name`字段上定义的函数索引。"
       }
     },
     {
@@ -270,7 +288,9 @@
       "source_content_hash": "6b7403f27f8ed223e30c839e71ca4751a7ab8d6c8cadab93c9b0579c577ecadd",
       "node_type": "code",
       "translatable": false,
-      "translations": {}
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_6f605d92"
+      }
     },
     {
       "segment_id": "8fcdd6d4",
@@ -288,7 +308,9 @@
       "source_content_hash": "4da33daedccfc2e0c6b1403e5a1b410394eb5f3576164f30e1eb514d656c40f0",
       "node_type": "code",
       "translatable": false,
-      "translations": {}
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_5be4f25e"
+      }
     },
     {
       "segment_id": "13292277",
@@ -316,7 +338,9 @@
       "source_content_hash": "9ac63adaa93ec903e09e8bf048fee595f2113774afd394318a89f192a26e03e1",
       "node_type": "code",
       "translatable": false,
-      "translations": {}
+      "translations": {
+        "zh-CN": "@@untranslatable_placeholder_e908327f"
+      }
     },
     {
       "segment_id": "fd42cd42",
@@ -325,7 +349,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[直接向数据库应用模式]\n\n有时需要不生成迁移文件而直接将模式应用到数据库。例如，在试验模式变更、为测试启动数据库等场景下。此时可以使用以下命令直接将模式应用到数据库：\n\n```shell\natlas schema apply \\\n  --env local \\\n  --url \"postgres://postgres:pass@localhost:5432/database?sslmode=disable\"\n```\n\n或使用 [Atlas Go SDK](https://github.com/ariga/atlas-go-sdk)：\n\n```go\nac, err := atlasexec.NewClient(\".\", \"atlas\")\nif err != nil {\n\tlog.Fatalf(\"failed to initialize client: %w\", err)\n}\n// 自动用期望的模式更新数据库\n// 另一种选择是手动使用 'migrate apply' 或 'schema apply'\nif _, err := ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{\n\tEnv: \"local\",\n\tURL: \"postgres://postgres:pass@localhost:5432/database?sslmode=disable\",\n\tAutoApprove: true,\n}); err != nil {\n    log.Fatalf(\"failed to apply schema changes: %w\", err)\n}\n```\n\n:::"
+        "zh-CN": ":::info[直接向数据库应用模式]\n\n有时需要不生成迁移文件而直接将模式应用到数据库。例如，在试验模式变更、为测试启动数据库等场景中。此时可以使用以下命令直接将模式应用到数据库：\n\n```shell\natlas schema apply \\\n  --env local \\\n  --url \"postgres://postgres:pass@localhost:5432/database?sslmode=disable\"\n```\n\n或使用 [Atlas Go SDK](https://github.com/ariga/atlas-go-sdk)：\n\n```go\nac, err := atlasexec.NewClient(\".\", \"atlas\")\nif err != nil {\n\tlog.Fatalf(\"failed to initialize client: %w\", err)\n}\n// 自动用期望的模式更新数据库\n// 另一种选择是手动使用 'migrate apply' 或 'schema apply'\nif _, err := ac.SchemaApply(ctx, &atlasexec.SchemaApplyParams{\n\tEnv: \"local\",\n\tURL: \"postgres://postgres:pass@localhost:5432/database?sslmode=disable\",\n\tAutoApprove: true,\n}); err != nil {\n    log.Fatalf(\"failed to apply schema changes: %w\", err)\n}\n```\n\n:::"
       }
     },
     {
@@ -345,7 +369,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "为Ent模式配置函数索引后，我们期望数据库能强制保证`users`表中`name`字段的唯一性："
+        "zh-CN": "在设置好带函数索引的Ent模式后，我们预期数据库会强制保证`users`表中`name`字段的唯一性："
       }
     },
     {
@@ -370,7 +394,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/migration/functional-indexes.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.146155+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.770482+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "d4b3738a2d06aa748b7162e663b3c41be62f8613162632de7c93698176aec56a"

@@ -29,7 +29,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "- **布尔类型**:\n  - =, !=\n- **数值类型**:\n  - =, !=, >, <, >=, <=,\n  - IN, NOT IN\n- **时间类型**:\n  - =, !=, >, <, >=, <=\n  - IN, NOT IN\n- **字符串类型**:\n  - =, !=, >, <, >=, <=\n  - IN, NOT IN\n  - 包含(Contains), 前缀匹配(HasPrefix), 后缀匹配(HasSuffix)\n  - 不区分大小写包含(ContainsFold), 不区分大小写匹配(EqualFold) (**SQL**特有)\n- **JSON类型**\n  - =, !=\n  - 对嵌套值使用=, !=, >, <, >=, <= (JSON路径)\n  - 对嵌套值使用包含检查(Contains) (JSON路径)\n  - 检查键是否存在(HasKey), 数组长度检查(Len&lt;P>)\n  - 对嵌套值检查`null`字面量 (JSON路径)\n- **可选字段**:\n  - 为空(IsNil), 非空(NotNil)"
+        "zh-CN": "- **布尔类型**:\n  - =, !=\n- **数值类型**:\n  - =, !=, >, <, >=, <=,\n  - IN, NOT IN\n- **时间类型**:\n  - =, !=, >, <, >=, <=\n  - IN, NOT IN\n- **字符串类型**:\n  - =, !=, >, <, >=, <=\n  - IN, NOT IN\n  - Contains(包含), HasPrefix(前缀匹配), HasSuffix(后缀匹配)\n  - ContainsFold(不区分大小写包含), EqualFold(不区分大小写相等) (**SQL**特有)\n- **JSON类型**\n  - =, !=\n  - 对嵌套值使用=, !=, >, <, >=, <= (JSON路径)\n  - 对嵌套值使用Contains(包含) (JSON路径)\n  - HasKey(检查键存在), Len&lt;P>(检查数组长度)\n  - 对嵌套值检查`null`字面量 (JSON路径)\n- **可选字段**:\n  - IsNil(为空), NotNil(非空)"
       }
     },
     {
@@ -49,7 +49,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "- **HasEdge**。例如，对于名为`owner`且类型为`Pet`的边，使用：\n\n  ```go\n   client.Pet.\n\t\tQuery().\n\t\tWhere(pet.HasOwner()).\n\t\tAll(ctx)\n  ```\n\n- **HasEdgeWith**。为边谓词添加谓词列表。\n\n  ```go\n   client.Pet.\n\t\tQuery().\n\t\tWhere(pet.HasOwnerWith(user.Name(\"a8m\"))).\n\t\tAll(ctx)\n  ```"
+        "zh-CN": "- **HasEdge(存在边)**。例如，对于名为`owner`且类型为`Pet`的边，使用：\n\n  ```go\n   client.Pet.\n\t\tQuery().\n\t\tWhere(pet.HasOwner()).\n\t\tAll(ctx)\n  ```\n\n- **HasEdgeWith(带条件的边)**。为边谓词添加谓词列表。\n\n  ```go\n   client.Pet.\n\t\tQuery().\n\t\tWhere(pet.HasOwnerWith(user.Name(\"a8m\"))).\n\t\tAll(ctx)\n  ```"
       }
     },
     {
@@ -59,7 +59,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 逻辑非(NOT)"
+        "zh-CN": "## 否定(NOT)"
       }
     },
     {
@@ -79,7 +79,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 逻辑或(OR)"
+        "zh-CN": "## 析取(OR)"
       }
     },
     {
@@ -99,7 +99,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 逻辑与(AND)"
+        "zh-CN": "## 合取(AND)"
       }
     },
     {
@@ -129,7 +129,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "当需要编写特定于数据库方言的逻辑或控制执行查询时，自定义谓词会非常有用。"
+        "zh-CN": "当需要编写特定于数据库方言的逻辑或控制执行的查询时，自定义谓词会非常有用。"
       }
     },
     {
@@ -179,7 +179,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "#### 统计JSON字段`URL`中包含`Scheme`键的用户数量"
+        "zh-CN": "#### 统计JSON字段`URL`包含`Scheme`键的用户数量"
       }
     },
     {
@@ -249,7 +249,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "该查询可以改写为三种形式：`IN`、`EXISTS`和`JOIN`。"
+        "zh-CN": "该查询可以改写为三种形式：`IN`、`EXISTS`和`JOIN`"
       }
     },
     {
@@ -289,7 +289,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "#### 获取名称包含特定模式的宠物"
+        "zh-CN": "#### 获取名称符合特定模式的宠物"
       }
     },
     {
@@ -299,7 +299,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "生成的代码提供了`HasPrefix`、`HasSuffix`、`Contains`和`ContainsFold`谓词用于模式匹配。\n但若需使用带有自定义模式的`LIKE`操作符，请参考以下示例。"
+        "zh-CN": "生成的代码提供了`HasPrefix`、`HasSuffix`、`Contains`和`ContainsFold`谓词用于模式匹配。\n但如需使用带有自定义模式的`LIKE`操作符，请参考以下示例。"
       }
     },
     {
@@ -349,7 +349,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "如需使用内置SQL函数如`DATE()`，可通过以下方式实现："
+        "zh-CN": "要使用内置SQL函数如`DATE()`，可通过以下方式实现："
       }
     },
     {
@@ -449,7 +449,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "JSON谓词默认不会作为代码生成的一部分自动生成。但ent官方提供了[`sqljson`](https://pkg.go.dev/entgo.io/ent/dialect/sql/sqljson)包，可通过[自定义谓词选项](#custom-predicates)对JSON列应用谓词操作。"
+        "zh-CN": "JSON谓词默认不会作为代码生成的一部分自动生成。但ent提供了一个名为[`sqljson`](https://pkg.go.dev/entgo.io/ent/dialect/sql/sqljson)的官方包，可通过[自定义谓词选项](#custom-predicates)对JSON列应用谓词操作。"
       }
     },
     {
@@ -529,7 +529,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "需注意：`ValueIsNull`仅在值为JSON `null`时返回true，而数据库`NULL`不会触发。"
+        "zh-CN": "注意：`ValueIsNull`仅在值为JSON `null`时返回true，不适用于数据库的`NULL`值。"
       }
     },
     {
@@ -579,7 +579,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "#### 检查JSON字符串值是否包含子串/具有前后缀"
+        "zh-CN": "#### 检查JSON字符串值是否包含子串/特定前缀/后缀"
       }
     },
     {
@@ -629,7 +629,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`dialect/sql`包提供了一组比较函数，可用于在查询中进行字段比较。"
+        "zh-CN": "`dialect/sql`包提供了一组比较函数，可用于查询中的字段比较。"
       }
     },
     {
@@ -644,7 +644,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/predicates.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.150932+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.769815+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "66cc7ad8c51fe3e458a41f43ee1294ebfe9d893d2f3149b175828c6a2860edf0"

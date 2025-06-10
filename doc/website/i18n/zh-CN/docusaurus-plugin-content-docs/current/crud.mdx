@@ -6,12 +6,12 @@ title: CRUD API
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-如[介绍章节](code-gen.md)所述，对schema运行`ent`将生成以下资源：
+如[介绍章节](code-gen.md)所述，在schema上运行`ent`将生成以下资源：
 
 - 用于与图交互的`Client`和`Tx`对象
 - 每个schema类型的CRUD构建器
 - 每个schema类型的实体对象（Go结构体）
-- 包含与构建器交互所用常量及谓词的包
+- 包含与构建器交互所用常量与谓词的包
 - 支持SQL方言的`migrate`包，详见[迁移指南](migrate.md)
 
 ## 创建新客户端
@@ -144,7 +144,7 @@ a8m, err := client.User.	// UserClient.
 	Save(ctx)				// Create and return.
 ```
 
-**SaveX**保存宠物；与**Save**不同，**SaveX**在出错时会触发panic
+**保存X**宠物；与**Save**不同，**SaveX**在出错时会触发panic
 
 ```go
 pedro := client.Pet.	// PetClient.
@@ -185,7 +185,7 @@ a8m, err = a8m.Update().	// User update builder.
 	Save(ctx)				// Save and return.
 ```
 
-## 按ID更新
+## 通过ID更新
 
 ```go
 pedro, err := client.Pet.	// PetClient.
@@ -197,7 +197,7 @@ pedro, err := client.Pet.	// PetClient.
 
 #### 带条件的单条更新
 
-在某些项目中，"批量更新"操作被禁止并通过hooks阻断。但仍需根据特定条件按ID更新单条记录，此时可按如下方式使用`Where`选项：
+某些项目中会通过钩子禁止"批量更新"操作，但仍需在满足特定条件时按ID更新单个实体。此时可使用`Where`选项如下：
 
 <Tabs>
 <TabItem label="By ID" value="by-id" default>
@@ -397,7 +397,7 @@ id, err := client.User.
 ```
 
 :::info
-由于upsert API通过`ON CONFLICT`子句实现（MySQL中使用`ON DUPLICATE KEY`），Ent仅向数据库执行单条语句，因此此类操作仅会触发创建[钩子](hooks.md)
+由于upsert API基于`ON CONFLICT`子句实现（MySQL中使用`ON DUPLICATE KEY`），Ent仅向数据库执行单条语句，因此此类操作仅会触发创建[钩子](hooks.md)
 :::
 
 ## 批量Upsert
@@ -451,7 +451,7 @@ n, err := client.Post.
 	Count(ctx)
 ```
 
-更高级的遍历方法可参阅[下一章节](traversals.md)
+更高级的遍历方法可在[下一章节](traversals.md)找到
 
 ## 字段选择
 
@@ -474,7 +474,7 @@ names, err := client.Pet.
 	Strings(ctx)
 ```
 
-统计不重复宠物名的数量
+统计不重复宠物名称的数量
 
 ```go
 n, err := client.Pet.
@@ -484,7 +484,8 @@ n, err := client.Pet.
 	Count(ctx)
 ```
 
-选择部分对象和部分关联关系。获取所有宠物及其主人，但仅选择并填充`ID`和`Name`字段。
+选择部分对象和部分关联关系。
+获取所有宠物及其主人，但仅选择并填充`ID`和`Name`字段。
 
 ```go
 pets, err := client.Pet.
@@ -543,7 +544,7 @@ err := client.User.
 	Exec(ctx)
 ```
 
-#### 带条件的单条删除
+#### 带条件的删除单个实体
 
 在某些项目中，"批量删除"操作被禁止并通过钩子拦截。但仍需根据ID删除单个实体时，可通过`Where`选项添加条件约束：
 
@@ -579,9 +580,9 @@ affected, err := client.File.
 
 ## 变更操作
 
-每个生成的节点类型都有专属的变更类型。例如所有[`User`构建器](crud.mdx#create-an-entity)共享同一个生成的`UserMutation`对象，但所有构建器类型都实现了通用的<a target="_blank" href="https://pkg.go.dev/entgo.io/ent?tab=doc#Mutation">`ent.Mutation`</a>接口。
+每个生成的节点类型都有对应的变更类型。例如所有[`User`构建器](crud.mdx#create-an-entity)共享同一个生成的`UserMutation`对象，但所有构建器类型都实现了通用的<a target="_blank" href="https://pkg.go.dev/entgo.io/ent?tab=doc#Mutation">`ent.Mutation`</a>接口。
 
-例如要为`ent.UserCreate`和`ent.UserUpdate`编写通用代码，可使用`UserMutation`对象：
+例如要编写可同时应用于`ent.UserCreate`和`ent.UserUpdate`的通用代码，可使用`UserMutation`对象：
 
 ```go
 func Do() {
@@ -598,7 +599,7 @@ func SetAgeName(m *ent.UserMutation) {
 }
 ```
 
-若需对多种类型应用相同方法集，可使用通用`ent.Mutation`接口或自定义接口实现。
+某些场景下需要对多种类型应用相同方法集，此时可使用通用`ent.Mutation`接口或自定义接口实现。
 
 ```go
 func Do() {

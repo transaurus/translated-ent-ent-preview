@@ -31,7 +31,7 @@ func (User) Indexes() []ent.Index {
 }
 ```
 
-注意：若需将单个字段设为唯一，请在字段构建器上使用`Unique`方法，如下所示：
+注意：若要将单个字段设为唯一，请在字段构建器上使用`Unique`方法，如下所示：
 
 ```go
 func (User) Fields() []ent.Field {
@@ -44,11 +44,11 @@ func (User) Fields() []ent.Field {
 
 ## 关联边索引
 
-索引可配置在字段与关联边的组合上。主要应用场景是在特定关系下设置字段的唯一性。示例如下：
+索引可配置在字段与关联边的组合上。主要应用场景是在特定关系下设置字段的唯一性。举例说明：
 
-![城市-街道ER图](https://entgo.io/images/assets/er_city_streets.png)
+![er-city-streets](https://entgo.io/images/assets/er_city_streets.png)
 
-上例中，一个`City`拥有多条`Street`，我们需要确保街道名称在每个城市下保持唯一。
+上例中，一个`City`拥有多条`Street`，我们需要确保街道名称在每个城市下具有唯一性。
 
 `ent/schema/city.go`
 
@@ -145,11 +145,11 @@ func Do(ctx context.Context, client *ent.Client) error {
 }
 ```
 
-完整示例参见[GitHub仓库](https://github.com/ent/ent/tree/master/examples/edgeindex)。
+完整示例参见[GitHub](https://github.com/ent/ent/tree/master/examples/edgeindex)。
 
 ## 关联边字段索引
 
-当前`Edges`列总是添加在`Fields`列之后。但某些索引需要这些列前置以实现特定优化。可通过[边字段](schema-edges.mdx#edge-field)功能解决此问题。
+当前`Edges`列总是排在`Fields`列之后。但某些索引需要这些列优先排序以实现特定优化。可通过[边字段](schema-edges.mdx#edge-field)功能解决此问题。
 
 ```go
 // Card holds the schema definition for the Card entity.
@@ -184,7 +184,7 @@ func (Card) Indexes() []ent.Index {
 
 ## 方言支持
 
-通过[注解](schema-annotations.md)可使用方言特定功能。例如在MySQL中使用[索引前缀](https://dev.mysql.com/doc/refman/8.0/en/column-indexes.html#column-indexes-prefix)，需如下配置：
+通过[注解](schema-annotations.md)可使用方言特定功能。例如要在MySQL中使用[索引前缀](https://dev.mysql.com/doc/refman/8.0/en/column-indexes.html#column-indexes-prefix)，需如下配置：
 
 ```go
 // Indexes of the User.
@@ -201,7 +201,7 @@ func (User) Indexes() []ent.Index {
 }
 ```
 
-上述代码会生成如下SQL语句：
+上述代码会生成以下SQL语句：
 
 ```sql
 CREATE INDEX `users_description` ON `users`(`description`(128))
@@ -211,7 +211,7 @@ CREATE INDEX `users_c1_c2_c3` ON `users`(`c1`(100), `c2`(200), `c3`)
 
 ## Atlas支持
 
-自v0.10起，Ent使用[Atlas](https://github.com/ariga/atlas)运行迁移。该选项提供更精细的索引控制能力，如配置索引类型或定义逆序索引。
+自v0.10版本起，Ent使用[Atlas](https://github.com/ariga/atlas)运行迁移。该选项提供更精细的索引控制能力，例如配置索引类型或定义逆序索引。
 
 ```go
 func (User) Indexes() []ent.Index {
@@ -251,7 +251,7 @@ func (User) Indexes() []ent.Index {
 }
 ```
 
-上述代码会生成如下SQL语句：
+上述代码会生成以下SQL语句：
 
 ```sql
 CREATE INDEX `users_c1` ON `users` (`c1` DESC)
@@ -278,11 +278,11 @@ CREATE INDEX "users_phone" ON "users" ("phone" bpchar_pattern_ops)
 
 ## 函数式索引
 
-Ent模式支持在字段和关联边（外键）上定义索引，但未提供将索引部分定义为表达式（如函数调用）的API。若使用[Atlas](https://atlasgo.io/docs)管理模式迁移，可按[本指南](/docs/migration/functional-indexes)定义函数式索引。
+Ent模式支持在字段和关联边（外键）上定义索引，但不支持将索引部分定义为表达式（如函数调用）。若使用[Atlas](https://atlasgo.io/docs)管理模式迁移，可按照[本指南](/docs/migration/functional-indexes)定义函数式索引。
 
 ## 存储键
 
-与字段类似，可通过`StorageKey`方法配置自定义索引名称。在SQL方言中会映射为索引名。
+与字段类似，可通过`StorageKey`方法配置自定义索引名称。该名称会映射到SQL方言中的索引名。
 
 ```go
 func (User) Indexes() []ent.Index {

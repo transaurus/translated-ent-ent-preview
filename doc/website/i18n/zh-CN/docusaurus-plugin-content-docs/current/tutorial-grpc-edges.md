@@ -4,7 +4,7 @@ title: Working with Edges
 sidebar_label: Working with Edges
 ---
 
-边（Edges）使我们能够在ent应用中表达不同实体之间的关系。让我们看看它们如何与生成的gRPC服务协同工作。
+边（Edges）使我们能够在ent应用中表达不同实体间的关系。让我们看看它们如何与生成的gRPC服务协同工作。
 
 首先我们添加一个新实体`Category`，并创建与`User`类型关联的边：
 
@@ -45,7 +45,7 @@ func (Category) Edges() []ent.Edge {
 }
 ```
 
-在`User`上创建反向关系：
+在`User`上创建反向关联：
 
 ```go title="ent/schema/user.go" {4-6}
 // Edges of the User.
@@ -60,10 +60,10 @@ func (User) Edges() []ent.Edge {
 
 注意以下几点：
 
-* 我们的边也带有`entproto.Field`注解，稍后会解释原因
+* 我们的边也包含`entproto.Field`注解，稍后会解释其作用
 * 我们创建了一对多关系：一个`Category`有单个`admin`，而一个`User`可以管理多个分类
 
-通过`go generate ./...`重新生成项目，观察`.proto`文件的变化：
+通过`go generate ./...`重新生成项目后，观察`.proto`文件的变化：
 
 ```protobuf title="ent/proto/entpb/entpb.proto" {1-7,18}
 message Category {
@@ -87,10 +87,10 @@ message User {
 }
 ```
 
-主要变更包括：
+主要变化包括：
 
-* 新增了`Category`消息类型，其中包含与模式中`admin`边对应的`admin`字段。由于我们将该边标记为`.Unique()`，这是个非重复字段。其字段编号为`3`，与边定义中的`entproto.Field`注解对应
-* `User`消息定义中新增了`administered`字段。由于该方向未标记为`Unique`，这是个重复字段。其字段编号为`5`，与边上的注解对应
+* 新增了`Category`消息类型，其中包含与`Category`模式中`admin`边对应的`admin`字段。由于我们将该边标记为`.Unique()`，这是一个非重复字段，其字段编号`3`对应边定义中的`entproto.Field`注解
+* `User`消息定义中新增了`administered`字段。由于该方向未标记为`Unique`，这是一个重复字段，其字段编号`5`对应边上的`entproto.Field`注解
 
 ### 创建带边的实体
 
@@ -159,7 +159,7 @@ func TestServiceWithEdges(t *testing.T) {
 }
 ```
 
-要从已创建的`User`关联到现有`Category`，我们不需要填充完整的`Category`对象，只需填充`Id`字段即可。生成的服务代码会自动处理：
+要从已创建的`User`关联到现有`Category`，我们不需要填充整个`Category`对象，只需填充`Id`字段即可。生成的服务代码会自动处理：
 
 ```go title="ent/proto/entpb/entpb_user_service.go" {3-6}
 func (svc *UserService) createBuilder(user *User) (*ent.UserCreate, error) {
@@ -225,7 +225,7 @@ func TestGet(t *testing.T) {
 }
 ```
 
-如测试所示，默认情况下服务的`Get`方法不会返回边信息。这是有意为之，因为相关实体的数量可能是无限的。为了让调用方指定是否返回边信息，生成的服务遵循[AIP-157](https://google.aip.dev/157)（部分响应）规范。简而言之，`GetUserRequest`消息包含一个名为`View`的枚举：
+如测试所示，默认情况下服务的`Get`方法不会返回边信息。这是有意为之，因为与实体关联的其他实体数量可能是无限的。为了让调用方指定是否返回边信息，生成的服务遵循[AIP-157](https://google.aip.dev/157)（部分响应规范）。具体来说，`GetUserRequest`消息包含一个名为`View`的枚举：
 
 ```protobuf title="ent/proto/entpb/entpb.proto"
 message GetUserRequest {
@@ -266,4 +266,4 @@ func (svc *UserService) Get(ctx context.Context, req *GetUserRequest) (*User, er
 }
 ```
 
-默认调用`client.User.Get`不会返回任何边ID信息，但如果传入`WITH_EDGE_IDS`，端点将获取通过`administered`边与用户关联的所有`Category`的`ID`字段。
+默认调用`client.User.Get`不会返回任何边ID信息，但如果传入`WITH_EDGE_IDS`，端点将检索通过`administered`边与用户关联的所有`Category`的`ID`字段。

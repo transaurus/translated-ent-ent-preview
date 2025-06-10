@@ -19,7 +19,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "默认情况下，entproto会为带有`ent.Service()`注解的`ent.Schema`生成若干服务方法。通过在`entproto.Service()`注解中包含`entproto.Methods()`参数，可以自定义方法生成。`entproto.Methods()`接受位标志参数来决定应生成哪些服务方法，可用标志包括："
+        "zh-CN": "默认情况下，entproto会为带有`ent.Service()`注解的`ent.Schema`生成若干服务方法。通过在`entproto.Service()`注解中包含`entproto.Methods()`参数，可以自定义方法生成逻辑。`entproto.Methods()`接受位标志参数来决定应生成哪些服务方法，可用标志包括："
       }
     },
     {
@@ -39,7 +39,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "要生成包含多个方法的服务，可通过位或运算组合标志。"
+        "zh-CN": "如需生成包含多个方法的服务，可通过位或运算组合标志。"
       }
     },
     {
@@ -49,7 +49,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "我们通过修改ent模式来演示这一功能。假设需要禁止gRPC客户端执行数据变更操作，可以修改`ent/schema/user.go`文件："
+        "zh-CN": "让我们通过修改ent模式来实践这个功能。假设需要禁止gRPC客户端执行数据变更操作，可以修改`ent/schema/user.go`文件："
       }
     },
     {
@@ -89,12 +89,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "可以看到服务中已不再包含`Update`和`Delete`方法。完美符合需求！"
+        "zh-CN": "可以看到服务定义中已不再包含`Update`和`Delete`方法。完美符合需求！"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/tutorial-grpc-service-generation-options.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.144694+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.767737+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "b2395642982a36a22c2c4cd8ac6e057bb4c55ce3bc16a36afb746b1205189075"

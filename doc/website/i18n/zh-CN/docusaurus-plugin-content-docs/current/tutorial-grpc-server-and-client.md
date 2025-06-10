@@ -4,9 +4,9 @@ title: Creating the Server and Client
 sidebar_label: Server and Client
 ---
 
-自动生成gRPC服务定义固然很酷，但我们仍需将其注册到具体的gRPC服务器——该服务器需要监听某个TCP端口以接收流量，并能够响应RPC调用。
+自动生成gRPC服务定义固然很酷，但我们仍需将其注册到具体的gRPC服务器——这个服务器需要监听某个TCP端口以接收流量，并能够响应RPC调用。
 
-我们决定不自动生成这部分代码，因为这通常涉及团队/组织特定的行为（例如集成不同的中间件）。未来可能会改变这一设计。目前本节将描述如何创建一个简单的gRPC服务器来承载我们的服务代码。
+我们决定不自动生成这部分代码，因为这通常涉及团队/组织特定的行为，例如集成不同的中间件。未来可能会改变这一设计。目前本节将描述如何创建一个简单的gRPC服务器来承载我们的服务代码。
 
 ### 创建服务器
 
@@ -67,7 +67,7 @@ func main() {
 go get -u github.com/mattn/go-sqlite3
 ```
 
-接着运行服务器，同时编写与之通信的客户端：
+接着让我们启动服务器，同时编写与之通信的客户端：
 
 ```console
 go run -mod=mod ./cmd/server
@@ -75,7 +75,7 @@ go run -mod=mod ./cmd/server
 
 ### 创建客户端
 
-创建一个向服务器发起调用的简单客户端。新建文件`cmd/client/main.go`并写入：
+让我们创建一个简单客户端来向服务器发起调用。新建文件`cmd/client/main.go`并写入：
 
 ```go
 package main
@@ -136,17 +136,17 @@ func randomUser() *entpb.User {
 }
 ```
 
-我们的客户端建立了与服务器监听端口5000的连接，先发送`Create`请求创建新用户，再发送`Get`请求从数据库检索。运行客户端代码：
+我们的客户端建立了与服务器监听端口5000的连接，首先发送`Create`请求创建新用户，然后发送`Get`请求从数据库检索该用户。现在运行客户端代码：
 
 ```console
 go run ./cmd/client
 ```
 
-观察输出：
+观察输出结果：
 
 ```console
 2021/03/18 10:42:58 user created with id: 1
 2021/03/18 10:42:58 retrieved user with id=1: id:1 name:"user_730811260095307266" email_address:"user_7338662242574055998@example.com"
 ```
 
-太棒了！我们成功创建了真实的gRPC客户端与服务器通信！后续章节将展示ent/gRPC集成如何处理更高级的ent schema定义。
+太棒了！我们成功创建了真实的gRPC客户端与真实的gRPC服务器通信！在后续章节中，我们将探讨ent/gRPC集成如何处理更高级的ent模式定义。

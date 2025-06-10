@@ -109,7 +109,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`entgql.RelayConnection()`注解也可用于边字段，以生成first/last/after/before等参数，并将字段类型改为`<T>Connection!`。例如将`children: [Todo!]!`改为`children(first: Int, last: Int, after: Cursor, before: Cursor): TodoConnection!`，您可以在边字段添加该注解："
+        "zh-CN": "`entgql.RelayConnection()`注解也可用于边字段，以生成first/last/after/before等参数，并将字段类型改为`<T>Connection!`。例如将`children`字段从`children: [Todo!]!`改为`children(first: Int, last: Int, after: Cursor, before: Cursor): TodoConnection!`。您可以在边字段添加该注解："
       }
     },
     {
@@ -139,7 +139,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "请从`todo.graphql`中移除以下类型，避免与EntGQL在`ent.graphql`中生成的类型冲突。"
+        "zh-CN": "请从`todo.graphql`中移除以下类型，避免与EntGQL在`ent.graphql`文件中生成的类型冲突。"
       }
     },
     {
@@ -169,7 +169,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "我们还需要修改`generate.go`文件以确保Ent和GQLGen的执行顺序。这是为了让GQLGen能正确识别Ent生成的对象并执行代码生成。"
+        "zh-CN": "我们还需要修改`generate.go`文件来确保Ent和GQLGen的执行顺序。这是为了让GQLGen能正确识别Ent生成的对象并执行代码生成器。"
       }
     },
     {
@@ -199,7 +199,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "更新`generate.go`以包含Ent代码生成。"
+        "zh-CN": "更新`generate.go`以包含ent代码生成。"
       }
     },
     {
@@ -219,7 +219,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "修改`generate.go`后，执行以下命令进行代码生成："
+        "zh-CN": "修改`generate.go`文件后，即可执行代码生成："
       }
     },
     {
@@ -259,7 +259,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "您会注意到生成的类型将包含已定义的`Query`类型对象及其字段："
+        "zh-CN": "您会注意到生成的类型将包含已预定义字段的`Query`类型对象："
       }
     },
     {
@@ -299,7 +299,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "您可以扩展任何由Ent生成的类型。若要跳过某个字段，可以在该字段或边上使用`entgql.Skip()`。"
+        "zh-CN": "您可以扩展任何由Ent生成的类型。要跳过某个字段，可以在该字段或边上使用`entgql.Skip()`。"
       }
     },
     {
@@ -319,12 +319,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "完成！如您所见，采用模式生成器功能后，我们不再需要手动编写GQL模式。如有疑问或需要帮助？欢迎加入我们的[Discord服务器](https://discord.gg/qZmPgTE6RX)或[Slack频道](https://entgo.io/docs/slack)。"
+        "zh-CN": "完成！如您所见，在适配模式生成器功能后，我们不再需要手动编写GQL模式。有问题？需要入门帮助？欢迎加入我们的[Discord服务器](https://discord.gg/qZmPgTE6RX)或[Slack频道](https://entgo.io/docs/slack)。"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/tutorial-todo-gql-schema-generator.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.171311+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.779645+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "28077c99fc0f80cd412e7ed6c9376f958c2444fc5a9ee5e2b5d75221b2118ca1"

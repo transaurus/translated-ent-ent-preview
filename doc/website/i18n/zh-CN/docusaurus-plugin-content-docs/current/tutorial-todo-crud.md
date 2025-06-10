@@ -80,11 +80,11 @@ func Example_Todo() {
 
 ![tutorial-todo-create](https://entgo.io/images/assets/tutorial-todo-create-items.png)
 
-## 向Schema添加边
+## 向Schema添加边关系
 
-假设我们需要设计待办事项列表，使项目可以相互依赖。因此我们为每个待办事项添加`parent`边以获取其依赖项，同时添加反向引用边`children`以获取所有依赖它的项目。
+假设我们需要设计待办事项间的依赖关系。因此我们为每个待办事项添加`parent`边以获取其依赖项，同时添加反向引用边`children`来获取所有依赖它的项。
 
-让我们再次修改`todo/ent/schema/todo.go`中的schema：
+再次修改`todo/ent/schema/todo.go`中的schema：
 
 ```go
 func (Todo) Edges() []ent.Edge {
@@ -96,15 +96,15 @@ func (Todo) Edges() []ent.Edge {
 }
 ```
 
-添加这些边后，需要像之前一样运行代码生成：
+添加这些边关系后，需要像之前一样运行代码生成：
 
 ```console
 go generate ./ent
 ```
 
-## 连接两个待办事项
+## 建立待办事项关联
 
-我们通过更新刚创建的两个待办事项来继续边示例。设定项目2（*"添加追踪示例"*）依赖于项目1（*"添加GraphQL示例"*）。
+我们通过更新刚创建的两个待办事项继续边关系示例。设定item-2（*"添加追踪示例"*）依赖于item-1（*"添加GraphQL示例"*）。
 
 ![tutorial-todo-create](https://entgo.io/images/assets/tutorial-todo-create-edges.png)
 
@@ -122,7 +122,7 @@ func Example_Todo() {
 
 ## 查询待办事项
 
-将项目2连接到项目1后，我们已准备好开始查询待办事项列表。
+建立item-2与item-1的关联后，现在可以开始查询待办事项列表。
 
 #### 查询所有待办事项：
 
@@ -163,7 +163,7 @@ func Example_Todo() {
 }
 ```
 
-#### 查询所有不依赖其他事项但被其他事项依赖的待办事项：
+#### 查询所有不依赖其他事项且被其他事项依赖的待办事项：
 
 ```go
 func Example_Todo() {

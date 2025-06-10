@@ -5,7 +5,7 @@ title: Extensions
 
 ### 简介
 
-Ent的[扩展API](https://pkg.go.dev/entgo.io/ent/entc#Extension)提供了一套机制，用于创建代码生成扩展。这些扩展能够将[代码生成钩子](code-gen.md#code-generation-hooks)、[模板](templates.md)和[注解](templates.md#annotations)打包成可复用的组件，从而为Ent核心功能增添新的特性。例如，Ent的[entgql插件](https://pkg.go.dev/entgo.io/contrib/entgql#Extension)就提供了一个`Extension`，能够自动从Ent模式生成GraphQL服务器。
+Ent的[扩展API](https://pkg.go.dev/entgo.io/ent/entc#Extension)提供了创建代码生成扩展的能力，这些扩展将[代码生成钩子](code-gen.md#code-generation-hooks)、[模板](templates.md)和[注解](templates.md#annotations)捆绑在一起，形成可复用的组件，为Ent核心功能增添新的丰富特性。例如，Ent的[entgql插件](https://pkg.go.dev/entgo.io/contrib/entgql#Extension)就提供了一个`Extension`，能够自动从Ent模式生成GraphQL服务器。
 
 ### 定义新扩展
 
@@ -37,7 +37,7 @@ type Extension interface {
 }
 ```
 
-为了简化新扩展的开发，开发者可以嵌入[entc.DefaultExtension](https://pkg.go.dev/entgo.io/ent/entc#DefaultExtension)，这样就不需要实现所有方法：
+为了简化新扩展的开发，开发者可以嵌入[entc.DefaultExtension](https://pkg.go.dev/entgo.io/ent/entc#DefaultExtension)，这样无需实现所有方法即可创建扩展：
 
 ```go
 package hello
@@ -50,7 +50,7 @@ type GreetExtension struct {
 
 ### 添加模板
 
-Ent支持添加[外部模板](templates.md)，这些模板会在代码生成过程中被渲染。要将这样的外部模板打包到扩展中，需要实现`Templates`方法：
+Ent支持添加[外部模板](templates.md)，这些模板将在代码生成过程中被渲染。要将此类外部模板捆绑到扩展中，需实现`Templates`方法：
 
 ```gotemplate title="templates/greet.tmpl"
 {{/* Tell Intellij/GoLand to enable the autocompletion based on the *gen.Graph type. */}}
@@ -83,7 +83,7 @@ func (*GreetExtension) Templates() []*gen.Template {
 
 ### 添加全局注解
 
-注解是一种便捷的方式，可以为扩展的用户提供一个API来修改代码生成的行为。要为我们的扩展添加注解，需要实现`Annotations`方法。假设在我们的`GreetExtension`中，我们想为用户提供配置生成代码中问候语的能力：
+注解是一种便捷的方式，为扩展的用户提供API以修改代码生成的行为。要为我们的扩展添加注解，需实现`Annotations`方法。假设在我们的`GreetExtension`中，我们想为用户提供配置生成代码中问候词的能力：
 
 ```go
 // GreetingWord implements entc.Annotation.
@@ -124,7 +124,7 @@ func ({{ $receiver }} *{{ $n.Name }}) Greet() string {
 
 ### 添加钩子
 
-entc包提供了一个选项，用于向代码生成阶段添加一系列[钩子](code-gen.md#code-generation-hooks)（中间件）。这个选项非常适合为模式添加自定义验证器，或者使用图模式生成额外的资源。要将代码生成钩子打包到你的扩展中，需要实现`Hooks`方法：
+entc包提供了向代码生成阶段添加一系列[钩子](code-gen.md#code-generation-hooks)（中间件）的选项。这一选项非常适合为模式添加自定义验证器，或使用图模式生成额外资源。要将代码生成钩子捆绑到你的扩展中，需实现`Hooks`方法：
 
 ```go
 func (s *GreetExtension) Hooks() []gen.Hook {
@@ -150,7 +150,7 @@ func DisallowTypeName(name string) gen.Hook {
 
 ### 在代码生成中使用扩展
 
-要在我们的代码生成配置中使用扩展，可以使用`entc.Extensions`，这是一个辅助方法，返回一个`entc.Option`，用于应用我们选择的扩展：
+要在我们的代码生成配置中使用扩展，可使用`entc.Extensions`，这是一个辅助方法，返回一个`entc.Option`，用于应用我们选择的扩展：
 
 ```go title="ent/entc.go"
 //+build ignore
@@ -181,23 +181,22 @@ func main() {
 ### 社区扩展
 
 - **[entoas](https://github.com/ent/contrib/tree/master/entoas)**
-  `entoas` 是一个源自 `elk` 项目的扩展，现已独立成为官方 OpenAPI 规范文档生成器。该扩展可快速生成符合规范的 RESTful HTTP 服务接口文档。未来将发布配套扩展，基于 `entoas` 生成的文档自动实现服务端集成。
+  `entoas` 是一个源自 `elk` 项目的扩展，现已独立成为官方 OpenAPI 规范文档生成器。该扩展可快速生成符合规范的 RESTful HTTP 服务器文档。未来将发布配套扩展，基于 `entoas` 生成的文档为 `ent` 提供集成实现。
 
 - **[entrest](https://github.com/lrstanley/entrest)**
-  `entrest` 是 `entoas`（及 `ogent`）和已停更 `elk` 的替代方案。它能从 Ent 模式生成符合 OpenAPI 规范的完整接口文档及功能完备的 RESTful API 服务实现，核心特性包括：可开关的分页功能、高级过滤/查询能力、跨关联排序、边关系的预加载等。
+  `entrest` 是 `entoas`（配合 `ogent`）及已停更 `elk` 的替代方案。它能从 Ent 模式生成合规高效的 OpenAPI 规范，并附带功能完备的 RESTful API 服务器实现，核心特性包括：可分页控制、高级过滤/查询、跨关系排序、边预加载等。
 
 - **[entgql](https://github.com/ent/contrib/tree/master/entgql)**  
-  该扩展帮助开发者基于 Ent 模式构建 [GraphQL](https://graphql.org/) 服务，深度集成流行库 [gqlgen](https://github.com/99designs/gqlgen)。其特色功能包括自动生成类型安全的 GraphQL 过滤器，可无缝将 GraphQL 查询映射为 Ent 查询。  
+  该扩展帮助用户基于 Ent 模式构建 [GraphQL](https://graphql.org/) 服务，深度集成 [gqlgen](https://github.com/99designs/gqlgen)（流行的 Schema-First 式 Go GraphQL 库），可自动生成类型安全的 GraphQL 过滤器，实现 GraphQL 查询到 Ent 查询的无缝映射。  
   参考[本教程](https://entgo.io/docs/tutorial-todo-gql)快速入门。
 
 - **[entproto](https://github.com/ent/contrib/tree/master/entproto)**  
-  `entproto` 能从 Ent 模式生成 Protobuf 消息定义和 gRPC 服务定义。配套工具 `protoc-gen-entgrpc` 作为 Protobuf 编译器插件，可自动生成 gRPC 服务的完整实现。开发者仅需定义 Ent 模式即可获得可运行的服务端。  
-  学习使用方式请参阅[本教程](https://entgo.io/docs/grpc-intro)，技术背景可阅读[此博客](https://entgo.io/blog/2021/03/18/generating-a-grpc-server-with-ent)或[功能详解](https://entgo.io/blog/2021/06/28/gprc-ready-for-use/)。
+  `entproto` 从 Ent 模式生成 Protobuf 消息定义和 gRPC 服务定义，配套提供 `protoc-gen-entgrpc` 插件（Protobuf 编译器插件），用于自动实现生成的 gRPC 服务——仅需定义 Ent 模式即可运行 gRPC 服务器。  
+  学习使用方式请阅读[本教程](https://entgo.io/docs/grpc-intro)，背景知识可参考[这篇博客](https://entgo.io/blog/2021/03/18/generating-a-grpc-server-with-ent)或[功能详解](https://entgo.io/blog/2021/06/28/gprc-ready-for-use/)。
 
 - **[elk (已停更)](https://github.com/masseelch/elk)**  
-  该扩展可根据 Ent 模式生成 RESTful API 端点，包含 HTTP CRUD 处理器和 OpenAPI 规范文件。**注意：该项目已停止维护，由 `entoas` 替代**，新的实现生成器正在开发中。  
-  历史技术细节可参考[CRUD接口实现指南](https://entgo.io/blog/2021/07/29/generate-a-fully-working-go-crud-http-api-with-ent)和[OpenAPI生成原理](https://entgo.io/blog/2021/09/10/openapi-generator)。
+  `elk` 曾是从 Ent 模式生成 RESTful API 端点的扩展，能自动创建 HTTP CRUD 处理器和 OpenAPI JSON 文件。**该项目已停止维护，由 `entoas` 取代**，新的实现生成器正在开发中。  
+  历史技术细节可参阅[构建 CRUD HTTP API](https://entgo.io/blog/2021/07/29/generate-a-fully-working-go-crud-http-api-with-ent)和[OpenAPI 生成](https://entgo.io/blog/2021/09/10/openapi-generator)两篇博客。
 
-- **[entviz (已归档)](https://github.com/hedwigz/entviz)**  
-  该扩展可将 Ent 模式可视化为网页版关系图，并随代码变更自动更新。开发者可配置实时同步生成，直观跟踪模式演进。  
-  集成方法详见[可视化教程](https://entgo.io/blog/2021/08/26/visualizing-your-data-graph-using-entviz)。**该扩展已于2023-09-16由维护者归档**。
+- **[entviz (已停更)](https://github.com/hedwigz/entviz)**  
+  `entviz` 曾是通过网页可视化 Ent 模式的扩展，支持随代码变更自动更新图表。配置后可在每次模式重新生成时同步更新可视化结果。**该扩展已于 2023-09-16 由维护者归档**，集成方法可参考[这篇博客](https://entgo.io/blog/2021/08/26/visualizing-your-data-graph-using-entviz)。

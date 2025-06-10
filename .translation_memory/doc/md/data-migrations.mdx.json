@@ -29,7 +29,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "迁移通常用于更改数据库模式，但在某些情况下需要修改数据库中存储的数据。例如添加种子数据，或使用自定义默认值回填空列。"
+        "zh-CN": "迁移通常用于变更数据库结构，但在某些场景下，也需要修改数据库中存储的数据。例如添加种子数据，或为空列填充自定义默认值。"
       }
     },
     {
@@ -39,7 +39,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "此类迁移称为数据迁移。本文将讨论如何利用Ent规划数据迁移，并将其集成到常规的模式迁移工作流中。"
+        "zh-CN": "这类迁移称为数据迁移。本文将探讨如何利用Ent规划数据迁移，并将其集成到常规的数据库结构迁移工作流中。"
       }
     },
     {
@@ -79,7 +79,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "使用版本化迁移时，数据迁移应存储在相同的`migrations`目录中，并与常规迁移以相同方式执行。但建议将数据迁移与模式迁移分开存储，以便于测试。"
+        "zh-CN": "使用版本化迁移时，数据迁移文件应存放在相同的`migrations`目录下，执行方式与常规迁移相同。但建议将数据迁移与结构迁移分开存储，以便于单独测试。"
       }
     },
     {
@@ -89,7 +89,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "此类迁移采用SQL格式，即使Ent模式发生修改且生成代码不再兼容数据迁移文件，仍可安全执行（且存储内容保持不变）。"
+        "zh-CN": "此类迁移采用SQL格式，即使Ent模型发生变更导致生成代码与迁移文件不兼容时，仍可安全执行原始SQL文件。"
       }
     },
     {
@@ -99,7 +99,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "创建数据迁移脚本有两种方式：手动编写和自动生成。手动编写时用户需撰写所有SQL语句以精确控制执行内容；也可使用Ent自动生成数据迁移。建议验证生成文件的正确性，某些情况下可能需手动修正。"
+        "zh-CN": "创建数据迁移脚本有两种方式：手动编写与自动生成。手动编写需用户自行撰写所有SQL语句，可精确控制执行逻辑；自动生成则通过Ent工具生成迁移文件。建议对生成文件进行人工校验，某些情况下可能需要手动修正。"
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "1\\. 若未安装Atlas，请参阅其[入门指南](https://atlasgo.io/getting-started/#installation)"
+        "zh-CN": "1\\. 若未安装Atlas，请参考[入门指南](https://atlasgo.io/getting-started/#installation)进行安装。"
       }
     },
     {
@@ -129,7 +129,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "2\\. 使用[Atlas](https://atlasgo.io/versioned/new)创建新迁移文件："
+        "zh-CN": "2\\. 使用[Atlas工具](https://atlasgo.io/versioned/new)创建新迁移文件："
       }
     },
     {
@@ -149,7 +149,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "3\\. 编辑迁移文件并添加自定义数据迁移。例如："
+        "zh-CN": "3\\. 编辑迁移文件并添加自定义数据迁移逻辑。例如："
       }
     },
     {
@@ -169,7 +169,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "4\\. 更新迁移目录[完整性文件](https://atlasgo.io/concepts/migration-directory-integrity)："
+        "zh-CN": "4\\. 更新迁移目录的[完整性文件](https://atlasgo.io/concepts/migration-directory-integrity)："
       }
     },
     {
@@ -209,7 +209,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "当前Ent提供数据迁移文件的初步生成支持。该功能可简化大多数情况下复杂SQL语句的手动编写过程。但仍建议验证生成文件的正确性，极端情况下可能需手动编辑。"
+        "zh-CN": "当前Ent提供数据迁移文件的初步生成支持。该功能可简化复杂SQL语句的手动编写过程，但仍建议校验生成结果，极端情况下可能需人工调整。"
       }
     },
     {
@@ -219,7 +219,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "1\\. 若未配置，请先创建[版本化迁移设置](/docs/versioned/intro)"
+        "zh-CN": "1\\. 若未配置[版本化迁移](/docs/versioned/intro)，请先完成基础配置。"
       }
     },
     {
@@ -229,7 +229,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "2\\. 创建首个数据迁移函数。下方示例演示如何编写此类函数："
+        "zh-CN": "2\\. 创建数据迁移函数。下文示例演示编写规范："
       }
     },
     {
@@ -249,7 +249,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "3\\. 若生成文件被编辑，需通过以下命令更新迁移目录[完整性文件](https://atlasgo.io/concepts/migration-directory-integrity)："
+        "zh-CN": "3\\. 若生成文件经过编辑，需通过以下命令更新迁移目录[完整性文件](https://atlasgo.io/concepts/migration-directory-integrity)："
       }
     },
     {
@@ -279,7 +279,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "添加迁移文件后，强烈建议在本地数据库应用以验证其有效性及预期结果。该过程可手动完成或通过程序自动化。"
+        "zh-CN": "添加迁移文件后，强烈建议在本地数据库执行验证，确保其有效性并符合预期结果。该流程可手动执行或通过程序自动化。"
       }
     },
     {
@@ -309,7 +309,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "2\\. 确认最新迁移文件处于待执行状态："
+        "zh-CN": "2\\. 确认待执行的最后迁移文件："
       }
     },
     {
@@ -329,7 +329,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "3\\. 在本地数据库填充临时数据以模拟执行数据迁移前的生产环境状态。"
+        "zh-CN": "3\\. 在本地数据库填充临时数据，模拟执行数据迁移前的生产环境状态。"
       }
     },
     {
@@ -404,7 +404,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/data-migrations.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.143244+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.764760+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "a3f9188118cd7efcd917aa829b03f460de61381399c09031a96762a644bfbf9a"

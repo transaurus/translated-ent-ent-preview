@@ -19,7 +19,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "边（Edges）使我们能够在ent应用中表达不同实体之间的关系。让我们看看它们如何与生成的gRPC服务协同工作。"
+        "zh-CN": "边（Edges）使我们能够在ent应用中表达不同实体间的关系。让我们看看它们如何与生成的gRPC服务协同工作。"
       }
     },
     {
@@ -49,7 +49,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "在`User`上创建反向关系："
+        "zh-CN": "在`User`上创建反向关联："
       }
     },
     {
@@ -79,7 +79,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "* 我们的边也带有`entproto.Field`注解，稍后会解释原因\n* 我们创建了一对多关系：一个`Category`有单个`admin`，而一个`User`可以管理多个分类"
+        "zh-CN": "* 我们的边也包含`entproto.Field`注解，稍后会解释其作用\n* 我们创建了一对多关系：一个`Category`有单个`admin`，而一个`User`可以管理多个分类"
       }
     },
     {
@@ -89,7 +89,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "通过`go generate ./...`重新生成项目，观察`.proto`文件的变化："
+        "zh-CN": "通过`go generate ./...`重新生成项目后，观察`.proto`文件的变化："
       }
     },
     {
@@ -109,7 +109,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "主要变更包括："
+        "zh-CN": "主要变化包括："
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "* 新增了`Category`消息类型，其中包含与模式中`admin`边对应的`admin`字段。由于我们将该边标记为`.Unique()`，这是个非重复字段。其字段编号为`3`，与边定义中的`entproto.Field`注解对应\n* `User`消息定义中新增了`administered`字段。由于该方向未标记为`Unique`，这是个重复字段。其字段编号为`5`，与边上的注解对应"
+        "zh-CN": "* 新增了`Category`消息类型，其中包含与`Category`模式中`admin`边对应的`admin`字段。由于我们将该边标记为`.Unique()`，这是一个非重复字段，其字段编号`3`对应边定义中的`entproto.Field`注解\n* `User`消息定义中新增了`administered`字段。由于该方向未标记为`Unique`，这是一个重复字段，其字段编号`5`对应边上的`entproto.Field`注解"
       }
     },
     {
@@ -159,7 +159,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "要从已创建的`User`关联到现有`Category`，我们不需要填充完整的`Category`对象，只需填充`Id`字段即可。生成的服务代码会自动处理："
+        "zh-CN": "要从已创建的`User`关联到现有`Category`，我们不需要填充整个`Category`对象，只需填充`Id`字段即可。生成的服务代码会自动处理："
       }
     },
     {
@@ -219,7 +219,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "如测试所示，默认情况下服务的`Get`方法不会返回边信息。这是有意为之，因为相关实体的数量可能是无限的。为了让调用方指定是否返回边信息，生成的服务遵循[AIP-157](https://google.aip.dev/157)（部分响应）规范。简而言之，`GetUserRequest`消息包含一个名为`View`的枚举："
+        "zh-CN": "如测试所示，默认情况下服务的`Get`方法不会返回边信息。这是有意为之，因为与实体关联的其他实体数量可能是无限的。为了让调用方指定是否返回边信息，生成的服务遵循[AIP-157](https://google.aip.dev/157)（部分响应规范）。具体来说，`GetUserRequest`消息包含一个名为`View`的枚举："
       }
     },
     {
@@ -259,12 +259,12 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "默认调用`client.User.Get`不会返回任何边ID信息，但如果传入`WITH_EDGE_IDS`，端点将获取通过`administered`边与用户关联的所有`Category`的`ID`字段。"
+        "zh-CN": "默认调用`client.User.Get`不会返回任何边ID信息，但如果传入`WITH_EDGE_IDS`，端点将检索通过`administered`边与用户关联的所有`Category`的`ID`字段。"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/tutorial-grpc-edges.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.168953+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.778260+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "21baa0017f3853fd9d10765293a7a16d38c92b1182b506090cfeb1d6fa173580"

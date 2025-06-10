@@ -5,7 +5,7 @@ title: Aggregation
 
 ## 聚合
 
-`Aggregate`选项允许添加一个或多个聚合函数。
+`Aggregate` 选项允许添加一个或多个聚合函数。
 
 ```go
 package main
@@ -43,7 +43,7 @@ func Do(ctx context.Context, client *ent.Client) {
 
 ## 分组查询
 
-按所有用户的`name`和`age`字段分组，并计算其年龄总和。
+按所有用户的 `name` 和 `age` 字段分组，并计算其年龄总和。
 
 ```go
 package main
@@ -93,7 +93,7 @@ func Do(ctx context.Context, client *ent.Client) {
 
 自定义聚合函数在需要编写特定存储逻辑时非常有用。
 
-以下示例展示如何按用户的`id`和`name`分组，并计算其宠物年龄的平均值。
+以下示例展示如何按所有用户的 `id` 和 `name` 分组，并计算其宠物平均年龄。
 
 ```go
 package main
@@ -124,9 +124,10 @@ func Do(ctx context.Context, client *ent.Client) {
 }
 ```
 
-## Having条件与分组查询
+## Having 条件 + 分组查询
 
-[自定义SQL修饰符](https://entgo.io/docs/feature-flags/#custom-sql-modifiers)可用于全面控制查询各部分。以下示例展示如何检索每个角色中最年长的用户。
+若需完全控制查询各部分，[自定义SQL修饰符](https://entgo.io/docs/feature-flags/#custom-sql-modifiers)会很有用。
+以下示例展示如何检索每个角色中最年长的用户。
 
 ```go
 package main
@@ -161,9 +162,9 @@ func Do(ctx context.Context, client *ent.Client) {
 
 ```
 
-**注意：** `sql.Raw`的存在至关重要，它向谓词表明`sql.Max`不是参数。
+**注意：** `sql.Raw` 至关重要，它向谓词表明 `sql.Max` 不是参数。
 
-上述代码最终生成的SQL查询如下：
+上述代码本质上生成以下SQL查询：
 
 ```sql
 SELECT * FROM user GROUP BY user.role HAVING user.age = MAX(user.age)

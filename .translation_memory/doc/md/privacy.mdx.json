@@ -49,7 +49,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "隐私层的主要优势在于，您只需在schema中**一次性**编写隐私策略，该策略将**始终**生效。无论查询和变更操作在代码库的哪个位置执行，都会经过隐私层的校验。"
+        "zh-CN": "隐私层的主要优势在于，您只需在schema中**一次性**编写隐私策略，即可**始终**生效。无论代码库中在何处执行查询或变更操作，都会经过隐私层的校验。"
       }
     },
     {
@@ -59,7 +59,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "本教程将从框架使用的基本术语开始讲解，接着介绍如何为项目配置策略功能，最后通过几个示例进行演示。"
+        "zh-CN": "本教程将首先介绍框架中使用的基本术语，接着讲解如何为项目配置策略功能，最后通过几个示例进行说明。"
       }
     },
     {
@@ -99,7 +99,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "如果所有规则都执行完毕且未返回错误，则评估成功完成，执行的操作将获得对目标节点的访问权限。"
+        "zh-CN": "如果所有规则都执行完毕且未返回错误，则评估成功，执行的操作将获得对目标节点的访问权限。"
       }
     },
     {
@@ -189,7 +189,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "- `privacy.Allow` - 若从隐私规则返回，则停止评估（跳过后续规则），执行的操作（查询或变更）获得对目标节点的访问权限。\n  \n- `privacy.Deny` - 若从隐私规则返回，则停止评估（跳过后续规则），执行的操作被取消。效果等同于返回任意错误。\n  \n- `privacy.Skip` - 跳过当前规则，继续执行下一条隐私规则。效果等同于返回`nil`错误。"
+        "zh-CN": "- `privacy.Allow` - 如果隐私规则返回此决策，则评估终止（跳过后续规则），执行的操作（查询或变更）获得对目标节点的访问权限。\n   \n- `privacy.Deny` - 如果隐私规则返回此决策，则评估终止（跳过后续规则），执行的操作被取消。这等同于返回任何错误。 \n  \n- `privacy.Skip` - 跳过当前规则，继续执行下一条隐私规则。这等同于返回`nil`错误。"
       }
     },
     {
@@ -209,7 +209,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "了解基本术语后，现在让我们开始编写代码。"
+        "zh-CN": "现在我们已经介绍了基本术语，接下来开始编写一些代码。"
       }
     },
     {
@@ -229,7 +229,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "要启用代码生成中的隐私功能，可通过以下两种方式之一开启`privacy`特性："
+        "zh-CN": "要在代码生成中启用隐私选项，可通过以下两种方式之一开启`privacy`特性："
       }
     },
     {
@@ -259,7 +259,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::important\n需注意：与[schema钩子](hooks.md#hooks-registration)类似，如果在schema中使用**`Policy`**选项，**必须**在主包中添加以下导入语句，因为schema包与生成的ent包之间可能存在循环引用：\n\n```go\nimport _ \"<project>/ent/runtime\"\n```\n:::"
+        "zh-CN": ":::important\n请注意，与[schema钩子](hooks.md#hooks-registration)类似，如果在schema中使用**`Policy`**选项，则**必须**在主包中添加以下导入语句，因为schema包与生成的ent包之间可能存在循环引用：\n\n```go\nimport _ \"<project>/ent/runtime\"\n```\n:::"
       }
     },
     {
@@ -289,7 +289,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "我们从一个简单示例开始：该应用允许所有用户读取数据，但仅允许具有管理员角色的用户进行变更操作。为此我们将创建两个附加包："
+        "zh-CN": "我们从一个简单示例开始：该应用允许任何用户读取数据，但仅允许具有管理员角色的用户进行变更操作。为此我们将创建两个额外的包："
       }
     },
     {
@@ -299,7 +299,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "- `rule` - 用于存放schema中的各类隐私规则\n- `viewer` - 用于获取和设置执行操作的用户/查看者。在这个简单示例中，查看者可以是普通用户或管理员。"
+        "zh-CN": "- `rule` - 用于存放schema中的不同隐私规则。\n- `viewer` - 用于获取和设置执行操作的用户/查看者。在这个简单示例中，查看者可以是普通用户或管理员。"
       }
     },
     {
@@ -329,7 +329,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "我们定义了一个拒绝所有变更操作但接受所有查询操作的策略。但如前所述，在本例中我们仅允许具有管理员角色的查看者执行变更操作。为此需要创建两条隐私规则："
+        "zh-CN": "我们定义了一个拒绝所有变更操作但接受所有查询操作的策略。但如前所述，在本例中我们仅允许具有管理员角色的查看者执行变更操作。为此创建两条隐私规则："
       }
     },
     {
@@ -349,7 +349,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "第一条规则`DenyIfNoViewer`确保每个操作上下文中都存在查看者，否则拒绝操作。第二条规则`AllowIfAdmin`允许具有管理员角色的查看者执行任何操作。将这些规则添加到模式并运行代码生成："
+        "zh-CN": "如您所见，第一条规则`DenyIfNoViewer`确保每个操作上下文中都存在查看者，否则拒绝操作。第二条规则`AllowIfAdmin`允许管理员查看者执行任何操作。将其添加到模式并重新生成代码："
       }
     },
     {
@@ -369,7 +369,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "由于首先定义`DenyIfNoViewer`规则，该规则会优先执行，因此在`AllowIfAdmin`规则中安全访问`viewer.Viewer`对象。"
+        "zh-CN": "由于首先定义`DenyIfNoViewer`规则，它会在其他规则前执行，因此在`AllowIfAdmin`规则中安全访问`viewer.Viewer`对象。"
       }
     },
     {
@@ -379,7 +379,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "添加上述规则并完成代码生成后，隐私层逻辑将作用于所有`ent.Client`操作。"
+        "zh-CN": "添加上述规则并重新生成代码后，隐私层逻辑将作用于所有`ent.Client`操作。"
       }
     },
     {
@@ -409,7 +409,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "有时需要将特定隐私决策绑定到`context.Context`。此时可使用`privacy.DecisionContext`函数创建附加隐私决策的新上下文。"
+        "zh-CN": "有时需要将特定隐私决策绑定到`context.Context`。此时可使用`privacy.DecisionContext`函数创建附带隐私决策的新上下文。"
       }
     },
     {
@@ -439,7 +439,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "### 多租户架构"
+        "zh-CN": "### 多租户"
       }
     },
     {
@@ -449,7 +449,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "本例将创建包含三种实体类型的模式：`Tenant`、`User`和`Group`。辅助包`viewer`和`rule`（如前所述）也用于构建应用结构。"
+        "zh-CN": "本例将创建包含三种实体类型（`Tenant`、`User`和`Group`）的模式。辅助包`viewer`和`rule`（如前所述）同样用于构建应用结构。"
       }
     },
     {
@@ -469,7 +469,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "让我们逐步构建这个应用。首先创建三个不同的模式（完整代码参见[此处](https://github.com/ent/ent/tree/master/examples/privacytenant/ent/schema)），由于需要在模式间共享逻辑，我们创建了[mixed-in schema](schema-mixin.md)并将其添加到所有其他模式："
+        "zh-CN": "让我们逐步构建这个应用。首先创建三个不同模式（完整代码参见[此处](https://github.com/ent/ent/tree/master/examples/privacytenant/ent/schema)），由于需要共享逻辑，我们创建了[mixed-in schema](schema-mixin.md)并将其添加到所有其他模式："
       }
     },
     {
@@ -499,7 +499,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "如第一个示例所述，隐私规则`DenyIfNoViewer`会在`context.Context`不包含`viewer.Viewer`信息时拒绝操作。"
+        "zh-CN": "如第一个示例所述，当`context.Context`不包含`viewer.Viewer`信息时，`DenyIfNoViewer`隐私规则会拒绝操作。"
       }
     },
     {
@@ -509,7 +509,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "与之前示例类似，我们需要添加约束：仅管理员用户可以创建租户（其他情况拒绝）。通过复制前述的`AllowIfAdmin`规则并添加到`Tenant`模式的`Policy`中实现："
+        "zh-CN": "与之前示例类似，我们需要添加约束：仅管理员用户可以创建租户（否则拒绝）。通过复制上述`AllowIfAdmin`规则并添加到`Tenant`模式的`Policy`中实现："
       }
     },
     {
@@ -529,7 +529,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "此时以下代码应能成功运行："
+        "zh-CN": "此时下列代码应能成功执行："
       }
     },
     {
@@ -549,7 +549,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "继续添加数据模型中剩余的边（见上图）。由于`User`和`Group`都与`Tenant`模式存在关联边，我们创建名为`TenantMixin`的共享[mixed-in schema](schema-mixin.md)："
+        "zh-CN": "我们继续添加数据模型中剩余的边（见上图）。由于`User`和`Group`都有指向`Tenant`模式的边，为此创建名为`TenantMixin`的共享[mixed-in schema](schema-mixin.md)："
       }
     },
     {
@@ -579,7 +579,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "接下来可能需要添加规则：限制查看者只能查询与其所属租户关联的组和用户。针对此类场景，Ent提供称为`Filter`的特殊隐私规则类型。该规则可根据查看者身份过滤实体，不仅能返回隐私决策，还能限制查看者的查询范围。"
+        "zh-CN": "接下来可能需要强制实施规则：限制查看者只能查询与其所属租户相关联的组和用户。针对此类场景，Ent提供名为`Filter`的特殊隐私规则类型。该规则可根据查看者身份过滤实体。与之前讨论的规则不同，`Filter`规则除了返回隐私决策外，还能限制查看者的查询范围。"
       }
     },
     {
@@ -589,7 +589,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::info[注意]\n隐私过滤功能需要通过 [`entql`](features.md#entql-filtering) 特性标志启用（参见[上文配置说明](#configuration)）。\n:::"
+        "zh-CN": ":::info[注意]\n隐私过滤功能需要通过 [`entql`](features.md#entql-filtering) 特性标志启用（参见[上文](#configuration)的配置说明）。\n:::"
       }
     },
     {
@@ -609,7 +609,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "创建 `FilterTenantRule` 隐私规则后，我们将其添加到 `TenantMixin` 中，以确保**所有使用该混合模式**的架构都会继承此隐私规则。"
+        "zh-CN": "创建 `FilterTenantRule` 隐私规则后，我们将其添加到 `TenantMixin` 中，以确保**所有使用该混合模式**的 schema 都会继承该隐私规则。"
       }
     },
     {
@@ -629,7 +629,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "运行代码生成后，预期这些隐私规则将在客户端操作中生效。"
+        "zh-CN": "随后运行代码生成，预期隐私规则将在客户端操作中生效。"
       }
     },
     {
@@ -649,7 +649,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "我们通过为 `Group` 架构添加名为 `DenyMismatchedTenants` 的隐私规则来完善示例。该规则会在关联用户与组不属于同一租户时拒绝组的创建。"
+        "zh-CN": "我们在示例的最后为 `Group` schema 添加了名为 `DenyMismatchedTenants` 的隐私规则。该规则会在关联用户与组不属于同一租户时拒绝组的创建操作。"
       }
     },
     {
@@ -669,7 +669,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "将此规则添加至 `Group` 架构并运行代码生成。"
+        "zh-CN": "将该规则添加至 `Group` schema 并运行代码生成。"
       }
     },
     {
@@ -709,7 +709,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "某些情况下，我们希望在不从数据库加载实体的前提下（不同于上述 `DenyMismatchedTenants` 示例），直接拒绝用户对非所属租户实体的操作。为此，我们依赖 `FilterTenantRule` 使其在变更操作中也进行过滤，当 `tenant_id` 列与查看者上下文中存储的值不匹配时，预期操作会返回 `NotFoundError`。"
+        "zh-CN": "某些场景下，我们需要**在不从数据库加载实体的情况下**拒绝用户对非所属租户实体的操作（与上文 `DenyMismatchedTenants` 示例不同）。为此，我们通过 `FilterTenantRule` 规则在变更操作中实施过滤，当 `tenant_id` 列与 viewer 上下文中存储的租户 ID 不匹配时，操作将返回 `NotFoundError`。"
       }
     },
     {
@@ -744,7 +744,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/privacy.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.154610+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.770925+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "2d8d54c33c344d07fb247272cc82fe5eab6c532ee5a2f6886b28ab58ddec0483"

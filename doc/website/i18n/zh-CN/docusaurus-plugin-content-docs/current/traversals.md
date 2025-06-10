@@ -95,7 +95,7 @@ func (Group) Edges() []ent.Edge {
 }
 ```
 
-接下来编写代码，将顶点和边填充到图中：
+接下来编写填充顶点和边的代码：
 
 ```go
 func Gen(ctx context.Context, client *ent.Client) error {
@@ -154,11 +154,13 @@ func Gen(ctx context.Context, client *ent.Client) error {
 }
 ```
 
-让我们通过几个遍历示例来展示相关代码：
+让我们通过几个遍历示例来展示具体实现：
 
 ![er-traversal-graph-gopher](https://entgo.io/images/assets/er_traversal_graph_gopher.png)
 
-上述遍历从 `Group` 实体开始，经过其 `admin`（边），继续到其 `friends`（边），获取它们的 `pets`（边），再获取每只宠物的 `friends`（边），最终请求这些宠物的主人。
+上述遍历从 `Group` 实体开始，通过其 `admin`（边）继续遍历，
+接着通过 `friends`（边）遍历，获取它们的 `pets`（边），
+再获取每只宠物的 `friends`（边），最终查询这些宠物对应的主人。
 
 ```go
 func Traverse(ctx context.Context, client *ent.Client) error {
@@ -181,11 +183,12 @@ func Traverse(ctx context.Context, client *ent.Client) error {
 }
 ```
 
-那么以下遍历又如何呢？
+那么下面这个遍历又该如何实现？
 
 ![er-traversal-graph-gopher-query](https://entgo.io/images/assets/er_traversal_graph_gopher_query.png)
 
-我们希望获取所有满足条件的宠物（实体）：这些宠物的 `owner`（边）是某个群组 `admin`（边）的 `friend`（边）。
+我们需要获取所有满足条件的宠物（实体）：这些宠物的 `owner`（边）
+是某个群组 `admin`（边）的 `friend`（边）。
 
 ```go
 func Traverse(ctx context.Context, client *ent.Client) error {

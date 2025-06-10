@@ -19,7 +19,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "Protobuf 的一个常见问题是空值表示方式：原始类型字段的零值不会被编码到二进制表示中，这意味着应用程序无法区分原始字段的零值与未设置状态。"
+        "zh-CN": "Protobuf 常见的一个问题是空值表示方式：原始类型字段的零值不会被编码到二进制表示中，这意味着应用程序无法区分原始字段的零值和未设置状态。"
       }
     },
     {
@@ -29,7 +29,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "为解决这个问题，Protobuf 项目支持称为\"包装类型\"的[知名类型](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf)。例如布尔值的包装类型名为`google.protobuf.BoolValue`，其[定义如下](https://github.com/protocolbuffers/protobuf/blob/991bcada050d7e9919503adef5b52547ec249d35/src/google/protobuf/wrappers.proto#L103-L107)："
+        "zh-CN": "为解决这个问题，Protobuf 项目支持一些称为\"包装类型\"的[已知类型](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf)。例如，`bool` 的包装类型名为 `google.protobuf.BoolValue`，其[定义如下](https://github.com/protocolbuffers/protobuf/blob/991bcada050d7e9919503adef5b52547ec249d35/src/google/protobuf/wrappers.proto#L103-L107)："
       }
     },
     {
@@ -49,7 +49,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "当`entproto`生成 Protobuf 消息定义时，会使用这些包装类型来表示 Ent 的\"可选\"字段。"
+        "zh-CN": "当 `entproto` 生成 Protobuf 消息定义时，会使用这些包装类型来表示 Ent 中的\"可选\"字段。"
       }
     },
     {
@@ -79,7 +79,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "重新运行`go generate ./...`后，可以看到生成的`User` Protobuf 定义变为："
+        "zh-CN": "重新运行 `go generate ./...` 后，可以看到生成的 `User` Protobuf 定义变为："
       }
     },
     {
@@ -99,7 +99,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "生成的服务实现同样会使用这个字段。观察`entpb_user_service.go`文件："
+        "zh-CN": "生成的服务实现同样会使用这个字段。观察 `entpb_user_service.go` 文件："
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "在客户端代码中使用包装类型时，可以通过[wrapperspb](https://github.com/protocolbuffers/protobuf-go/blob/3f51f05e40d61e930a5416f1ed7092cef14cc058/types/known/wrapperspb/wrappers.pb.go#L458-L460)包提供的辅助方法轻松构建这些类型的实例。例如在`cmd/client/main.go`中："
+        "zh-CN": "在客户端代码中使用包装类型时，可以通过 [wrapperspb](https://github.com/protocolbuffers/protobuf-go/blob/3f51f05e40d61e930a5416f1ed7092cef14cc058/types/known/wrapperspb/wrappers.pb.go#L458-L460) 包提供的辅助方法轻松构建这些类型的实例。例如在 `cmd/client/main.go` 中："
       }
     },
     {
@@ -134,7 +134,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/tutorial-grpc-optional-fields.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.156335+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.774519+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "6a36b322aeedbac310fe6656b69a4aba86dd479b53048a73534c4188a103e2c5"

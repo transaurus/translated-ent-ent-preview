@@ -29,7 +29,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "为了让Ent更易于其他母语者使用，我们启动了翻译计划。我们的目标是将本网站所有文档提供中文和日文版本。为简化翻译、审核和部署流程，我们已将本网站与[Crowdin](https://crowdin.com)集成。"
+        "zh-CN": "为了让Ent框架更便于非英语母语者使用，我们启动了文档翻译计划。目标是将本站所有文档提供中文和日语版本。为简化翻译、审核及部署流程，我们已通过[Crowdin](https://crowdin.com)平台实现本地化集成。"
       }
     },
     {
@@ -49,7 +49,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "1. 在我们的[Crowdin项目](https://crwd.in/ent)注册成为译者\n2. 完成注册登录后，访问[项目主页](https://crowdin.com/project/ent)\n3. 选择您要翻译的目标语言\n4. 选择需要翻译的文档：\n   * 所有文档位于`md/`目录下\n   * 博客文章位于`website/blog`\n   * 网站UI组件位于`website/i18n`\n5. 有关使用Crowdin界面的更多信息，请阅读[在线编辑器文档](https://support.crowdin.com/online-editor/)\n6. 您的翻译建议将由校对人员审核，通过后将包含在下次网站部署中"
+        "zh-CN": "1. 在我们的[Crowdin项目](https://crwd.in/ent)注册成为译者\n2. 完成注册登录后，访问[项目主页](https://crowdin.com/project/ent)\n3. 选择您要翻译的目标语言\n4. 选择待翻译文档：\n   * 所有文档位于`md/`目录下\n   * 博客文章位于`website/blog`\n   * 网站UI组件在`website/i18n`目录\n5. 有关Crowdin编辑器的使用说明，请参阅[在线编辑器文档](https://support.crowdin.com/online-editor/)\n6. 您的翻译建议经校对人员审核通过后，将随下次网站更新发布"
       }
     },
     {
@@ -59,7 +59,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 成为校对人员"
+        "zh-CN": "## 申请成为校对员"
       }
     },
     {
@@ -69,7 +69,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "若希望长期参与并成为某种语言的校对人员，请通过Slack频道联系我们"
+        "zh-CN": "若希望长期参与特定语言的翻译质量把控，请通过Slack频道联系我们申请成为校对员"
       }
     },
     {
@@ -89,12 +89,12 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "- 多数文档首行为`id: <文档ID>`——该行绝对不可翻译，否则会导致网站构建失败\n- 网站构建对HTML元素闭合敏感，若翻译中需使用HTML标签，必须确保闭合或使用自闭合标签（例如不要使用未闭合的`<br>`，应使用`<br/>`）"
+        "zh-CN": "- 文档首行的`id: <文档ID>`标记禁止翻译，修改会导致网站构建失败\n- 网站构建对HTML标签闭合敏感，翻译中若需使用HTML必须确保标签正确闭合或使用自闭合形式（如换行符应写作`<br/>`而非`<br>`）"
       }
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/translations.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.149752+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.769190+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "4a99bee3aea324321faacb50133b20657532fa0d22cf4d0ad8cd16d189406f84"

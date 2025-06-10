@@ -7,19 +7,19 @@ sidebar_label: Introduction
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-本教程将学习如何将Ent与[GraphQL](https://graphql.org)连接，并设置Ent提供的多种集成功能，包括：
+本教程将学习如何将Ent与[GraphQL](https://graphql.org)连接，并设置Ent提供的多种集成功能，例如：
 
-1. 为Ent模式中定义的节点和边生成GraphQL模式
-2. 自动生成`Query`和`Mutation`解析器，并与[Relay框架](https://relay.dev/)无缝集成
-3. 支持过滤、分页（包括嵌套分页）并兼容[Relay游标连接规范](https://relay.dev/graphql/connections.htm)
-4. 高效的[字段收集](tutorial-todo-gql-field-collection.md)功能，无需数据加载器即可解决N+1问题
-5. [事务性变更](tutorial-todo-gql-tx-mutation.md)确保失败时的数据一致性
+1. 为Ent模式中定义的节点和边生成GraphQL模式。
+2. 自动生成`Query`和`Mutation`解析器，并与[Relay框架](https://relay.dev/)无缝集成。
+3. 支持过滤、分页（包括嵌套分页）并兼容[Relay游标连接规范](https://relay.dev/graphql/connections.htm)。
+4. 高效的[字段收集](tutorial-todo-gql-field-collection.md)，无需数据加载器即可解决N+1问题。
+5. [事务性变更](tutorial-todo-gql-tx-mutation.md)，确保在失败时保持一致性。
 
-如果您不熟悉GraphQL，建议在继续本教程前先阅读其[入门指南](https://graphql.org/learn/)
+如果您不熟悉GraphQL，建议在开始本教程之前先阅读其[入门指南](https://graphql.org/learn/)。
 
 #### 克隆代码（可选）
 
-本教程代码托管在[github.com/a8m/ent-graphql-example](https://github.com/a8m/ent-graphql-example)，每个步骤都使用Git标签标记。若想跳过基础设置直接使用GraphQL服务器的初始版本，可按以下方式克隆仓库：
+本教程的代码可在[github.com/a8m/ent-graphql-example](https://github.com/a8m/ent-graphql-example)获取，每个步骤都使用Git进行了标记。如果您想跳过基础设置，直接从GraphQL服务器的初始版本开始，可以按如下方式克隆仓库：
 
 ```shell
 git clone git@github.com:a8m/ent-graphql-example.git
@@ -29,9 +29,9 @@ go run ./cmd/todo
 
 ## 基础设置
 
-本教程从上一个教程结束的地方开始（已有可用的Todo-list模式）。我们首先安装[contrib/entgql](https://pkg.go.dev/entgo.io/contrib/entgql)扩展并用于生成第一个模式，然后安装配置[99designs/gqlgen](https://github.com/99designs/gqlgen)框架来构建GraphQL服务器，并探索Ent提供的官方集成方案。
+本教程从上一个教程结束的地方开始（使用一个可工作的Todo列表模式）。我们首先安装[contrib/entgql](https://pkg.go.dev/entgo.io/contrib/entgql) Ent扩展，并使用它生成我们的第一个模式。然后，安装并配置[99designs/gqlgen](https://github.com/99designs/gqlgen)框架来构建我们的GraphQL服务器，并探索Ent提供的官方集成。
 
-#### 安装配置`entgql`
+#### 安装并配置`entgql`
 
 1\. 安装`entgql`：
 
@@ -39,7 +39,7 @@ go run ./cmd/todo
 go get entgo.io/contrib/entgql@master
 ```
 
-2\. 在`Todo`模式中添加以下注解以启用`Query`和`Mutation`（创建）功能：
+2\. 在`Todo`模式中添加以下注解，以启用`Query`和`Mutation`（创建）功能：
 
 ```go title="ent/schema/todo.go" {3-4}
 func (Todo) Annotations() []schema.Annotation {
@@ -50,7 +50,7 @@ func (Todo) Annotations() []schema.Annotation {
 }
 ```
 
-3\. 创建名为`ent/entc.go`的Go文件，并粘贴以下内容：
+3\. 创建一个新的Go文件`ent/entc.go`，并粘贴以下内容：
 
 ```go title="ent/entc.go"
 //go:build ignore
@@ -85,10 +85,10 @@ func main() {
 ```
 
 :::note
-`ent/entc.go`通过构建标签被忽略，它由`go generate`命令通过`generate.go`文件执行。
+`ent/entc.go`文件通过构建标签被忽略，并通过`generate.go`文件由`go generate`命令执行。
 :::
 
-**4\.** 删除`ent/generate.go`文件，在项目根目录创建新文件并包含以下内容。后续步骤中`gqlgen`命令也将添加到此文件。
+**4\.** 删除`ent/generate.go`文件，并在**项目根目录**中创建一个新文件，内容如下。在后续步骤中，`gqlgen`命令也将添加到该文件中。
 
 ```go title="generate.go"
 package todo
@@ -98,13 +98,13 @@ package todo
 
 #### 运行模式生成
 
-安装配置完`entgql`后，执行代码生成：
+安装并配置`entgql`后，现在可以执行代码生成：
 
 ```shell
 go generate .
 ```
 
-您会注意到生成了名为`ent.graphql`的新文件：
+您会注意到一个新文件`ent.graphql`被创建：
 
 ```graphql title="ent.graphql"
 directive @goField(forceResolver: Boolean, name: String) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
@@ -126,7 +126,7 @@ interface Node @goModel(model: "todo/ent.Noder") {
 # ...
 ```
 
-#### 安装配置`gqlgen`
+#### 安装并配置`gqlgen`
 
 1\. 安装`99designs/gqlgen`：
 
@@ -134,7 +134,7 @@ interface Node @goModel(model: "todo/ent.Noder") {
 go get github.com/99designs/gqlgen
 ```
 
-2\. 通过项目根目录的`gqlgen.yml`文件配置gqlgen包。请参考文件中的注释理解各配置指令含义：
+2\. gqlgen包可以通过`gqlgen.yml`文件进行配置，该文件会自动从当前目录加载。让我们将此文件添加到项目根目录。请按照文件中的注释理解每个配置指令的含义：
 
 ```yaml title="gqlgen.yml"
 # schema tells gqlgen where the GraphQL schema is located.
@@ -166,7 +166,7 @@ models:
       - todo/ent.Noder
 ```
 
-3\. 修改`ent/entc.go`让Ent知晓`gqlgen`配置：
+3\. 编辑`ent/entc.go`文件，让Ent知道`gqlgen`的配置：
 
 ```go
 //go:build ignore
@@ -202,7 +202,7 @@ func main() {
 }
 ```
 
-4\. 将`gqlgen`生成命令添加到`generate.go`文件：
+4\. 将`gqlgen`生成命令添加到`generate.go`文件中：
 
 ```go title="generate.go"
 package todo
@@ -238,9 +238,9 @@ tree -L 1
 └── resolver.go
 ```
 
-## 基础服务器
+## 基础服务器搭建
 
-在构建 GraphQL 服务器之前，我们需要设置定义在 `resolver.go` 中的主模式 `Resolver`。`gqlgen` 允许修改生成的 `Resolver` 并向其添加依赖项。让我们将 `ent.Client` 作为依赖项，将以下内容粘贴到 `resolver.go` 中：
+在构建 GraphQL 服务器之前，我们需要配置 `resolver.go` 中定义的主模式解析器 `Resolver`。`gqlgen` 允许修改生成的 `Resolver` 并为其添加依赖项。让我们将 `ent.Client` 作为依赖项，将以下代码粘贴到 `resolver.go` 中：
 
 ```go title="resolver.go"
 package todo
@@ -262,7 +262,7 @@ func NewSchema(client *ent.Client) graphql.ExecutableSchema {
 }
 ```
 
-设置好主解析器后，我们创建一个新目录 `cmd/todo` 和一个 `main.go` 文件，其中包含以下代码来设置 GraphQL 服务器：
+配置完主解析器后，我们创建一个新目录 `cmd/todo` 和一个 `main.go` 文件，其中包含以下代码来设置 GraphQL 服务器：
 
 ```go title="cmd/todo/main.go"
 
@@ -310,7 +310,7 @@ func main() {
 }
 ```
 
-使用以下命令运行服务器，并打开 [localhost:8081](http://localhost:8081)：
+使用以下命令运行服务器，并访问 [localhost:8081](http://localhost:8081)：
 
 ```console
 go run ./cmd/todo
@@ -320,11 +320,11 @@ go run ./cmd/todo
 
 ![tutorial-todo-playground](https://entgo.io/images/assets/tutorial-gql-playground.png)
 
-如果在运行 Playground 时遇到问题，请转到 [第一部分](#clone-the-code-optional) 并克隆示例仓库。
+如果在运行 Playground 时遇到问题，请参考[第一部分](#clone-the-code-optional)并克隆示例仓库。
 
 ## 查询待办事项
 
-如果我们尝试查询待办事项列表，由于解析器方法尚未实现，将会收到错误。让我们通过替换查询解析器中的 `Todos` 实现来实现解析器：
+如果我们尝试查询待办事项列表，由于解析器方法尚未实现，将会返回错误。让我们通过替换查询解析器中的 `Todos` 实现来完成解析器：
 
 ```diff title="ent.resolvers.go"
 func (r *queryResolver) Todos(ctx context.Context) ([]*ent.Todo, error) {
@@ -365,11 +365,11 @@ query AllTodos {
 </TabItem>
 </Tabs>
 
-## 修改待办事项
+## 变更待办事项
 
-如上所示，我们的 GraphQL 模式返回了一个空的待办事项列表。让我们创建几个待办事项，但这次我们将通过 GraphQL 来完成。幸运的是，Ent 提供了自动生成的突变，用于创建和更新节点和边。
+如上所示，我们的 GraphQL 模式返回了一个空的待办事项列表。现在让我们创建几个待办事项，但这次我们将通过 GraphQL 来完成。幸运的是，Ent 提供了自动生成的变更操作，用于创建和更新节点及边。
 
-1\. 我们首先通过自定义突变扩展 GraphQL 模式。创建一个名为 `todo.graphql` 的新文件，并添加我们的 `Mutation` 类型：
+1\. 首先，我们通过自定义变更来扩展 GraphQL 模式。创建一个名为 `todo.graphql` 的新文件，并添加我们的 `Mutation` 类型：
 
 ```graphql title="todo.graphql"
 type Mutation {
@@ -394,7 +394,7 @@ schema:
 go generate .
 ```
 
-如您所见，`gqlgen` 为我们生成了一个名为 `todo.resolvers.go` 的新文件，其中包含 `createTodo` 解析器。让我们将其连接到 Ent 生成的代码，并让 Ent 处理这个突变：
+可以看到，`gqlgen` 为我们生成了一个名为 `todo.resolvers.go` 的新文件，其中包含 `createTodo` 解析器。让我们将其连接到 Ent 生成的代码，并让 Ent 处理这个变更：
 
 ```diff title="todo.resolvers.go"
 func (r *mutationResolver) CreateTodo(ctx context.Context, input ent.CreateTodoInput) (*ent.Todo, error) {
@@ -403,11 +403,11 @@ func (r *mutationResolver) CreateTodo(ctx context.Context, input ent.CreateTodoI
 }
 ```
 
-4\. 再次运行 `go run ./cmd/todo` 并转到 Playground：
+4\. 再次运行 `go run ./cmd/todo` 并访问 Playground：
 
 ## 演示
 
-在这个阶段，我们已经准备好创建一个待办事项并查询它：
+现在，我们已经准备好创建一个待办事项并查询它：
 
 <Tabs
 defaultValue="mutation"
@@ -479,8 +479,8 @@ query {
 </TabItem>
 </Tabs>
 
-如果这个示例无法正常工作，请转到 [第一部分](#clone-the-code-optional) 并克隆示例仓库。
+如果此示例无法正常运行，请参考[第一部分](#clone-the-code-optional)并克隆示例仓库。
 
 ---
 
-请继续阅读下一部分，我们将解释如何实现 [Relay 节点接口](https://relay.dev/graphql/objectidentification.htm) 并了解 Ent 如何自动支持这一点。
+请继续阅读下一部分，我们将解释如何实现 [Relay Node Interface](https://relay.dev/graphql/objectidentification.htm) 并了解 Ent 如何自动支持此功能。

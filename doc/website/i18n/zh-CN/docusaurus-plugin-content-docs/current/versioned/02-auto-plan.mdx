@@ -12,7 +12,7 @@ import AtlasMigrateDiff from '../components/_atlas_migrate_diff.mdx';
 
 为此，Ent使用[Atlas](https://atlasgo.io)——一个由Ent团队开发的开源数据库结构管理工具。
 
-如果您一直跟随示例仓库操作，此前我们使用的是SQLite数据库。为演示更贴近实际的用例，现在我们将切换至MySQL。具体变更可参见[PR #3](https://github.com/rotemtam/ent-versioned-migrations-demo/pull/3/files)。
+若您一直跟随示例仓库操作，此前我们使用的是SQLite数据库。为演示更贴近实际的用例，我们将切换至MySQL。具体变更请参见[PR #3](https://github.com/rotemtam/ent-versioned-migrations-demo/pull/3/files)。
 
 ## 使用Atlas CLI规划迁移
 
@@ -24,8 +24,8 @@ import AtlasMigrateDiff from '../components/_atlas_migrate_diff.mdx';
 
 <AtlasMigrateDiff/>
 
-:::info[[开发数据库](https://atlasgo.io/concepts/dev-database)的作用]
-Atlas通过将迁移目录中的SQL文件执行到指定的[开发数据库](https://atlasgo.io/concepts/dev-database)来加载当前状态，随后将其与`ent/schema`包定义的目标状态进行对比，最终生成从当前状态到目标状态的迁移方案。
+:::info[关于[开发数据库](https://atlasgo.io/concepts/dev-database)的作用]
+Atlas通过将迁移目录中的SQL文件执行到指定的[开发数据库](https://atlasgo.io/concepts/dev-database)来加载当前状态，随后将其与`ent/schema`包定义的期望状态进行对比，并编写从当前状态迁移至期望状态的计划。
 :::
 
-接下来我们将演示如何将现有生产数据库升级至版本化迁移管理模式。
+接下来我们将探讨如何将现有生产数据库升级至版本化迁移管理模式。

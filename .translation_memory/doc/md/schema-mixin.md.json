@@ -19,7 +19,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`Mixin` 允许您创建可复用的 `ent.Schema` 代码片段，这些片段可以通过组合的方式注入到其他模式中。"
+        "zh-CN": "`Mixin` 允许您创建可重用的 `ent.Schema` 代码片段，这些片段可以通过组合的方式注入到其他模式中。"
       }
     },
     {
@@ -114,7 +114,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/schema-mixin.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.145474+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.765205+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "525ef874483b17f533ecb71e922c8ca914d517378c3ce6102f6d3a8ec19890f9"

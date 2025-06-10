@@ -4,7 +4,7 @@ title: Filter Inputs
 sidebar_label: Filter Inputs
 ---
 
-本节我们将延续[GraphQL示例](tutorial-todo-gql.mdx)，讲解如何从`ent/schema`生成类型安全的GraphQL过滤器（即`Where`谓词），并让用户能无缝地将GraphQL查询映射到Ent查询。例如，以下GraphQL查询会映射到对应的Ent查询：
+本节我们将延续[GraphQL示例](tutorial-todo-gql.mdx)，讲解如何从`ent/schema`生成类型安全的GraphQL过滤器（即`Where`谓词），并让用户能够无缝地将GraphQL查询映射到Ent查询。例如，以下GraphQL查询会映射到对应的Ent查询：
 
 **GraphQL**
 
@@ -33,7 +33,7 @@ client.Todo.
 
 #### 克隆代码（可选）
 
-本教程代码托管在[github.com/a8m/ent-graphql-example](https://github.com/a8m/ent-graphql-example)，每个步骤都有对应的Git标签。若想跳过基础配置直接使用GraphQL服务器的初始版本，可克隆仓库并按如下方式运行：
+本教程代码托管在[github.com/a8m/ent-graphql-example](https://github.com/a8m/ent-graphql-example)，每个步骤都有对应的Git标签。若想跳过基础配置直接使用GraphQL服务器的初始版本，可克隆仓库后按如下方式运行：
 
 ```console
 git clone git@github.com:a8m/ent-graphql-example.git
@@ -43,7 +43,7 @@ go run ./cmd/todo/
 
 ### 配置Ent
 
-在`ent/entc.go`文件中添加以下4个高亮行（扩展选项）：
+编辑`ent/entc.go`文件，添加以下4个高亮显示的扩展选项：
 
 ```go {3-6} title="ent/entc.go"
 func main() {
@@ -66,15 +66,15 @@ func main() {
 } 
 ```
 
-`WithWhereInputs`选项启用过滤器生成，`WithConfigPath`配置`gqlgen`配置文件路径以便更精准地映射GraphQL与Ent类型，`WithSchemaPath`则指定生成过滤器时写入的新建或现有GraphQL模式路径。
+`WithWhereInputs`选项启用过滤器生成，`WithConfigPath`配置指向`gqlgen`配置文件的路径，使扩展能更精确地映射GraphQL与Ent类型。最后的`WithSchemaPath`选项则配置用于写入生成过滤器的GraphQL模式文件路径（支持新建或现有文件）。
 
-修改`entc.go`配置后，执行以下代码生成命令：
+修改`entc.go`配置后，执行以下命令生成代码：
 
 ```console
 go generate .
 ```
 
-此时Ent会在`ent/gql_where_input.go`中为每个schema类型生成`<T>WhereInput`结构体，同时自动生成GraphQL模式文件(`ent.graphql`)，无需手动绑定到`gqlgen`。例如：
+此时Ent会为每个schema类型生成`<T>WhereInput`结构体（位于`ent/gql_where_input.go`），同时自动生成GraphQL模式文件(`ent.graphql`)，无需手动将其绑定到`gqlgen`。例如：
 
 ```go title="ent/gql_where_input.go"
 // TodoWhereInput represents a where input for filtering Todo queries.
@@ -148,7 +148,7 @@ schema:
 
 完成代码生成后，即可通过以下步骤在GraphQL中启用过滤功能：
 
-1\. 修改GraphQL模式以支持新过滤器类型：
+1\. 编辑GraphQL模式以支持新的过滤器类型：
 
 ```graphql {8} title="ent.graphql"
 type Query {
@@ -177,9 +177,9 @@ func (r *queryResolver) Todos(ctx context.Context, after *ent.Cursor, first *int
 
 ### 执行查询
 
-通过新的GraphQL过滤器类型，您可以用与Go代码中相同的Ent过滤条件进行查询。
+如前所述，通过新的GraphQL过滤器类型，您可以用Go代码中相同的Ent过滤语法进行查询。
 
-#### 逻辑与、或、非
+#### 与、或、非逻辑
 
 可通过`not`、`and`和`or`字段在`where`子句中添加`Not`、`And`和`Or`运算符。例如：
 
@@ -236,7 +236,7 @@ client.Todo.
 
 #### 边/关系过滤器
 
-[边(关系)谓词](https://entgo.io/docs/predicates#edge-predicates)可使用与Ent相同的语法：
+[边(关系)谓词](https://entgo.io/docs/predicates#edge-predicates)可使用与Ent相同的语法表达：
 
 ```graphql
 {
@@ -263,11 +263,11 @@ client.Todo.
 
 ### 自定义过滤器
 
-有时我们需要向过滤器中添加自定义条件，虽然始终可以通过[模板](https://pkg.go.dev/entgo.io/contrib@master/entgql#WithTemplates)和[SchemaHooks](https://pkg.go.dev/entgo.io/contrib@master/entgql#WithSchemaHook)实现，但对于简单条件而言并非最便捷的方案。
+有时我们需要向过滤器添加自定义条件。虽然始终可以使用[模板](https://pkg.go.dev/entgo.io/contrib@master/entgql#WithTemplates)和[SchemaHooks](https://pkg.go.dev/entgo.io/contrib@master/entgql#WithSchemaHook)实现，但对于简单条件而言，这些方案可能过于复杂。
 
-幸运的是，结合使用[GraphQL对象类型扩展](https://spec.graphql.org/October2021/#sec-Object-Extensions)和自定义解析器，我们可以实现这一功能。
+幸运的是，通过结合使用[GraphQL对象类型扩展](https://spec.graphql.org/October2021/#sec-Object-Extensions)和自定义解析器，我们可以实现这一功能。
 
-以下示例展示了如何添加自定义的`isCompleted`过滤器，该过滤器接收布尔值参数来筛选具有`completed`状态的待办事项。
+让我们通过示例演示如何添加自定义的`isCompleted`过滤器，该过滤器接收布尔值并筛选所有具有`completed`状态的TODO项。
 
 首先扩展`TodoWhereInput`：
 
@@ -277,7 +277,7 @@ extend input TodoWhereInput {
 }
 ```
 
-执行代码生成后，我们会在`todo.resolvers.go`文件中看到新增的字段解析器：
+运行代码生成后，我们会在`todo.resolvers.go`文件中看到新的字段解析器：
 
 ```go title="todo.resolvers.go"
 func (r *todoWhereInputResolver) IsCompleted(ctx context.Context, obj *ent.TodoWhereInput, data *bool) error {
@@ -301,7 +301,7 @@ func (r *todoWhereInputResolver) IsCompleted(ctx context.Context, obj *ent.TodoW
 }
 ```
 
-该过滤器可像其他谓词一样使用：
+该过滤器可以像其他谓词一样使用：
 
 ```graphql
 {
@@ -330,4 +330,4 @@ return query.All(ctx)
 
 ---
 
-完成！如你所见，通过少量代码修改，我们的应用现在能自动将类型安全的GraphQL过滤器映射到Ent查询。如有疑问或需要入门帮助，欢迎加入我们的[Discord服务器](https://discord.gg/qZmPgTE6RX)或[Slack频道](https://entgo.io/docs/slack)。
+完成！如您所见，只需修改少量代码，我们的应用就能自动将类型安全的GraphQL过滤器映射为Ent查询。如有疑问或需要入门帮助？欢迎加入我们的[Discord服务器](https://discord.gg/qZmPgTE6RX)或[Slack频道](https://entgo.io/docs/slack)。

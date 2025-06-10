@@ -39,7 +39,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "- 轻松将数据库模式建模为图结构\n- 通过编程化的 Go 代码定义模式\n- 基于代码生成的静态类型系统\n- 易于编写数据库查询和图遍历语句\n- 使用 Go 模板即可简单扩展和定制"
+        "zh-CN": "- 轻松将数据库模式建模为图结构\n- 通过可编程的 Go 代码定义模式\n- 基于代码生成的静态类型系统\n- 数据库查询和图遍历操作易于编写\n- 使用 Go 模板可简单扩展和定制"
       }
     },
     {
@@ -59,7 +59,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 配置 Go 环境"
+        "zh-CN": "## 配置 Go 开发环境"
       }
     },
     {
@@ -69,7 +69,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "若您的项目目录不在 [GOPATH](https://github.com/golang/go/wiki/GOPATH) 中或不熟悉 GOPATH，请按以下方式建立 [Go Modules](https://github.com/golang/go/wiki/Modules#quick-start) 项目："
+        "zh-CN": "如果您的项目目录不在 [GOPATH](https://github.com/golang/go/wiki/GOPATH) 中，或者您不熟悉 GOPATH，请按以下方式设置 [Go Modules](https://github.com/golang/go/wiki/Modules#quick-start) 项目："
       }
     },
     {
@@ -89,7 +89,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 创建第一个模式"
+        "zh-CN": "## 创建第一个数据模型"
       }
     },
     {
@@ -99,7 +99,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "进入项目根目录执行："
+        "zh-CN": "进入项目根目录并运行："
       }
     },
     {
@@ -119,7 +119,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "该命令将在 `entdemo/ent/schema/` 目录下生成 `User` 模式："
+        "zh-CN": "上述命令将在 `entdemo/ent/schema/` 目录下生成 `User` 模型："
       }
     },
     {
@@ -139,7 +139,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "为 `User` 模式添加两个字段："
+        "zh-CN": "为 `User` 模型添加两个字段："
       }
     },
     {
@@ -159,7 +159,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "在项目根目录运行生成命令："
+        "zh-CN": "从项目根目录运行以下命令："
       }
     },
     {
@@ -179,7 +179,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "将生成以下文件："
+        "zh-CN": "这将生成以下文件："
       }
     },
     {
@@ -209,7 +209,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "首先创建新的 `Client` 来执行模式迁移并操作实体："
+        "zh-CN": "首先创建新的 `Client` 来执行模式迁移并与实体交互："
       }
     },
     {
@@ -229,7 +229,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "完成模式迁移后，即可创建用户。本例中我们将该函数命名为 _CreateUser_："
+        "zh-CN": "完成模式迁移后，我们就可以创建用户了。在本示例中，我们将这个函数命名为 _CreateUser_："
       }
     },
     {
@@ -259,7 +259,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`ent` 会为每个实体模式生成专属包，包含谓词、默认值、校验器以及存储元素相关信息（列名、主键等）。"
+        "zh-CN": "`ent` 会为每个实体模型生成包含谓词、默认值、验证器以及存储元素信息（列名、主键等）的包。"
       }
     },
     {
@@ -279,7 +279,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 添加第一条边（关系）"
+        "zh-CN": "## 添加第一个边（关系）"
       }
     },
     {
@@ -289,7 +289,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "本教程这部分将声明模式间的边（关系）。我们使用 `ent` CLI 创建两个新实体 `Car` 和 `Group` 并添加若干字段："
+        "zh-CN": "本教程这部分将展示如何在模型中声明到另一个实体的边（关系）。  \n我们先创建两个名为 `Car` 和 `Group` 的附加实体，并添加几个字段。使用 `ent` CLI 生成初始模型："
       }
     },
     {
@@ -309,7 +309,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "然后手动补充其余字段："
+        "zh-CN": "然后手动添加其余字段："
       }
     },
     {
@@ -339,7 +339,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "定义第一个关系：从 `User` 到 `Car` 的边表示一个用户可**拥有多辆**汽车，但每辆车**仅属一个**所有者（一对多关系）。"
+        "zh-CN": "现在定义我们的第一个关系：从 `User` 到 `Car` 的边，表示一个用户可以**拥有 1 辆或多辆**汽车，但每辆汽车**只能有一个**所有者（一对多关系）。"
       }
     },
     {
@@ -359,7 +359,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "将 `\"cars\"` 边添加至 `User` 模式后执行 `go generate ./ent`："
+        "zh-CN": "将 `\"cars\"` 边添加到 `User` 模型，然后运行 `go generate ./ent`："
       }
     },
     {
@@ -379,7 +379,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "继续示例：创建两辆车并关联至用户。"
+        "zh-CN": "我们继续示例，创建两辆汽车并将其关联到用户。"
       }
     },
     {
@@ -399,7 +399,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "如何查询 `cars` 边（关系）？操作如下："
+        "zh-CN": "如何查询 `cars` 边（关系）？操作方式如下："
       }
     },
     {
@@ -419,7 +419,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 添加第一条反向边（反向引用）"
+        "zh-CN": "## 添加第一个反向边（反向引用）"
       }
     },
     {
@@ -429,7 +429,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "假设已有 `Car` 对象，我们需要获取其所有者用户。此时需要使用 `edge.From` 函数定义的\"反向边\"类型。"
+        "zh-CN": "假设我们有一个 `Car` 对象，想要获取它的所有者（即该汽车所属的用户）。为此，我们需要使用 `edge.From` 函数定义另一种称为\"反向边\"的边类型。"
       }
     },
     {
@@ -449,7 +449,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "上图中新创建的边是半透明的，用以强调我们并未在数据库中实际创建新边，这只是对真实边（关系）的反向引用。"
+        "zh-CN": "图中新创建的边是半透明的，用以强调我们并未在数据库中实际创建新边，这只是对真实边（关系）的反向引用。"
       }
     },
     {
@@ -459,7 +459,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "让我们在`Car`模式中添加名为`owner`的反向边，将其引用到`User`模式中的`cars`边，并运行`go generate ./ent`。"
+        "zh-CN": "让我们在`Car`模式中添加名为`owner`的反向边，将其引用到`User`模式中的`cars`边，然后运行`go generate ./ent`。"
       }
     },
     {
@@ -479,7 +479,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "我们将继续通过查询反向边来扩展上述用户/汽车的示例。"
+        "zh-CN": "我们将通过查询反向边来继续上述用户/汽车的示例。"
       }
     },
     {
@@ -509,7 +509,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "若您已执行至此步骤，说明已成功完成模式迁移并在数据库中创建了若干实体。要查看Ent为数据库生成的SQL模式，请安装[Atlas](https://github.com/ariga/atlas)并运行以下命令："
+        "zh-CN": "若您已执行至此，说明已成功完成模式迁移并在数据库中创建了若干实体。要查看Ent为数据库生成的SQL模式，请安装[Atlas](https://github.com/ariga/atlas)并运行以下命令："
       }
     },
     {
@@ -559,7 +559,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "我们将通过创建用户与组之间的M2M（多对多）关系来继续示例。"
+        "zh-CN": "我们将通过创建用户与组之间的多对多（M2M）关系来继续示例。"
       }
     },
     {
@@ -579,7 +579,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "如图所示，每个组实体可以**拥有多个**用户，而用户也可以**关联多个**组——这是典型的\"多对多\"关系。上图中，`Group`模式是`users`边（关系）的拥有者，而`User`实体通过名为`groups`的反向边/逆向边引用该关系。让我们在模式中定义此关系："
+        "zh-CN": "如图所示，每个组实体可**拥有多个**用户，而用户可**关联至多个**组——这是典型的\"多对多\"关系。上图中，`Group`模式是`users`边（关系）的所有者，而`User`实体通过名为`groups`的反向边引用该关系。让我们在模式中定义此关系："
       }
     },
     {
@@ -639,7 +639,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "要执行首次图遍历，我们需要生成一些数据（节点和边，即实体和关系）。让我们使用框架创建以下图结构："
+        "zh-CN": "要执行首次图遍历，需先生成一些数据（节点和边，即实体和关系）。让我们使用框架创建以下图结构："
       }
     },
     {
@@ -669,7 +669,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "现在我们已经构建了包含数据的图结构，可以对其运行若干查询："
+        "zh-CN": "现在数据图已构建完成，我们可以对其运行若干查询："
       }
     },
     {
@@ -679,7 +679,7 @@
       "node_type": "list",
       "translatable": true,
       "translations": {
-        "zh-CN": "1. 获取名为 \"GitHub\" 的群组中所有用户的汽车：\n\n\t```go title=\"entdemo/start.go\"\n\tfunc QueryGithub(ctx context.Context, client *ent.Client) error {\n\t\tcars, err := client.Group.\n\t\t\tQuery().\n\t\t\tWhere(group.Name(\"GitHub\")). // (Group(Name=GitHub),)\n\t\t\tQueryUsers().                // (User(Name=Ariel, Age=30),)\n\t\t\tQueryCars().                 // (Car(Model=Tesla, RegisteredAt=<Time>), Car(Model=Mazda, RegisteredAt=<Time>),)\n\t\t\tAll(ctx)\n\t\tif err != nil {\n\t\t\treturn fmt.Errorf(\"failed getting cars: %w\", err)\n\t\t}\n\t\tlog.Println(\"cars returned:\", cars)\n\t\t// Output: (Car(Model=Tesla, RegisteredAt=<Time>), Car(Model=Mazda, RegisteredAt=<Time>),)\n\t\treturn nil\n\t}\n\t```\n\n2. 修改上述查询，使遍历的源头为用户 *Ariel*：\n   \n\t```go title=\"entdemo/start.go\"\n\tfunc QueryArielCars(ctx context.Context, client *ent.Client) error {\n\t\t// 从先前步骤获取\"Ariel\"\n\t\ta8m := client.User.\n\t\t\tQuery().\n\t\t\tWhere(\n\t\t\t\tuser.HasCars(),\n\t\t\t\tuser.Name(\"Ariel\"),\n\t\t\t).\n\t\t\tOnlyX(ctx)\n\t\tcars, err := a8m. \t\t\t\t\t\t// 获取a8m所属的群组：\n\t\t\t\tQueryGroups(). \t\t\t\t\t// (Group(Name=GitHub), Group(Name=GitLab),)\n\t\t\t\tQueryUsers().  \t\t\t\t\t// (User(Name=Ariel, Age=30), User(Name=Neta, Age=28),)\n\t\t\t\tQueryCars().   \t\t\t\t\t//\n\t\t\t\tWhere(         \t\t\t\t\t//\n\t\t\t\t\tcar.Not( \t\t\t\t\t//\t获取Neta和Ariel的汽车，但过滤掉\n\t\t\t\t\t\tcar.Model(\"Mazda\"),\t\t//\t名为\"Mazda\"的汽车\n\t\t\t\t\t), \t\t\t\t\t\t\t//\n\t\t\t\t). \t\t\t\t\t\t\t\t//\n\t\t\t\tAll(ctx)\n\t\tif err != nil {\n\t\t\treturn fmt.Errorf(\"failed getting cars: %w\", err)\n\t\t}\n\t\tlog.Println(\"cars returned:\", cars)\n\t\t// Output: (Car(Model=Tesla, RegisteredAt=<Time>), Car(Model=Ford, RegisteredAt=<Time>),)\n\t\treturn nil\n\t}\n\t```\n\n3. 获取所有包含用户的群组（使用旁路谓词查询）：\n\n\t```go title=\"entdemo/start.go\"\n\tfunc QueryGroupWithUsers(ctx context.Context, client *ent.Client) error {\n    \tgroups, err := client.Group.\n    \t\tQuery().\n    \t\tWhere(group.HasUsers()).\n    \t\tAll(ctx)\n    \tif err != nil {\n    \t\treturn fmt.Errorf(\"failed getting groups: %w\", err)\n    \t}\n    \tlog.Println(\"groups returned:\", groups)\n    \t// Output: (Group(Name=GitHub), Group(Name=GitLab),)\n    \treturn nil\n    }\n    ```"
+        "zh-CN": "1. 获取名为\"GitHub\"的群组中所有用户的汽车：\n\n\t```go title=\"entdemo/start.go\"\n\tfunc QueryGithub(ctx context.Context, client *ent.Client) error {\n\t\tcars, err := client.Group.\n\t\t\tQuery().\n\t\t\tWhere(group.Name(\"GitHub\")). // (Group(Name=GitHub),)\n\t\t\tQueryUsers().                // (User(Name=Ariel, Age=30),)\n\t\t\tQueryCars().                 // (Car(Model=Tesla, RegisteredAt=<Time>), Car(Model=Mazda, RegisteredAt=<Time>),)\n\t\t\tAll(ctx)\n\t\tif err != nil {\n\t\t\treturn fmt.Errorf(\"failed getting cars: %w\", err)\n\t\t}\n\t\tlog.Println(\"cars returned:\", cars)\n\t\t// Output: (Car(Model=Tesla, RegisteredAt=<Time>), Car(Model=Mazda, RegisteredAt=<Time>),)\n\t\treturn nil\n\t}\n\t```\n\n2. 修改上述查询，使遍历源为用户*Ariel*：\n   \n\t```go title=\"entdemo/start.go\"\n\tfunc QueryArielCars(ctx context.Context, client *ent.Client) error {\n\t\t// 从先前步骤获取\"Ariel\"\n\t\ta8m := client.User.\n\t\t\tQuery().\n\t\t\tWhere(\n\t\t\t\tuser.HasCars(),\n\t\t\t\tuser.Name(\"Ariel\"),\n\t\t\t).\n\t\t\tOnlyX(ctx)\n\t\tcars, err := a8m. \t\t\t\t\t\t// 获取a8m所属的群组:\n\t\t\t\tQueryGroups(). \t\t\t\t\t// (Group(Name=GitHub), Group(Name=GitLab),)\n\t\t\t\tQueryUsers().  \t\t\t\t\t// (User(Name=Ariel, Age=30), User(Name=Neta, Age=28),)\n\t\t\t\tQueryCars().   \t\t\t\t\t//\n\t\t\t\tWhere(         \t\t\t\t\t//\n\t\t\t\t\tcar.Not( \t\t\t\t\t//\t获取Neta和Ariel的汽车，但过滤掉\n\t\t\t\t\t\tcar.Model(\"Mazda\"),\t\t//\t名为\"Mazda\"的汽车\n\t\t\t\t\t), \t\t\t\t\t\t\t//\n\t\t\t\t). \t\t\t\t\t\t\t\t//\n\t\t\t\tAll(ctx)\n\t\tif err != nil {\n\t\t\treturn fmt.Errorf(\"failed getting cars: %w\", err)\n\t\t}\n\t\tlog.Println(\"cars returned:\", cars)\n\t\t// Output: (Car(Model=Tesla, RegisteredAt=<Time>), Car(Model=Ford, RegisteredAt=<Time>),)\n\t\treturn nil\n\t}\n\t```\n\n3. 获取所有包含用户的群组（使用旁路谓词查询）：\n\n\t```go title=\"entdemo/start.go\"\n\tfunc QueryGroupWithUsers(ctx context.Context, client *ent.Client) error {\n    \tgroups, err := client.Group.\n    \t\tQuery().\n    \t\tWhere(group.HasUsers()).\n    \t\tAll(ctx)\n    \tif err != nil {\n    \t\treturn fmt.Errorf(\"failed getting groups: %w\", err)\n    \t}\n    \tlog.Println(\"groups returned:\", groups)\n    \t// Output: (Group(Name=GitHub), Group(Name=GitLab),)\n    \treturn nil\n    }\n    ```"
       }
     },
     {
@@ -699,7 +699,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "Ent 提供两种模式迁移方法：[自动迁移](/docs/migrate)和[版本化迁移](/docs/versioned-migrations)。以下是每种方法的简要概述："
+        "zh-CN": "Ent提供两种模式迁移方法：[自动迁移](/docs/migrate)和[版本化迁移](/docs/versioned-migrations)。以下是每种方法的简要概述："
       }
     },
     {
@@ -719,7 +719,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "使用自动迁移时，开发者可以通过以下 API 保持数据库模式与生成文件 `ent/migrate/schema.go` 中定义的 SQL 模式对象同步："
+        "zh-CN": "使用自动迁移时，开发者可以通过以下API保持数据库模式与生成在`ent/migrate/schema.go`中的SQL模式对象同步："
       }
     },
     {
@@ -739,7 +739,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "该方法主要适用于原型设计、开发或测试环境。对于生产关键环境，建议使用_版本化迁移_方案。通过版本化迁移，开发者可以预先知晓数据库变更内容，并根据需求灵活调整。"
+        "zh-CN": "该方法主要适用于原型设计、开发或测试环境。因此对于生产关键环境，推荐使用_版本化迁移_方案。通过版本化迁移，开发者可以预先知晓将应用于数据库的变更，并能根据需求灵活调整。"
       }
     },
     {
@@ -769,7 +769,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "与_自动迁移_不同，_版本化迁移_使用 Atlas 自动生成包含必要 SQL 语句的迁移文件集。这些文件可进行定制修改，并通过 Atlas、golang-migrate、Flyway 或 Liquibase 等迁移工具执行。该方案的 API 主要包含两个步骤。"
+        "zh-CN": "与_自动迁移_不同，_版本化迁移_方案使用Atlas自动生成包含迁移所需SQL语句的迁移文件集。这些文件可进行编辑以满足特定需求，并通过Atlas、golang-migrate、Flyway和Liquibase等现有迁移工具执行。该方案的API主要包含两个步骤。"
       }
     },
     {
@@ -779,7 +779,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "#### 生成迁移文件"
+        "zh-CN": "#### 生成迁移"
       }
     },
     {
@@ -819,7 +819,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "详细了解此方法，请参阅[版本化迁移](/docs/versioned-migrations)文档。"
+        "zh-CN": "更多关于此方法的详细信息，请参阅[版本化迁移](/docs/versioned-migrations)文档。"
       }
     },
     {
@@ -844,7 +844,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/getting-started.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.139426+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.762772+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "bf8c598ca589f43509a85f4f4da5bc613b89a275627ee513c1dacf078e096167"

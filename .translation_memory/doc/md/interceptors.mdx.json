@@ -29,7 +29,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "拦截器是用于各类Ent查询的执行中间件。与钩子不同，拦截器作用于读取路径并通过接口实现，允许在不同阶段拦截并修改查询，从而提供对查询行为更细粒度的控制。例如，可参考下方的[Traverser接口](#defining-a-traverser)。"
+        "zh-CN": "拦截器（Interceptor）是用于各类Ent查询的执行中间件。与钩子（hook）不同，拦截器作用于读取路径，通过接口形式实现，能够在查询的不同阶段进行拦截和修改，从而提供对查询行为更精细的控制。例如，可参考下方的[遍历器接口](#defining-a-traverser)。"
       }
     },
     {
@@ -69,7 +69,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "上例中，`ent.Query`代表生成的查询构建器（如`ent.<T>Query`），访问其方法需要进行类型断言。例如："
+        "zh-CN": "上例中，`ent.Query`表示生成的查询构建器（如`ent.<T>Query`），访问其方法需要进行类型断言。例如："
       }
     },
     {
@@ -89,7 +89,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "但通过`intercept`特性标志生成的工具，可创建适用于任意查询类型的通用拦截器。该特性标志可通过以下两种方式添加到项目："
+        "zh-CN": "通过启用`intercept`特性标志生成的工具，可以创建适用于任意查询类型的通用拦截器。该特性标志可通过以下两种方式添加到项目中："
       }
     },
     {
@@ -129,7 +129,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::important\n需注意：与[模式钩子](hooks.md#hooks-registration)类似，若在模式中使用**`Interceptors`**选项，**必须**在主包添加以下导入语句，以避免模式包与生成的ent包之间出现循环引用：\n```go\nimport _ \"<project>/ent/runtime\"\n```\n:::"
+        "zh-CN": ":::important\n需注意：与[模式钩子](hooks.md#hooks-registration)类似，若在模式中使用**`Interceptors`**选项，**必须**在主包中添加以下导入语句，以避免模式包与生成的ent包之间出现循环引用：\n```go\nimport _ \"<project>/ent/runtime\"\n```\n:::"
       }
     },
     {
@@ -149,7 +149,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "添加特性标志后，即可使用`intercept`包创建拦截器："
+        "zh-CN": "项目添加特性标志后，即可使用`intercept`包创建拦截器："
       }
     },
     {
@@ -179,7 +179,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "某些场景下需要拦截[图遍历](traversals.md)并在查询返回节点前修改构建器。例如下方查询中，我们希望确保系统中**所有**图遍历仅处理`active`用户："
+        "zh-CN": "某些场景下需要拦截[图遍历](traversals.md)并在查询返回节点前修改构建器。例如下方查询中，我们需要确保系统中**所有**图遍历仅处理`active`状态的用户："
       }
     },
     {
@@ -199,7 +199,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "定义并注册此类Traverser后，将对系统中所有图遍历生效。例如："
+        "zh-CN": "定义并注册此类遍历器后，将对系统中所有图遍历生效。例如："
       }
     },
     {
@@ -229,7 +229,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "`Interceptors`和`Traversers`均可用于修改查询行为，但作用于不同执行阶段。拦截器作为中间件，允许在查询执行前修改查询语句，并在数据库返回记录后修改结果，因此仅作用于查询的最终阶段——实际数据库语句执行时。而遍历器在更早阶段调用，可在图遍历的每一步中修改中间查询和最终查询，然后才将它们组合起来。"
+        "zh-CN": "`Interceptor`和`Traverser`均可用于修改查询行为，但作用于执行流程的不同阶段。拦截器作为中间件，允许在查询执行前修改查询语句，并在数据库返回记录后修改结果数据，因此仅作用于查询的最终阶段——即实际执行数据库语句时。而遍历器在更早阶段调用，在图遍历的每个步骤中均可修改中间查询和最终查询，直至它们被组合执行。"
       }
     },
     {
@@ -239,7 +239,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "总结而言，Traverse函数更适合为图遍历添加默认过滤器，而Intercept函数更适合实现应用的日志记录或缓存功能。"
+        "zh-CN": "总结而言，遍历函数更适合为图遍历添加默认过滤器，而拦截函数更适合实现应用的日志记录或缓存功能。"
       }
     },
     {
@@ -279,7 +279,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "软删除模式是拦截器与钩子的典型用例。下例展示如何通过[`ent.Mixin`](schema-mixin.md)为项目中所有模式添加该功能："
+        "zh-CN": "软删除模式是拦截器与钩子的典型用例。以下示例演示如何通过[`ent.Mixin`](schema-mixin.md)为项目中所有模式添加该功能："
       }
     },
     {
@@ -309,7 +309,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "以下示例演示如何使用拦截器函数限制数据库返回的记录数量："
+        "zh-CN": "以下示例展示如何使用拦截函数限制数据库返回的记录数量："
       }
     },
     {
@@ -354,7 +354,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/interceptors.mdx",
-  "last_updated_timestamp": "2025-06-08T19:19:52.138562+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.761398+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "1da431faf4c72d2f4c10d7a3ac6f1e50dd7d67f216e1113328056b0d0ace0c72"

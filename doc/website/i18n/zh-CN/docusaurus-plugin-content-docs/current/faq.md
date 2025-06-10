@@ -11,26 +11,26 @@ sidebar_label: FAQ
 [如何编写审计日志扩展？](#how-to-write-an-audit-log-extension)  
 [如何编写自定义谓词？](#how-to-write-custom-predicates)  
 [如何将自定义谓词添加到代码生成资源中？](#how-to-add-custom-predicates-to-the-codegen-assets)  
-[如何在PostgreSQL中定义网络地址字段？](#how-to-define-a-network-address-field-in-postgresql)  
-[如何在MySQL中将时间字段自定义为`DATETIME`类型？](#how-to-customize-time-fields-to-type-datetime-in-mysql)  
-[如何使用自定义ID生成器？](#how-to-use-a-custom-generator-of-ids)  
-[如何使用全局唯一的自定义XID？](#how-to-use-a-custom-xid-globally-unique-id)  
-[如何在MySQL中定义空间数据类型字段？](#how-to-define-a-spatial-data-type-field-in-mysql)  
+[如何在 PostgreSQL 中定义网络地址字段？](#how-to-define-a-network-address-field-in-postgresql)  
+[如何将 MySQL 时间字段类型自定义为 `DATETIME`？](#how-to-customize-time-fields-to-type-datetime-in-mysql)  
+[如何使用自定义 ID 生成器？](#how-to-use-a-custom-generator-of-ids)  
+[如何使用全局唯一的自定义 XID？](#how-to-use-a-custom-xid-globally-unique-id)  
+[如何在 MySQL 中定义空间数据类型字段？](#how-to-define-a-spatial-data-type-field-in-mysql)  
 [如何扩展生成的模型？](#how-to-extend-the-generated-models)  
 [如何扩展生成的构建器？](#how-to-extend-the-generated-builders)   
-[如何在BLOB列中存储Protobuf对象？](#how-to-store-protobuf-objects-in-a-blob-column)  
-[如何为表添加`CHECK`约束？](#how-to-add-check-constraints-to-table)  
-[如何定义自定义精度的数值字段？](#how-to-define-a-custom-precision-numeric-field)  
-[如何配置多个`DB`实现读写分离？](#how-to-configure-two-or-more-db-to-separate-read-and-write)  
-[如何配置`json.Marshal`将`edges`键内联到顶层对象中？](#how-to-configure-jsonmarshal-to-inline-the-edges-keys-in-the-top-level-object)
+[如何在 BLOB 列中存储 Protobuf 对象？](#how-to-store-protobuf-objects-in-a-blob-column)  
+[如何为表添加 `CHECK` 约束？](#how-to-add-check-constraints-to-table)  
+[如何定义自定义精度的数字字段？](#how-to-define-a-custom-precision-numeric-field)  
+[如何配置多个 `DB` 实现读写分离？](#how-to-configure-two-or-more-db-to-separate-read-and-write)  
+[如何配置 `json.Marshal` 将 `edges` 键内联到顶层对象中？](#how-to-configure-jsonmarshal-to-inline-the-edges-keys-in-the-top-level-object)
 
 ## 解答
 
 #### 如何从结构体 `T` 创建实体？
 
-各类构建器不支持从给定结构体`T`直接设置实体字段（或边）的功能。原因在于更新数据库时无法区分零值与真实值（例如`&ent.T{Age: 0, Name: ""}`）。设置这些值可能导致数据库写入错误数据或更新不必要的列。
+各类构建器不支持通过给定结构体 `T` 直接设置实体字段（或边）的功能。原因在于无法区分零值与实际值（例如 `&ent.T{Age: 0, Name: ""}`），直接设置可能导致数据库写入错误值或更新不必要的列。
 
-但通过[外部模板](templates.md)选项，您可扩展默认代码生成资源并添加自定义逻辑。例如，要为每个创建构建器生成一个方法，使其接受结构体作为输入并配置构建器，可使用以下模板：
+但通过[外部模板](templates.md)选项，您可以通过添加自定义逻辑来扩展默认的代码生成资源。例如，要为每个创建构建器生成一个方法，使其接受结构体作为输入并配置构建器，可使用以下模板：
 
 ```gotemplate
 {{ range $n := $.Nodes }}
@@ -49,7 +49,7 @@ sidebar_label: FAQ
 
 #### 如何创建变更级别的验证器？
 
-实现变更级别验证器有两种方式：使用[模式钩子](hooks.md#schema-hooks)验证单个实体类型的变更，或使用[事务钩子](transactions.md#hooks)验证涉及多个实体类型的变更（如GraphQL变更）。例如：
+要实现变更级别的验证器，您可以使用[模式钩子](hooks.md#schema-hooks)来验证单个实体类型的变更，或使用[事务钩子](transactions.md#hooks)来验证涉及多个实体类型的变更（例如 GraphQL 变更）。示例如下：
 
 ```go
 // A VersionHook is a dummy example for a hook that validates the "version" field
@@ -88,7 +88,7 @@ func VersionHook() ent.Hook {
 
 #### 如何编写审计日志扩展？
 
-推荐使用[ent.Mixin](schema-mixin.md)编写此类扩展。通过`Fields`选项为所有导入混合模式的模式设置共享字段，并通过`Hooks`选项为这些模式的所有变更附加变更钩子。以下示例基于[仓库问题跟踪器](https://github.com/ent/ent/issues/830)中的讨论：
+推荐使用 [ent.Mixin](schema-mixin.md) 编写此类扩展。通过 `Fields` 选项为所有导入混合模式的模式设置共享字段，并通过 `Hooks` 选项为这些模式的所有变更附加变更钩子。以下示例基于[仓库问题跟踪器](https://github.com/ent/ent/issues/830)中的讨论：
 
 ```go
 // AuditMixin implements the ent.Mixin for sharing
@@ -163,7 +163,7 @@ func AuditHook(next ent.Mutator) ent.Mutator {
 
 #### 如何编写自定义谓词？
 
-用户可在查询执行前提供自定义谓词。例如：
+用户可以在查询执行前提供自定义谓词。例如：
 
 ```go
 pets := client.Pet.
@@ -181,11 +181,11 @@ users := client.User.
 	AllX(ctx)
 ```
 
-更多示例请参阅[谓词](predicates.md#custom-predicates)页面，或在仓库问题跟踪器中搜索更高级的示例，如[issue-842](https://github.com/ent/ent/issues/842#issuecomment-707896368)。
+更多示例请参阅[谓词(predicates)](predicates.md#custom-predicates)页面，或在仓库问题追踪器中搜索更高级的示例，如[issue-842](https://github.com/ent/ent/issues/842#issuecomment-707896368)。
 
-#### 如何将自定义谓词添加到代码生成资源中？
+#### 如何将自定义谓词添加到代码生成资产中？
 
-[模板](templates.md)选项支持扩展或覆盖默认的代码生成资源。要为[上述示例](#how-to-write-custom-predicates)生成类型安全的谓词，可按如下方式使用模板选项：
+[模板(templates.md)](templates.md)功能支持扩展或覆盖默认的代码生成资产。要为[前文示例](#how-to-write-custom-predicates)生成类型安全的谓词，可按如下方式使用模板选项：
 
 ```gotemplate
 {{/* A template that adds the "<F>Glob" predicate for all string fields. */}}
@@ -208,7 +208,7 @@ users := client.User.
 
 #### 如何在PostgreSQL中定义网络地址字段？
 
-[GoType](schema-fields.mdx#go-type)和[SchemaType](schema-fields.mdx#database-type)选项允许用户定义数据库特定字段。例如，要定义[`macaddr`](https://www.postgresql.org/docs/13/datatype-net-types.html#DATATYPE-MACADDR)字段，可使用以下配置：
+通过[GoType](schema-fields.mdx#go-type)和[SchemaType](schema-fields.mdx#database-type)选项，用户可以定义数据库特定字段。例如，要定义[`macaddr`](https://www.postgresql.org/docs/13/datatype-net-types.html#DATATYPE-MACADDR)类型字段，可使用以下配置：
 
 ```go
 func (T) Fields() []ent.Field {
@@ -250,9 +250,9 @@ func (m MAC) Value() (driver.Value, error) {
 }
 ```
 
-注意，如果数据库不支持`macaddr`类型（如测试中的SQLite），该字段将回退到其原生类型（即`string`）。
+注意：若数据库不支持`macaddr`类型（如测试用的SQLite），该字段将回退到原生类型（即`string`）。
 
-`inet`示例：
+`inet`类型示例：
 
 ```go
 func (T) Fields() []ent.Field {
@@ -300,11 +300,11 @@ func (i Inet) Value() (driver.Value, error) {
 }
 ```
 
-#### 如何在MySQL中将时间字段自定义为`DATETIME`类型？
+#### 如何在MySQL中将时间字段定制为`DATETIME`类型？
 
-默认情况下，`Time`字段在模式创建时使用MySQL的`TIMESTAMP`类型，该类型的范围为UTC时间'1970-01-01 00:00:01'到'2038-01-19 03:14:07'（参见[MySQL文档](https://dev.mysql.com/doc/refman/5.6/en/datetime.html)）。
+默认情况下，`Time`字段在创建模式时会使用MySQL的`TIMESTAMP`类型，该类型时间范围为UTC时间'1970-01-01 00:00:01'至'2038-01-19 03:14:07'（参见[MySQL文档](https://dev.mysql.com/doc/refman/5.6/en/datetime.html)）。
 
-要为更宽的时间范围自定义时间字段，可按如下方式使用MySQL的`DATETIME`：
+如需扩展时间范围，可按如下方式使用MySQL的`DATETIME`类型：
 
 ```go
 field.Time("birth_date").
@@ -316,11 +316,11 @@ field.Time("birth_date").
 
 #### 如何使用自定义ID生成器？
 
-如果在数据库中使用自定义ID生成器而非自增ID（如Twitter的[Snowflake](https://github.com/twitter-archive/snowflake/tree/snowflake-2010)），则需要编写一个自定义ID字段，在资源创建时自动调用生成器。
+若使用自定义ID生成器（而非数据库自增ID，如Twitter的[Snowflake](https://github.com/twitter-archive/snowflake/tree/snowflake-2010)），需创建一个在资源创建时自动调用生成器的自定义ID字段。
 
-为此，可根据用例选择使用`DefaultFunc`或模式钩子。如果生成器不返回错误，`DefaultFunc`更为简洁；而设置资源创建钩子则允许捕获错误。关于如何使用`DefaultFunc`的示例，请参阅[ID字段](schema-fields.mdx#id-field)部分。
+可通过`DefaultFunc`或模式钩子实现——取决于具体场景。若生成器不返回错误，`DefaultFunc`更简洁；而设置资源创建钩子还能捕获错误。使用`DefaultFunc`的示例可参阅[ID字段](schema-fields.mdx#id-field)章节。
 
-以下是使用钩子与自定义生成器的示例，以[sonyflake](https://github.com/sony/sonyflake)为例。
+以下是使用[sonyflake](https://github.com/sony/sonyflake)生成器结合钩子的示例：
 
 ```go
 // BaseMixin to be shared will all different schemas.
@@ -379,9 +379,9 @@ func (User) Mixin() []ent.Mixin {
 
 #### 如何使用自定义XID全局唯一ID？
 
-[xid](https://github.com/rs/xid)包是一个全局唯一ID生成库，使用[Mongo Object ID](https://docs.mongodb.org/manual/reference/object-id/)算法生成无需配置的12字节、20字符ID。xid包提供了Ent序列化所需的[database/sql](https://pkg.go.dev/database/sql) `sql.Scanner`和`driver.Valuer`接口。
+[xid](https://github.com/rs/xid)包是一个采用[Mongo对象ID](https://docs.mongodb.org/manual/reference/object-id/)算法生成12字节、20字符无配置全局唯一ID的库。该包已实现Ent所需的[database/sql](https://pkg.go.dev/database/sql) `sql.Scanner`和`driver.Valuer`接口。
 
-要在任何字符串字段中存储XID，使用[GoType](schema-fields.mdx#go-type)模式配置：
+要在任意字符串字段存储XID，使用[GoType](schema-fields.mdx#go-type)模式配置：
 
 ```go
 // Fields of type T.
@@ -394,7 +394,7 @@ func (T) Fields() []ent.Field {
 }
 ```
 
-或作为跨多个模式可重用的[Mixin](schema-mixin.md)：
+或作为可复用的[Mixin](schema-mixin.md)应用于多个模式：
 
 ```go
 package schema
@@ -434,11 +434,11 @@ func (User) Mixin() []ent.Mixin {
 }
 ```
 
-要在gqlgen中使用扩展标识符（XID），请按照[问题跟踪器](https://github.com/ent/ent/issues/1526#issuecomment-831034884)中的配置操作。
+与gqlgen集成时，请按照[问题追踪器](https://github.com/ent/ent/issues/1526#issuecomment-831034884)中的配置说明操作。
 
 #### 如何在MySQL中定义空间数据类型字段？
 
-通过 [GoType](schema-fields.mdx#go-type) 和 [SchemaType](schema-fields.mdx#database-type) 选项，用户可以定义数据库特定的字段类型。例如，要定义一个 [`POINT`](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) 类型的字段，可使用以下配置：
+通过 [GoType](schema-fields.mdx#go-type) 和 [SchemaType](schema-fields.mdx#database-type) 选项，用户可以定义数据库特定字段。例如，要定义 [`POINT`](https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html) 字段，可使用以下配置：
 
 ```go
 // Fields of the Location.
@@ -505,13 +505,13 @@ func (Point) SchemaType() map[string]string {
 }
 ```
 
-完整示例可参考 [示例代码库](https://github.com/a8m/entspatial)。
+完整示例可参考 [示例仓库](https://github.com/a8m/entspatial)。
 
 #### 如何扩展生成的模型？
 
-Ent支持通过自定义模板扩展生成的类型（包括全局类型和模型）。例如，要为生成的模型添加额外的结构体字段或方法，可以覆盖 `model/fields/additional` 模板，具体实现可参考此[示例](https://github.com/ent/ent/blob/dd4792f5b30bdd2db0d9a593a977a54cb3f0c1ce/examples/entcpkg/ent/template/static.tmpl)。
+Ent支持通过自定义模板扩展生成的类型（包括全局类型和模型）。例如，要为生成的模型添加额外的结构体字段或方法，可以覆盖 `model/fields/additional` 模板，具体可参考此[示例](https://github.com/ent/ent/blob/dd4792f5b30bdd2db0d9a593a977a54cb3f0c1ce/examples/entcpkg/ent/template/static.tmpl)。
 
-若自定义字段/方法需要额外导入包，也可通过模板添加：
+若自定义字段/方法需要额外导入包，也可通过自定义模板添加：
 
 ```gotemplate
 {{- define "import/additional/field_types" -}}
@@ -525,7 +525,7 @@ Ent支持通过自定义模板扩展生成的类型（包括全局类型和模�
 
 #### 如何扩展生成的构建器？
 
-参阅 *[注入外部依赖](code-gen.md#external-dependencies)* 章节，或参考GitHub上的[示例](https://github.com/ent/ent/tree/master/examples/entcpkg)。
+请参阅 *[注入外部依赖项](code-gen.md#external-dependencies)* 章节，或参考 [GitHub示例](https://github.com/ent/ent/tree/master/examples/entcpkg)。
 
 #### 如何在BLOB列中存储Protobuf对象？
 
@@ -543,7 +543,7 @@ message Hi {
 }
 ```
 
-需为生成的protobuf结构体添加接收方法，使其实现 [ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field#ValueScanner) 接口：
+我们为生成的protobuf结构体添加接收器方法，使其实现 [ValueScanner](https://pkg.go.dev/entgo.io/ent/schema/field#ValueScanner) 接口：
 
 ```go
 func (x *Hi) Value() (driver.Value, error) {
@@ -564,7 +564,7 @@ func (x *Hi) Scan(src any) error {
 }
 ```
 
-在Schema中添加 `field.Bytes` 类型字段，并将生成的protobuf结构体设为其底层 `GoType`：
+在schema中添加 `field.Bytes` 字段，并将生成的protobuf结构体设为其底层 `GoType`：
 
 ```go
 // Fields of the Message.
@@ -576,7 +576,7 @@ func (Message) Fields() []ent.Field {
 }
 ```
 
-测试功能：
+测试功能是否正常：
 
 ```go
 package main
@@ -632,7 +632,7 @@ func (User) Annotations() []schema.Annotation {
 
 #### 如何定义自定义精度数值字段？
 
-结合 [GoType](schema-fields.mdx#go-type) 和 [SchemaType](schema-fields.mdx#database-type) 可定义自定义精度数值字段。例如定义使用 [big.Int](https://pkg.go.dev/math/big) 的字段：
+使用 [GoType](schema-fields.mdx#go-type) 和 [SchemaType](schema-fields.mdx#database-type) 可定义自定义精度数值字段。例如定义使用 [big.Int](https://pkg.go.dev/math/big) 的字段：
 
 ```go
 func (T) Fields() []ent.Field {
@@ -669,11 +669,11 @@ func (b *BigInt) Value() (driver.Value, error) {
 }
 ```
 
-#### 如何配置多个 `DB` 实例实现读写分离？
+#### 如何配置多个 `DB` 实现读写分离？
 
-可通过封装 `dialect.Driver` 并实现自定义逻辑。例如：
+可通过封装 `dialect.Driver` 并实现自定义驱动逻辑。例如：
 
-可进一步扩展该方案，支持多读副本并添加负载均衡策略。
+可进一步扩展该方案，支持多个读副本并添加负载均衡逻辑。
 
 ```go
 func main() {
@@ -739,12 +739,12 @@ func (d *multiDriver) Dialect() string {
 
 #### 如何配置 `json.Marshal` 将 `edges` 键内联到顶层对象？
 
-要实现无 `edges` 属性的实体编码，需完成以下两步：
+要实现无 `edges` 属性的实体编码，用户需完成以下两步：
 
-1. 移除Ent生成的默认 `edges` 标签
+1. 忽略Ent生成的默认 `edges` 标签
 2. 通过自定义MarshalJSON方法扩展生成模型
 
-可通过[代码生成扩展](extension.md)自动化实现，完整示例参见 [examples/jsonencode](https://github.com/ent/ent/tree/master/examples/jsonencode) 目录。
+这两个步骤可通过[代码生成扩展](extension.md)自动化实现，完整示例参见 [examples/jsonencode](https://github.com/ent/ent/tree/master/examples/jsonencode) 目录。
 
 ```go title="ent/entc.go" {17,28}
 //go:build ignore

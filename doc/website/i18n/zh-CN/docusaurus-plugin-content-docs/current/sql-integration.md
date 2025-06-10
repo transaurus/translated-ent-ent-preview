@@ -60,7 +60,7 @@ func Open() (*ent.Client, error) {
 }
 ```
 
-## 在MySQL中使用Opencensus
+## 在 MySQL 中使用 Opencensus
 
 ```go
 package main
@@ -105,7 +105,7 @@ func Open(dsn string) *ent.Client {
 }
 ```
 
-## 在PostgreSQL中使用pgx
+## 在 PostgreSQL 中使用 pgx
 
 ```go
 package main

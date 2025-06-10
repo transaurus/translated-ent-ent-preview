@@ -16,11 +16,11 @@ import TabItem from '@theme/TabItem';
 
 ## 验证迁移安全性
 
-数据库作为应用程序的核心组件，我们必须确保对其进行的任何变更不会造成破坏。规划不当的迁移可能导致数据丢失、应用停机等问题。Atlas 提供了一种称为[迁移代码检查](https://atlasgo.io/versioned/lint)的机制来验证迁移是否可安全执行，本节将演示如何使用该功能。
+数据库作为应用程序的核心组件，我们必须确保对其进行的任何变更都不会造成破坏。规划不当的迁移可能导致数据丢失、应用停机等问题。Atlas提供了一种称为[迁移代码检查](https://atlasgo.io/versioned/lint)的机制来验证迁移是否安全执行，本节将演示如何使用该功能。
 
 ## 检查迁移目录
 
-使用 `atlas migrate lint` 命令可对迁移目录进行检查。假设我们需要将 `User` 模型中 `Title` 字段从可选改为必填：
+使用`atlas migrate lint`命令可对迁移目录进行检查。假设我们将`User`模型中的`Title`字段从可选改为必填：
 
 ```diff
 // Fields of the User.
@@ -95,7 +95,7 @@ atlas migrate diff user_title_required \
 </TabItem>
 </Tabs>
 
-此时会在 `ent/migrate/migrations` 目录创建新迁移文件：
+在`ent/migrate/migrations`目录下会生成新迁移文件：
 
 ```sql title="ent/migrate/migrations/20221116051710_user_title_required.sql"
 -- modify "users" table
@@ -108,7 +108,7 @@ ALTER TABLE `users` MODIFY COLUMN `title` varchar(255) NOT NULL;
 atlas migrate lint --dev-url mysql://root:pass@localhost:3306/dev --dir file://ent/migrate/migrations --latest 1
 ```
 
-Atlas 将报告该迁移存在风险：
+Atlas报告该迁移可能存在风险：
 
 ```text
 20221116051710_user_title_required.sql: data dependent changes detected:
@@ -116,29 +116,29 @@ Atlas 将报告该迁移存在风险：
         L2: Modifying nullable column "title" to non-nullable might fail in case it contains NULL values
 ```
 
-Atlas 检测到这是数据依赖型变更（具体执行结果取决于数据库实际数据），因此阻止了迁移执行。系统可识别多种问题类型，完整列表参见 [Atlas 文档](https://atlasgo.io/lint/analyzers)。
+Atlas将此变更归类为数据依赖型变更，意味着执行结果取决于数据库中的具体数据。系统已阻止该迁移执行。
 
-## 在 CI 中检查迁移目录
+Atlas可检测多种问题类型，完整列表参见[官方文档](https://atlasgo.io/lint/analyzers)。
 
-## Linting our migration directory in CI
+## 在CI中实施迁移检查
 
-前文展示了本地检查流程，本节将介绍如何在 CI 环境中执行检查，确保合并到主分支前的迁移历史记录安全可靠。
+前文演示了本地检查流程，本节将展示如何在CI中实施迁移目录检查，确保合并到主分支前所有迁移历史记录都是安全的。
 
-[GitHub Actions](https://github.com/features/actions) 是 GitHub 提供的流行 CI/CD 服务。用户可轻松定义在代码仓库生命周期事件中触发的自动化流程，例如配置每次提交时运行所有单元测试。
+[GitHub Actions](https://github.com/features/actions)是GitHub提供的流行CI/CD工具，用户可轻松定义在代码仓库生命周期事件中触发的流程。例如许多团队会配置GitHub Actions在每次提交时运行所有单元测试。
 
-GitHub Actions 的强大之处在于其可扩展性：功能模块（称为"action"）可被封装复用。
+其强大之处在于可扩展性：功能模块（称为"action"）可被多个项目复用。
 
-使用 GitHub 的团队若需确保数据库模式变更安全，可采用 [`atlas-action`](https://github.com/ariga/atlas-action) 这个 GitHub Action。
+使用GitHub的团队若需确保数据库模式变更安全，可采用[`atlas-action`](https://github.com/ariga/atlas-action)这个GitHub Action。
 
-该 Action 通过 `atlas migrate lint` 命令对迁移目录进行[代码检查](/versioned/lint)，主要功能包括：
+该action通过`atlas migrate lint`命令对迁移目录进行[代码检查](/versioned/lint)，主要功能包括：
 
-* 确保可从任意时间点回放迁移历史
+* 确保可从任意时间点重放迁移历史
 * 防止多人并发修改迁移目录导致意外变更
-* 检测破坏性/不可逆变更，或依赖表内容可能导致失败的变更
+* 检测是否存在破坏性/不可逆变更，或依赖表内容可能导致失败的变更
 
-## 使用方法
+## 使用方式
 
-在仓库中添加 `.github/workflows/atlas-ci.yaml` 文件，内容如下：
+在仓库中添加`.github/workflows/atlas-ci.yaml`文件，内容如下：
 
 ```yaml
 name: Atlas CI
@@ -179,7 +179,7 @@ jobs:
           dev-url: mysql://root:pass@localhost:3306/dev
 ```
 
-现在，每当我们提交包含潜在不安全迁移的拉取请求时，Atlas GitHub Action 都会运行并报告检测结果。例如针对我们之前的数据依赖变更：
+现在，每当我们提交包含潜在不安全迁移的拉取请求时，Atlas GitHub Action 都会运行并报告检查结果。例如针对我们的数据依赖型变更：
 ![](https://atlasgo.io/uploads/images/atlas-ci-report-dd.png)
 
 更深入的文档请参阅 Atlas 官网上的 [atlas-action](https://atlasgo.io/integrations/github-actions) 文档。
@@ -193,13 +193,13 @@ UPDATE `users` SET `title` = "" WHERE `title` IS NULL;
 ALTER TABLE `users` MODIFY COLUMN `title` varchar(255) NOT NULL;
 ```
 
-重新计算迁移目录的校验和：
+重新计算迁移目录的哈希值：
 
 ```shell
 atlas migrate hash --dir file://ent/migrate/migrations
 ```
 
-再次运行 `atlas migrate lint`，可以看到迁移目录中已不存在不安全变更：
+重新运行 `atlas migrate lint` 后可以看到，迁移目录不再包含任何不安全变更：
 
 ```text
 atlas migrate lint --dev-url mysql://root:pass@localhost:3306/dev --dir file://ent/migrate/migrations --latest 1
@@ -211,14 +211,14 @@ atlas migrate lint --dev-url mysql://root:pass@localhost:3306/dev --dir file://e
 
 ![](https://atlasgo.io/uploads/images/atlas-ci-report-noissue.png)
 
-## 总结
+## 结论
 
-本节我们学习了如何在本地和 CI 环境中使用 Atlas 验证迁移的安全性。
+本节我们学习了如何通过 Atlas 在本地和 CI 环境中验证迁移的安全性。
 
-至此我们完成了将 Ent 项目从自动迁移升级到版本化迁移的教程。回顾要点：
+至此我们完成了将 Ent 项目从自动迁移升级到版本化迁移的教程。回顾要点包括：
 
 * 启用版本化迁移功能标志
-* 创建根据 Ent 模式自动规划迁移的脚本
+* 创建基于 Ent Schema 自动规划迁移的脚本
 * 使用 Atlas 将生产数据库升级至版本化迁移
 * 为项目规划自定义迁移
 * 使用 `atlas migrate lint` 安全验证迁移
@@ -230,6 +230,6 @@ atlas migrate lint --dev-url mysql://root:pass@localhost:3306/dev --dir file://e
 - 订阅我们的[新闻通讯](https://entgo.substack.com/)
 - 关注 [Twitter](https://twitter.com/entgo_io)
 - 加入 [Gophers Slack](https://entgo.io/docs/slack) 的 #ent 频道
-- 参与 [Ent Discord 服务器](https://discord.gg/qZmPgTE6RX)
+- 参与 [Ent Discord 社区](https://discord.gg/qZmPgTE6RX)
 
 :::

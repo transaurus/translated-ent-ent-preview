@@ -39,7 +39,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "若需在事务成功后查询已创建实体的关联边（例如 `a8m.QueryGroups()`），必须调用 `Unwrap()` 方法。该方法会将实体内部封装的底层客户端状态恢复为非事务模式。"
+        "zh-CN": "若需在事务成功后查询已创建实体的关联边（例如 `a8m.QueryGroups()`），必须调用 `Unwrap()` 方法。该方法会将实体内部嵌入的底层客户端状态恢复为非事务版本。"
       }
     },
     {
@@ -49,7 +49,7 @@
       "node_type": "containerDirective",
       "translatable": true,
       "translations": {
-        "zh-CN": ":::warning[注意]\n对非事务性实体调用 `Unwrap()`（例如事务已提交或回滚后）将引发 panic。\n:::"
+        "zh-CN": ":::warning[注意]\n对非事务性实体（即事务已提交或回滚后）调用 `Unwrap()` 将引发 panic。\n:::"
       }
     },
     {
@@ -59,7 +59,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "完整示例参见 [GitHub](https://github.com/ent/ent/tree/master/examples/traversal)。"
+        "zh-CN": "完整示例见 [GitHub](https://github.com/ent/ent/tree/master/examples/traversal)。"
       }
     },
     {
@@ -69,7 +69,7 @@
       "node_type": "heading",
       "translatable": true,
       "translations": {
-        "zh-CN": "## 事务客户端"
+        "zh-CN": "## 事务型客户端"
       }
     },
     {
@@ -79,7 +79,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "当现有代码已基于 `*ent.Client` 实现，且需要改造（或封装）为事务交互时，可通过事务获取事务客户端。该 `*ent.Client` 实例派生自现有事务。"
+        "zh-CN": "当现有代码已使用 `*ent.Client` 且需要改造（或封装）为事务交互时，可通过事务获取事务型客户端——即基于现有事务的 `*ent.Client`。"
       }
     },
     {
@@ -99,7 +99,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "完整示例参见 [GitHub](https://github.com/ent/ent/tree/master/examples/traversal)。"
+        "zh-CN": "完整示例见 [GitHub](https://github.com/ent/ent/tree/master/examples/traversal)。"
       }
     },
     {
@@ -169,7 +169,7 @@
       "node_type": "paragraph",
       "translatable": true,
       "translations": {
-        "zh-CN": "与[模式钩子](hooks.md#schema-hooks)和[运行时钩子](hooks.md#runtime-hooks)类似，可在活跃事务上注册钩子，这些钩子将在 `Tx.Commit` 或 `Tx.Rollback` 时执行："
+        "zh-CN": "与[模式钩子](hooks.md#schema-hooks)和[运行时钩子](hooks.md#runtime-hooks)类似，可在活跃事务上注册钩子，这些钩子将在执行 `Tx.Commit` 或 `Tx.Rollback` 时触发："
       }
     },
     {
@@ -214,7 +214,7 @@
     }
   ],
   "target_i18n_subpath": "docusaurus-plugin-content-docs/current/transactions.md",
-  "last_updated_timestamp": "2025-06-08T19:19:52.162844+00:00",
+  "last_updated_timestamp": "2025-06-10T10:17:15.774965+00:00",
   "schema_version": "1.0",
   "translated_versions": {
     "zh-CN": "b1cdbfa8c8e8b6c782dc2066abbe2098a5b9d4171ef1002b3c0d6062646ff0f0"

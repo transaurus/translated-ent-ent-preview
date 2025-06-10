@@ -4,14 +4,14 @@ title: Setting Up
 sidebar_label: Setting Up
 ---
 
-本指南面向首次使用者，提供从零开始搭建Ent项目的详细说明。在开始前，请确保您的机器已安装以下必备组件。
+本指南面向首次使用Ent框架的用户，提供从零开始搭建项目的详细说明。在开始前，请确保您的开发环境已安装以下必备组件。
 
 ## 环境准备
 
 - [Go](https://go.dev/doc/install)
 - [Docker](https://docs.docker.com/get-docker)（可选）
 
-安装完这些依赖后，为项目创建目录并初始化Go模块：
+安装完依赖后，为项目创建目录并初始化Go模块：
 
 ```console
 mkdir todo
@@ -21,7 +21,7 @@ go mod init todo
 
 ## 安装步骤
 
-运行以下Go命令安装Ent，并初始化项目结构及`Todo`模式：
+执行以下Go命令安装Ent框架，并初始化项目结构及`Todo`数据模型：
 
 ```console
 go get entgo.io/ent/cmd/ent
@@ -31,7 +31,7 @@ go get entgo.io/ent/cmd/ent
 go run -mod=mod entgo.io/ent/cmd/ent new Todo
 ```
 
-完成Ent安装并执行`ent new`后，项目目录结构应如下所示：
+完成Ent安装并运行`ent new`命令后，项目目录结构应如下所示：
 
 ```console
 .
@@ -43,11 +43,11 @@ go run -mod=mod entgo.io/ent/cmd/ent new Todo
 └── go.sum
 ```
 
-`ent`目录存放生成的资源文件（详见下节），`ent/schema`目录则包含您的实体模式定义。
+`ent`目录存放生成的代码资产（详见下节），`ent/schema`目录则包含您的实体模型定义。
 
 ## 代码生成
 
-前文执行`ent new Todo`时，已在`todo/ent/schema/`目录下的`todo.go`文件中创建了名为`Todo`的模式：
+前文执行`ent new Todo`时，已在`todo/ent/schema/`目录下的`todo.go`文件中创建了名为`Todo`的模型：
 
 ```go
 package schema
@@ -70,7 +70,7 @@ func (Todo) Edges() []ent.Edge {
 }
 ```
 
-如您所见，初始模式下未定义任何字段或边。现在运行以下命令生成与`Todo`实体交互的代码：
+如您所见，初始模型未定义任何字段或关联关系。现在运行以下命令生成与`Todo`实体交互的代码资产：
 
 ```console
 go generate ./ent
@@ -78,14 +78,14 @@ go generate ./ent
 
 ## 创建测试用例
 
-执行`go generate ./ent`会调用Ent的自动代码生成工具，该工具根据`schema`包中的模式定义生成实际用于数据库交互的Go代码。此时您可以在`./ent/client.go`中找到能够查询和修改`Todo`实体的客户端代码。我们将创建一个[可测试示例](https://go.dev/blog/examples)来使用这些功能，测试中将采用[SQLite](https://github.com/mattn/go-sqlite3)作为数据库驱动。
+执行`go generate ./ent`会触发Ent的自动化代码生成工具，该工具根据`schema`包中的模型定义生成实际操作的Go代码。此时您可以在`./ent/client.go`中找到用于查询和修改`Todo`实体的客户端代码。我们将创建一个[可测试示例](https://go.dev/blog/examples)来使用这些功能，测试案例中将采用[SQLite](https://github.com/mattn/go-sqlite3)数据库。
 
 ```console
 go get github.com/mattn/go-sqlite3
 touch example_test.go
 ```
 
-将以下代码粘贴至`example_test.go`，该代码会实例化`ent.Client`并自动在数据库中创建所有模式资源（表、列等）：
+将以下代码粘贴至`example_test.go`文件，该代码会实例化`ent.Client`并自动在数据库中创建所有模型资源（表、列等）：
 
 ```go
 package todo
@@ -115,10 +115,10 @@ func Example_Todo() {
 }
 ```
 
-随后运行`go test`验证功能是否正常。
+随后运行`go test`验证功能是否正常：
 
 ```console
 go test
 ```
 
-完成项目搭建后，现在可以开始创建待办事项列表。
+完成项目搭建后，即可开始创建待办事项列表。
